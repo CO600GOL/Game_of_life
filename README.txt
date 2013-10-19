@@ -1,4 +1,4 @@
-This is the repo for CO600 - Game og life project 
+This is the repo for CO600 - Game of life project 
 
 Supervised by:
 Professor Sally Fincher - S.A.Fincher@kent.ac.uk
