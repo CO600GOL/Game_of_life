@@ -2,7 +2,7 @@ This is the repo for CO600 - Game of life project
 
 Supervised by:
 Professor Sally Fincher - S.A.Fincher@kent.ac.uk
-Dan Knight - dk242@kent.ac.uk
+Dan Knox - dk242@kent.ac.uk
 
 Members Include:
 Michael Wilson - mw362@kent.ac.uk 
