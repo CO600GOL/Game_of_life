@@ -1,2 +1,4 @@
 # Done commit pydave project file this causes some issues between different peoples project files
 *.pydevproject*
+*pycache*
+*.pyc
