@@ -5,7 +5,7 @@ Created on 23 Oct 2013
 
 The module containing the Grid class and any derivatives of it
 '''
-from game_of_life.engine import cell
+from game_of_life.datastructures import cell
 
 
 class Grid(object):

@@ -6,7 +6,7 @@ Created on 20 Oct 2013
 This is a module containing the Cell class.
 '''
 
-from game_of_life.engine import state
+from game_of_life.datastructures import state
 
 
 class Cell(object):
