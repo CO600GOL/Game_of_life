@@ -16,7 +16,7 @@ def initialise_cell():
 
 class TestCell(object):
     '''
-    classdocs
+    Tests the functionality of the cell module
     '''
 
     def test_cell_init(self):
