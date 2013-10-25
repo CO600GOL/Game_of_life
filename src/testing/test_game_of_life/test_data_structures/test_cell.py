@@ -4,7 +4,7 @@ Created on 20 Oct 2013
 @author: Michael and Richard
 '''
 
-from game_of_life.datastructures import cell, state
+from game_of_life.data_structures import cell, state
 
 
 def initialise_cell():

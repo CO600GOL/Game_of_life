@@ -6,7 +6,7 @@ Created on 20 Oct 2013
 Test module for test module
 '''
 
-from game_of_life.datastructures import state
+from game_of_life.data_structures import state
 
 
 class TestState(object):

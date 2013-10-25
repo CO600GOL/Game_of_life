@@ -6,7 +6,7 @@ Created on 23 Oct 2013
 A module for testing the grid module.
 '''
 
-from game_of_life.datastructures import grid, state, cell
+from game_of_life.data_structures import grid, state, cell
 
 
 class TestGrid(object):
