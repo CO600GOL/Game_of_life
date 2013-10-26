@@ -51,27 +51,28 @@ class TestCalculator(object):
 
         gr = get_grid()
         cells = gr.get_cells()
-        x, y = (0, 0)
-        neighbour_cells = calc._find_neighbour_set(gr, x, y)
-
-        #======================================================================
-        # Loops through the cells that should not be returned as neighbours
-        # and checks that they have not been returned as neighbours.
-        # Warning: This test may break if a grid of more than 4 x 4 is used for
-        # testing. The development team will work on this.
-        #======================================================================
-        inter_x = (x + math.ceil(GRID_ROW_LEN / 2)) % GRID_ROW_LEN
-        inter_y = (y + math.ceil(GRID_COL_LEN / 2)) % GRID_COL_LEN
-
         for x in range(0, GRID_ROW_LEN):
-            for x_not_in in range(0, GRID_ROW_LEN):
-                print ("x", x_not_in, "y", inter_y)
-                assert cells[x_not_in][inter_y] not in neighbour_cells
+            for y in range(0, GRID_COL_LEN):
+                neighbour_cells = calc._find_neighbour_set(gr, x, y)
 
-        for y in range(0, GRID_COL_LEN):
-            for y_not_in in range(0, GRID_COL_LEN):
-                print ("x'", inter_x, "y'", y_not_in)
-                assert cells[inter_x][y_not_in] not in neighbour_cells
+                #======================================================================
+                # Loops through the cells that should not be returned as neighbours
+                # and checks that they have not been returned as neighbours.
+                # Warning: This test may break if a grid of more than 4 x 4 is used for
+                # testing. The development team will work on this.
+                #======================================================================
+                inter_x = (x + math.ceil(GRID_ROW_LEN / 2)) % GRID_ROW_LEN
+                inter_y = (y + math.ceil(GRID_COL_LEN / 2)) % GRID_COL_LEN
+
+                for x in range(0, GRID_ROW_LEN):
+                    for x_not_in in range(0, GRID_ROW_LEN):
+                        print ("x", x_not_in, "y", inter_y)
+                        assert cells[x_not_in][inter_y] not in neighbour_cells
+
+                for y in range(0, GRID_COL_LEN):
+                    for y_not_in in range(0, GRID_COL_LEN):
+                        print ("x'", inter_x, "y'", y_not_in)
+                        assert cells[inter_x][y_not_in] not in neighbour_cells
 
     def test_next_state(self):
         '''
