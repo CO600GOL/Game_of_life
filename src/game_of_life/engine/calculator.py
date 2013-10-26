@@ -17,13 +17,13 @@ class Calculator(object):
         '''
         pass
 
-    def _find_neighbour_set(self, x, y):
+    def _find_neighbour_set(self, grid, x, y):
         '''
         Returns a collection of a cells neighbours
         '''
         pass
 
-    def _next_state(self, cells):
+    def _next_state(self, cell, neighbour_cells):
         '''
         Returns the next state of the cell after calculation according to the
         rule set.
@@ -33,5 +33,6 @@ class Calculator(object):
     def calculate_generation(self, grid):
         '''
         Calculates the next generation of cells in a given grid.
+        Returns the collection of cells holding the next generation.
         '''
         pass

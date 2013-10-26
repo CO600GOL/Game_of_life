@@ -20,18 +20,19 @@ class RuleSet(object):
         conditions in which a dead cell will be born and an
         alive cell will stay alive
         '''
-        pass
+        self._born = born
+        self._alive = alive
 
     def get_born_var(self):
         '''
         Returns the variable representing how many live
         neighbours a cell must have to be born.
         '''
-        pass
+        return self._born
 
     def get_stay_var(self):
         '''
         Returns the variable representing how many live
         neighbours a cell must have to remain alive.
         '''
-        pass
+        return self._alive
