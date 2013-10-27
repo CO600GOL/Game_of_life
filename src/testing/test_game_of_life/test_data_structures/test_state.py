@@ -33,3 +33,25 @@ class TestState(object):
         assert d
         # Makes sure d is a subclass of State
         assert isinstance(d, state.State)
+        
+    def test_eq__(self):
+        '''
+        Tests the overriding of the __eq__ method for the State class.
+        '''
+        # create two state objects with the state Alive
+        # compare them using the boolean comparison ==
+        # should assert true
+        one = state.Alive()
+        two = state.Alive()
+        assert one == two
+            
+    def test_ne__(self):
+        '''
+        Tests the overriding of the __ne__ method for the State class.
+        '''
+        # create two state objects, one with the state Alive and one with the state Dead
+        # compare them using the boolean comparison !=
+        # should assert true
+        a = state.Alive()
+        d = state.Dead()
+        assert a != d
