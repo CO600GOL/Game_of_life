@@ -66,12 +66,10 @@ class TestCalculator(object):
 
                 for x in range(0, GRID_ROW_LEN):
                     for x_not_in in range(0, GRID_ROW_LEN):
-                        print ("x", x_not_in, "y", inter_y)
                         assert cells[x_not_in][inter_y] not in neighbour_cells
 
                 for y in range(0, GRID_COL_LEN):
                     for y_not_in in range(0, GRID_COL_LEN):
-                        print ("x'", inter_x, "y'", y_not_in)
                         assert cells[inter_x][y_not_in] not in neighbour_cells
 
     def test_next_state(self):
