@@ -10,36 +10,53 @@ from game_of_life.data_structures import grid, state, cell
 
 
 class TestGrid(object):
-    '''s
+    '''
     Tests the functionality of the grid module.
     '''
-
-    def test_grid_init(self):
-        '''
-        Tests correct initialisation of grid objects. Objects should initialise
-        with a number of cells that are all dead.
-        '''
-        test_grid = grid.Grid()
-        assert test_grid
-
-        cells = test_grid.get_cells()
-
-        for row in cells:
-            for cell in row:
-                assert isinstance(cell.get_state(), state.Dead)
 
     def test_grid_init_size(self):
         '''
         Tests correct initialisation with a supplied size.
         '''
         for s in range(1, 21):
-            test_grid = grid.Grid(s, s)
+            test_grid = grid.Grid(grid_size=(s, s))
             assert test_grid
 
             cells = test_grid.get_cells()
             assert len(cells) == s
             for row in cells:
                 assert len(row) == s
+                
+    def test_grid_init_pattern(self):
+        '''
+        Tests correct initialisation of grid objects. Objects should initialise
+        with a number of cells that are all dead.
+        '''
+        pattern = [[cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell()],
+                   [cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell()],
+                   [cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell()],
+                   [cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell()]]
+        
+        test_grid = grid.Grid(pattern)
+        assert test_grid
+
+        cells = test_grid.get_cells()
+
+        for row in cells:
+            for c in row:
+                assert isinstance(c.get_state(), state.Dead)
 
     def test_get_cells(self):
         '''

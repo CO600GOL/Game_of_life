@@ -25,7 +25,7 @@ def get_grid():
     '''
     Creates and returns a grid to use for testing purposes.
     '''
-    return grid.Grid(GRID_ROW_LEN, GRID_COL_LEN)
+    return grid.Grid(grid_size=(GRID_ROW_LEN, GRID_COL_LEN))
 
 
 class TestCalculator(object):

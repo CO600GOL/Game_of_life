@@ -65,7 +65,8 @@ class GameOfLife(object):
         '''
         
         new_generation = self._calculator.calculate_generation(cur_gen)
-        return new_generation
+        gr = grid.Grid(cell_pattern=new_generation)
+        return gr
     
     def next_turn(self):
         '''
