@@ -13,29 +13,11 @@ class GameOfLife(object):
     This class represents the Game of Life with a defined, persistent
     rule set. 
     '''
-    
-    def _set_rule_set(self):
-        '''
-        Defines a rule set for one run through of the Game of Life
-        '''
-        pass
 
     def __init__(self):
         '''
         Ctor - Initialises the Game of Life with a rule set defined by
         the user.
-        '''
-        pass
-    
-    def set_initial_input(self):
-        '''
-        Stores the initial pattern input by the user.
-        '''
-        pass
-    
-    def get_initial_input(self):
-        '''
-        Returns the initial input from storage for further usage.
         '''
         pass
     
@@ -64,20 +46,11 @@ class GameOfLife(object):
         further use.
         '''
     
-    def calculate_next_generation(self):
+    def _calculate_next_generation(self):
         '''
         Calculates the next generations of cells depending on the
         collection of cells given to it.
         '''
-        pass
-    
-    def first_turn(self):
-        '''
-        Runs the first turn in the Game of Life.
-        '''
-        # Take initial input and passes it to the calculator
-        # Calculator calculates first generation and passes it back
-        # The first generation is stored in self._current_generation
         pass
     
     def next_turn(self):
