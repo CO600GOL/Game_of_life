@@ -70,7 +70,9 @@ class TestGameOfLife(object):
         Tests initialisation of a GameOfLife object. Also tests that
         the GameOfLife object initialises with the correct rule set.
         '''
-        gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), self.set_current_generation())
+        ini_gr = grid.Grid(4, 4)
+        ini_gr.set_cells(self.set_current_generation())
+        gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), ini_gr)
         assert gol
         
         rs = gol._rule_set
@@ -81,7 +83,9 @@ class TestGameOfLife(object):
         Tests that the current generation can be stored and tests
         that the correct configuration has been stored.
         '''
-        gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), self.set_next_generation())
+        ini_gr = grid.Grid(4, 4)
+        ini_gr.set_cells(self.set_next_generation())
+        gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), ini_gr)
         
         # Create a grid and give it a pattern of cells:
         # ddad
@@ -89,7 +93,7 @@ class TestGameOfLife(object):
         # dddd
         # adad
         gr = grid.Grid(4, 4)
-        gr.set_cells(self.set_current_state())
+        gr.set_cells(self.set_current_generation())
         
         # Give the Game of Life this grid as the current generation
         gol._set_current_generation(gr)
@@ -98,8 +102,8 @@ class TestGameOfLife(object):
         assert gol._current_generation
         
         #Test the current generation has been given the correct pattern
-        test_pattern = self.set_current_state()
-        for x, row in enumerate(gol._current_generation):
+        test_pattern = self.set_current_generation()
+        for x, row in enumerate(gol._current_generation.get_cells()):
             for y, c in enumerate(row):
                 assert c.get_state() == test_pattern[x][y].get_state()
     
@@ -109,7 +113,9 @@ class TestGameOfLife(object):
         storage and that the correct configuration has been
         retrieved.
         '''
-        gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), self.set_next_generation())
+        ini_gr = grid.Grid(4, 4)
+        ini_gr.set_cells(self.set_next_generation())
+        gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), ini_gr)
         
         # Create a grid and give it a pattern of cells:
         # ddad
@@ -117,7 +123,7 @@ class TestGameOfLife(object):
         # dddd
         # adad
         gr = grid.Grid(4, 4)
-        gr.set_cells(self.set_current_state())
+        gr.set_cells(self.set_current_generation())
         
         # Give the Game of Life this grid as the current generation
         gol._set_current_generation(gr)
@@ -127,8 +133,8 @@ class TestGameOfLife(object):
         assert retrieved_pattern
         
         # Test that the correct pattern has been retrieved.
-        test_pattern = self.set_current_state()
-        for x, row in enumerate(retrieved_pattern):
+        test_pattern = self.set_current_generation()
+        for x, row in enumerate(retrieved_pattern.get_cells()):
             for y, c in enumerate(row):
                 assert c.get_state() == test_pattern[x][y].get_state()
     
@@ -137,7 +143,9 @@ class TestGameOfLife(object):
         Tests that the next generation can be stored and tests
         that the correct configuration has been stored.
         '''
-        gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), self.set_current_generation())
+        ini_gr = grid.Grid(4, 4)
+        ini_gr.set_cells(self.set_current_generation())
+        gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), ini_gr)
         
         # Create a grid and give it a pattern of cells:
         # adad
@@ -145,19 +153,19 @@ class TestGameOfLife(object):
         # adad
         # dada
         gr = grid.Grid(4, 4)
-        gr.set_cells(self.set_next_state())
+        gr.set_cells(self.set_next_generation())
         
         # Give the Game of Life this grid as the next generation
         gol._set_next_generation(gr)
         
         # Test that the next generation is now not none
-        assert gol._next_generation()
+        assert gol._next_generation
         
         # Test that the next generation has been set to the correct pattern
-        test_pattern = self.set_next_state()
-        for x, row in enumerate(gol._next_generation):
+        test_pattern = self.set_next_generation()
+        for x, row in enumerate(gol._next_generation.get_cells()):
             for y, c in enumerate(row):
-                assert c.get_state == test_pattern[x][y].get_state()
+                assert c.get_state() == test_pattern[x][y].get_state()
     
     def test_get_next_generation(self):
         '''
@@ -165,7 +173,9 @@ class TestGameOfLife(object):
         storage and tests that the correct configuration
         has been retrieved.
         '''
-        gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), self.set_current_generation())
+        ini_gr = grid.Grid(4, 4)
+        ini_gr.set_cells(self.set_current_generation())
+        gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), ini_gr)
         
         # Create a grid and give it a pattern of cells:
         # adad
@@ -173,7 +183,7 @@ class TestGameOfLife(object):
         # adad
         # dada
         gr = grid.Grid(4, 4)
-        gr.set_cells(self.set_next_state())
+        gr.set_cells(self.set_next_generation())
         
         # Give the Game of Life this grid as the next generation
         gol._set_next_generation(gr)
@@ -183,10 +193,10 @@ class TestGameOfLife(object):
         assert retrieved_pattern
         
         # Test that the correct pattern has been retrieved.
-        test_pattern = self.set_next_state()
-        for x, row in enumerate(retrieved_pattern):
+        test_pattern = self.set_next_generation()
+        for x, row in enumerate(retrieved_pattern.get_cells()):
             for y, c in enumerate(row):
-                assert c.get_state == test_pattern[x][y].get_state()
+                assert c.get_state() == test_pattern[x][y].get_state()
     
     def test_calculate_next_generation(self):
         '''
@@ -200,7 +210,7 @@ class TestGameOfLife(object):
         # adad
         # Represents the 'current generation'
         cur_gen = grid.Grid(4, 4)
-        cur_gen.set_cells(self.set_current_state())
+        cur_gen.set_cells(self.set_current_generation())
         
         #Create a grid and give it a pattern of cells:
         # adad
@@ -209,7 +219,7 @@ class TestGameOfLife(object):
         # dada
         # Represents the correct 'next generation'
         nex_gen = grid.Grid(4, 4)
-        nex_gen.set_cells(self.set_next_state())
+        nex_gen.set_cells(self.set_next_generation())
         
         # Give the Game of Life the first grid as the current generation
         gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), cur_gen)
@@ -222,7 +232,7 @@ class TestGameOfLife(object):
         # Test the result against the correct result - if match, test passed
         for x, row in enumerate(res):
             for y, c in enumerate(row):
-                assert c.get_state() == nex_gen[x][y].get_state()
+                assert c.get_state() == nex_gen.get_cells()[x][y].get_state()
         
     def test_next_turn(self):
         '''
@@ -256,6 +266,6 @@ class TestGameOfLife(object):
         
         # Test that current generation has been correctly stored.
         retrieved_pattern = gol.get_current_generation()
-        for x, row in enumerate(retrieved_pattern):
+        for x, row in enumerate(retrieved_pattern.get_cells()):
             for y, c in enumerate(row):
                 assert c.get_state() == nex_gen.get_cells()[x][y].get_state()
