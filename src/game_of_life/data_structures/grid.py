@@ -29,21 +29,15 @@ class Grid(object):
     possible point.
     '''
 
-    def __init__(self, grid_size=(10, 10), cell_pattern=create_empty_grid()):
+    def __init__(self, cell_pattern=create_empty_grid()):
         '''
         Ctor
 
-        Initialises the grid as a two-dimensional array of "dead" cells.
+        Initialises the grid as a two-dimensional array of cells. If the user
+        inputs a cell pattern, it is that cell pattern that is set. If not,
+        all the cells are set to dead.
         '''
-        if grid_size:
-            self._cells = []
-            for x in range(0, grid_size[0]):
-                self._cells.append([])
-                for _y in range(0, grid_size[1]):
-                    self._cells[x].append(cell.Cell())
-                    
-        if cell_pattern:
-            self._cells = cell_pattern            
+        self._cells = cell_pattern           
 
     def get_cells(self):
         '''

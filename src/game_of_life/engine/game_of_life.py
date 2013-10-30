@@ -63,7 +63,6 @@ class GameOfLife(object):
         Calculates the next generations of cells depending on the
         collection of cells given to it.
         '''
-        
         new_generation = self._calculator.calculate_generation(cur_gen)
         gr = grid.Grid(cell_pattern=new_generation)
         return gr

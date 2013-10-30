@@ -14,19 +14,6 @@ class TestGrid(object):
     Tests the functionality of the grid module.
     '''
 
-    def test_grid_init_size(self):
-        '''
-        Tests correct initialisation with a supplied size.
-        '''
-        for s in range(1, 21):
-            test_grid = grid.Grid(grid_size=(s, s))
-            assert test_grid
-
-            cells = test_grid.get_cells()
-            assert len(cells) == s
-            for row in cells:
-                assert len(row) == s
-                
     def test_grid_init_pattern(self):
         '''
         Tests correct initialisation of grid objects. Objects should initialise
