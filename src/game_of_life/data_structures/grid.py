@@ -7,11 +7,12 @@ The module containing the Grid class and any derivatives of it
 '''
 from game_of_life.data_structures import cell
 
+
 def create_empty_grid():
     '''
     Creates an empty ten-by-ten grid of cells for use in the initialisation
     of a grid object.
-    
+
     Returns the cell collection
     '''
     cells = []
@@ -19,8 +20,9 @@ def create_empty_grid():
         cells.append([])
         for _y in range(0, 10):
             cells[x].append(cell.Cell())
-    
+
     return cells
+
 
 class Grid(object):
     '''
@@ -37,7 +39,7 @@ class Grid(object):
         inputs a cell pattern, it is that cell pattern that is set. If not,
         all the cells are set to dead.
         '''
-        self._cells = cell_pattern           
+        self._cells = cell_pattern
 
     def get_cells(self):
         '''

@@ -24,7 +24,7 @@ def get_rule_set():
 def get_grid():
     '''
     Creates and returns a grid to use for testing purposes.
-    '''    
+    '''
     return grid.Grid([[cell.Cell() for _col in range(0, GRID_COL_LEN)]
                                    for _row in range(0, GRID_ROW_LEN)])
 

@@ -37,19 +37,19 @@ class RuleSet(object):
         '''
         return self._alive
 
+
 class RuleSetStandard(RuleSet):
     '''
-    The class represents the rules with which Conway 
+    The class represents the rules with which Conway
     defined the original Game of Life.
     '''
-    
+
     def __init__(self):
         '''
         Ctor - initialises the standard rule set for
-        Game of Life. This is B3/S23 which means a 
+        Game of Life. This is B3/S23 which means a
         cell is born with exactly three neighbours
         and stays alive with either two or three
-        living neighbours. 
+        living neighbours.
         '''
         RuleSet.__init__(self, 3, (2, 3))
-    

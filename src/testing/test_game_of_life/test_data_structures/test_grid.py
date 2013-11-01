@@ -35,7 +35,7 @@ class TestGrid(object):
                     cell.Cell(),
                     cell.Cell(),
                     cell.Cell()]]
-        
+
         test_grid = grid.Grid(pattern)
         assert test_grid
 

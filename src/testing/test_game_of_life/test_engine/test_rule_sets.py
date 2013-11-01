@@ -40,22 +40,23 @@ class TestRuleSet(object):
         s = rs.get_stay_var()
         assert s
         assert s == (2, 3)
-        
+
+
 class TestRuleSetStandard(object):
     '''
     This class contains and runs all the tests for the
     standard Game of Life rule set.
     '''
-    
+
     def test_init(self):
         '''
-        Test initialisation of standard rule set. 
+        Test initialisation of standard rule set.
         Test that the correct values have been given
         to the standard rule set.
         '''
         srs = rule_sets.RuleSetStandard()
         assert srs
-        
+
     def test_get_born_var(self):
         '''
         Test that the born variable is equal to three.
