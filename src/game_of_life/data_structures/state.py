@@ -22,6 +22,20 @@ class State(object):
         """
         pass
 
+    def __eq__(self, other):
+        '''
+        Allow boolean equality comparison of state object.
+        Returns true if objects are the same class.
+        '''
+        return isinstance(other, self.__class__)
+
+    def __ne__(self, other):
+        '''
+        Allow boolean equality comparison of state object.
+        Returns true if two objects are not the same class.
+        '''
+        return not isinstance(other, self.__class__)
+
 
 class Alive(State):
     """

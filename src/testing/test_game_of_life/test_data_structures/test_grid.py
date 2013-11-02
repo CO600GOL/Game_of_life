@@ -6,7 +6,7 @@ Created on 23 Oct 2013
 A module for testing the grid module.
 '''
 
-from game_of_life.engine import grid, state, cell
+from game_of_life.data_structures import grid, state, cell
 
 
 class TestGrid(object):
@@ -14,32 +14,36 @@ class TestGrid(object):
     Tests the functionality of the grid module.
     '''
 
-    def test_grid_init(self):
+    def test_grid_init_pattern(self):
         '''
         Tests correct initialisation of grid objects. Objects should initialise
         with a number of cells that are all dead.
         '''
-        test_grid = grid.Grid()
+        pattern = [[cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell()],
+                   [cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell()],
+                   [cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell()],
+                   [cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell(),
+                    cell.Cell()]]
+
+        test_grid = grid.Grid(pattern)
         assert test_grid
 
         cells = test_grid.get_cells()
 
         for row in cells:
-            for cell in row:
-                assert isinstance(cell.get_state(), state.Dead)
-
-    def test_grid_init_size(self):
-        '''
-        Tests correct initialisation with a supplied size.
-        '''
-        for s in range(1, 21):
-            test_grid = grid.Grid(s, s)
-            assert test_grid
-
-            cells = test_grid.get_cells()
-            assert len(cells) == s
-            for row in cells:
-                assert len(row) == s
+            for c in row:
+                assert isinstance(c.get_state(), state.Dead)
 
     def test_get_cells(self):
         '''

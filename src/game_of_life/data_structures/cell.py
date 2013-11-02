@@ -6,7 +6,7 @@ Created on 20 Oct 2013
 This is a module containing the Cell class.
 '''
 
-from game_of_life.engine import state
+from game_of_life.data_structures import state
 
 
 class Cell(object):
@@ -15,15 +15,14 @@ class Cell(object):
     either alive or dead at an one time.
     '''
 
-    def __init__(self):
+    def __init__(self, state=state.Dead()):
         '''
         Sets the initial state of the cell to dead.
 
         Keyword arguments:
         state -- Initial state of cell. Defaults to Dead
         '''
-
-        self._state = state.Dead()
+        self._state = state
 
     def get_state(self):
         """
