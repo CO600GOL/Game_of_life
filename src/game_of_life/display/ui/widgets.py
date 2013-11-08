@@ -33,7 +33,7 @@ class GridWidget(Frame, Grid):
         for _ in range(0, X_MAX):
             cols = []
             for _ in range(0, Y_MAX):
-                cols.append(CellWidget(self))
+                cols.append(CellWidget(master=self))
             cells.append(cols)
 
         Grid.__init__(self, cells)
@@ -54,13 +54,14 @@ class CellWidget(Canvas, Cell):
     displayed in a gui.
     '''
 
-    def __init__(self, root=None):
+    def __init__(self, **kwargs):
         '''
         Constructor
 
         root - reference to the widget containing this widget
         '''
-        Canvas.__init__(self, root, bg=DEAD_COLOUR)
+        Canvas.__init__(self, **kwargs)
+        self['bg'] = DEAD_COLOUR
         Cell.__init__(self)
 
     def repaint(self):
@@ -82,13 +83,14 @@ class StartStopButton(Button):
     root - reference to the wdiget containing this widget
     '''
 
-    def __init__(self, root=None):
+    def __init__(self, **kwargs):
         '''
         Constructor
 
         root - reference to the wdiget containing this widget
         '''
-        Button.__init__(self, root)
+        Button.__init__(self, **kwargs)
+        self["text"] = "Start/Stop"
 
 
 class NextButton(Button):
@@ -96,10 +98,11 @@ class NextButton(Button):
     Next button, a button that will cause the game of life to evolve one step.
     '''
 
-    def __init__(self, root=None):
+    def __init__(self, **kwargs):
         '''
         Constructor
 
         root - reference to the wdiget containing this widget
         '''
-        Button.__init__(self, root)
+        Button.__init__(self, **kwargs)
+        self["text"] = "Next"
