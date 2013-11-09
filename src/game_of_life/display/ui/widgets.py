@@ -11,6 +11,7 @@ from game_of_life.data_structures import state
 
 X_MAX = 10
 Y_MAX = 10
+CELL_SIZE = 15
 ALIVE_COLOUR = "black"
 DEAD_COLOUR = "white"
 
@@ -30,10 +31,12 @@ class GridWidget(Frame, Grid):
         Frame.__init__(self, root)
 
         cells = []
-        for _ in range(0, X_MAX):
+        for x in range(0, X_MAX):
             cols = []
-            for _ in range(0, Y_MAX):
-                cols.append(CellWidget(master=self))
+            for y in range(0, Y_MAX):
+                cell = CellWidget(master=self, width=CELL_SIZE, height=CELL_SIZE)
+                cell.grid(row=x, column=y)
+                cols.append(cell)
             cells.append(cols)
 
         Grid.__init__(self, cells)
