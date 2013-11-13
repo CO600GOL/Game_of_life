@@ -11,6 +11,9 @@ from game_of_life.engine.game_of_life import GameOfLife
 from game_of_life.engine.rule_sets import RuleSetStandard
 from game_of_life.display.ui.widgets import GridWidget, NextButton
 
+X_SIZE = 10
+Y_SIZE = 10
+
 
 class Gui(Frame):
     '''
@@ -35,26 +38,25 @@ class Gui(Frame):
         Frame.__init__(self, master=tk)
 
         # Grid frame
-        self._grid = GridWidget(root=self)
+        self._grid = GridWidget(self, X_SIZE, Y_SIZE)
         for row in self._grid.get_cells():
             for cell in row:
                 cell.bind('<Button-1>', self._cell_listener)
 
         # buttons
-        next_button = NextButton(master=self)
-        next_button.bind('<Button-1>', self._next_step_button_listener)
+        self._next_button = NextButton(master=self)
+        self._next_button.bind('<Button-1>', self._next_step_button_listener)
 
         # Set layout
         self._grid.grid(row=0, column=0)
-        next_button.grid(row=0, column=1)
+        self._next_button.grid(row=0, column=1)
 
         # Game of life
         self._gol = GameOfLife(RuleSetStandard(), self._grid)
 
         self.pack()
         self._grid.pack()
-        next_button.pack()
-        tk.mainloop()
+        self._next_button.pack()
 
     def _cell_listener(self, event):
         '''

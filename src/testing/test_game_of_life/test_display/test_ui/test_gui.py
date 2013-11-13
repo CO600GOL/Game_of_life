@@ -28,12 +28,14 @@ class TestGui(object):
         this point) and ensures that have changed to alive.
         '''
         g = gui.Gui()
-        grid = g.grid()
+        grid = g._grid
         cells = grid.get_cells()
+
+        g.wait_visibility()
 
         for row in cells:
             for c in row:
-                c.generate_event('<Button-1>')
+                c.event_generate('<Button-1>')
                 assert c.get_state() == state.Alive()
 
     def test_next_step_button_listener(self):
@@ -44,14 +46,16 @@ class TestGui(object):
         a click on the next button and ensures that each cell is dead.
         '''
         g = gui.Gui()
-        grid = g.grid()
+        grid = g._grid
         cells = grid.get_cells()
+
+        g.wait_visibility()
 
         for row in cells:
             for c in row:
-                c.generate_event('<Button-1>')
+                c.event_generate('<Button-1>')
 
-        self.next_button.generate_event('<Button-1>')
+        g._next_button.event_generate('<Button-1>')
 
         for row in cells:
             for c in row:

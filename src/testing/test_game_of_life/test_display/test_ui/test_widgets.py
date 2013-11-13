@@ -25,6 +25,20 @@ class TestGrid(object):
         '''
         gw = widgets.GridWidget()
 
+        cell_colours = []
+        for row in gw.get_cells():
+            row_colour = []
+            for c in row:
+                row_colour.append(c['bg'])
+                c.set_state(state.Alive())
+            cell_colours.append(row_colour)
+
+        gw.repaint()
+
+        for x, row in enumerate(gw.get_cells()):
+            for y, c in enumerate(row):
+                assert c['bg'] != cell_colours[x][y]
+
 
 class TestCell(object):
     '''
