@@ -36,6 +36,16 @@ class TestCell(object):
         # Make sure the state was Dead
         assert isinstance(s, state.Dead)
 
+    def test_is_alive(self):
+        '''
+        Test whether the cell knows it is alive.
+        '''
+        c = cell.Cell(state.Alive())
+        assert c.is_alive()
+
+        c = initialise_cell()
+        assert not c.is_alive()
+
     def test_set_state(self):
         '''
         Test correct functionality of Cell's mutator method

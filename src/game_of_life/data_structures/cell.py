@@ -30,6 +30,12 @@ class Cell(object):
         """
         return self._state
 
+    def is_alive(self):
+        '''
+        Returns True if cell state has an alive state.
+        '''
+        return isinstance(self._state, state.Alive)
+
     def set_state(self, state):
         """
         Assign new state to cell object.
