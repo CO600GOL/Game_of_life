@@ -31,6 +31,9 @@ class GameOfLife(object):
         # Give the game engine a calculator to use.
         self._calculator = calculator.Calculator(rule_set)
 
+        # Create a turn count
+        self._turn_count = 0
+
     def _set_current_generation(self, new_cur_gen):
         '''
         Stores the current generation of cells for use later on.
@@ -84,6 +87,16 @@ class GameOfLife(object):
         # The state in of the next generation is stored as the current
         # generation
         self._current_generation.set_cells(nex_gen.get_cells())
+
+        # Increment turn count
+        self._turn_count += 1
+
+    def get_turn_count(self):
+        '''
+        Returns the number of turns that have passed in
+        the game.
+        '''
+        return self._turn_count
 
     def is_game_forsaken(self):
         '''

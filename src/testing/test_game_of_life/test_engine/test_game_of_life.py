@@ -253,6 +253,19 @@ class TestGameOfLife(object):
             for y, c in enumerate(row):
                 assert c.get_state() == nex_gen.get_cells()[x][y].get_state()
 
+    def test_get_turn_count(self):
+        '''
+        Tests the game engine's ability to retrieve the turn
+        count.
+        '''
+        cur_gen = grid.Grid(self.set_current_generation())
+        gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), cur_gen)
+
+        for _x in range(0, 3):
+            gol.next_turn()
+
+        assert gol.get_turn_count() == 3
+
     def test_is_game_forsaken(self):
         '''
         Tests the game engine's ability to check whether the grid
