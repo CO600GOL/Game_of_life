@@ -72,10 +72,10 @@ class GameOfLife(object):
         '''
         # Takes the current generation and passes to calculator
         cur_gen = self.get_current_generation()
-        nex_gen_cells = self._calculate_next_generation(cur_gen)
+        nex_gen = self._calculate_next_generation(cur_gen)
 
         # Stores next generation in self._next_generation
-        self._set_next_generation(nex_gen_cells)
+        self._set_next_generation(nex_gen)
 
         # Passes current generation back to Game Control to be shown on
         # the GUI.
@@ -83,4 +83,4 @@ class GameOfLife(object):
 
         # The state in of the next generation is stored as the current
         # generation
-        self._current_generation = self.get_next_generation()
+        self._current_generation.set_cells(nex_gen.get_cells())
