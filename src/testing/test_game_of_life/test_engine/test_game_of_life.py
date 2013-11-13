@@ -252,3 +252,23 @@ class TestGameOfLife(object):
         for x, row in enumerate(retrieved_pattern.get_cells()):
             for y, c in enumerate(row):
                 assert c.get_state() == nex_gen.get_cells()[x][y].get_state()
+
+    def test_is_game_forsaken(self):
+        '''
+        Tests the game engine's ability to check whether the grid
+        is completely devoid of life.
+        '''
+        cell_pattern = [[cell.Cell(state.Alive())]]
+        cur_gen = grid.Grid(cell_pattern)
+
+        # Give the Game of Life the grid as the current generation
+        gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), cur_gen)
+
+        # Test grid is not forsaken.
+        assert not gol.is_game_forsaken()
+
+        # Run next turn (cell should die)
+        gol.next_turn()
+
+        # Test grid is forsaken.
+        assert gol.is_game_forsaken()

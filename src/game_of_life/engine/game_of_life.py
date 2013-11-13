@@ -84,3 +84,9 @@ class GameOfLife(object):
         # The state in of the next generation is stored as the current
         # generation
         self._current_generation = self.get_next_generation()
+
+    def is_game_forsaken(self):
+        '''
+        Checks to see whether the field is completely void of life.
+        '''
+        return self._current_generation.get_no_alive_cells() == 0
