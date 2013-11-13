@@ -39,7 +39,7 @@ class Grid(object):
         inputs a cell pattern, it is that cell pattern that is set. If not,
         all the cells are set to dead.
         '''
-        self._cells = cell_pattern
+        self.set_cells(cell_pattern)
 
     def get_cells(self):
         '''
@@ -55,3 +55,15 @@ class Grid(object):
         cells - a collection of cell objects
         '''
         self._cells = cells
+
+        self._no_alive_cells = 0
+        for row in self._cells:
+            for cell in row:
+                if cell.is_alive():
+                    self._no_alive_cells += 1
+
+    def get_no_alive_cells(self):
+        '''
+        Returns the number of alive cells.
+        '''
+        return self._no_alive_cells
