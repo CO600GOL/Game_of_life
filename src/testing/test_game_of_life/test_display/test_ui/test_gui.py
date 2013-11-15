@@ -54,6 +54,7 @@ class TestGui(object):
         for row in cells:
             for c in row:
                 c.event_generate('<Button-1>')
+                assert c.get_state() == state.Alive()
 
         g._next_button.event_generate('<Button-1>')
 
