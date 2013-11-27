@@ -9,7 +9,7 @@ from tkinter import Frame, Tk
 from game_of_life.data_structures import state
 from game_of_life.engine.game_of_life import GameOfLife
 from game_of_life.engine.rule_sets import RuleSetStandard
-from game_of_life.display.ui.widgets import GridWidget, NextButton
+from output.ui.widgets import GridWidget, NextButton
 
 X_SIZE = 10
 Y_SIZE = 10
