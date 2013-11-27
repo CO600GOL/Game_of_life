@@ -4,14 +4,15 @@ Created on 20 Oct 2013
 @author: Michael and Richard
 '''
 
-from game_of_life.data_structures import cell, state
+from game_of_life.data_structures.cell import Cell
+from game_of_life.data_structures.states import Alive, Dead
 
 
 def initialise_cell():
     '''
     Abstracted initialisation as it was being repeated
     '''
-    return cell.Cell()
+    return Cell()
 
 
 class TestCell(object):
@@ -34,13 +35,13 @@ class TestCell(object):
         # Make sure it returned a state
         assert s
         # Make sure the state was Dead
-        assert isinstance(s, state.Dead)
+        assert isinstance(s, Dead)
 
     def test_is_alive(self):
         '''
         Test whether the cell knows it is alive.
         '''
-        c = cell.Cell(state.Alive())
+        c = Cell(Alive())
         assert c.is_alive()
 
         c = initialise_cell()
@@ -51,9 +52,9 @@ class TestCell(object):
         Test correct functionality of Cell's mutator method
         '''
         c = initialise_cell()
-        c.set_state(state.Alive())
+        c.set_state(Alive())
         s = c.get_state()
         # Ensure that a state was set correct
         assert s
         # Ensure that state was set as alive
-        assert isinstance(s, state.Alive)
+        assert isinstance(s, Alive)

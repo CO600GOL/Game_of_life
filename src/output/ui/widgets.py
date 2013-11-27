@@ -7,7 +7,7 @@ Created on 7 Nov 2013
 from tkinter import Frame, Canvas, Button
 from game_of_life.data_structures.cell import Cell
 from game_of_life.data_structures.grid import Grid
-from game_of_life.data_structures import state
+from game_of_life.data_structures.states import Alive
 
 C_SIZE = 15
 ALIVE_COLOUR = "black"
@@ -70,7 +70,7 @@ class CellWidget(Canvas, Cell):
         Checks game of life cell and changes the colour dependent
         on the game of life state
         '''
-        if self.get_state() == state.Alive():
+        if self.get_state() == Alive():
             self["bg"] = ALIVE_COLOUR
         else:
             self["bg"] = DEAD_COLOUR

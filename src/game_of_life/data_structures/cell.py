@@ -6,7 +6,7 @@ Created on 20 Oct 2013
 This is a module containing the Cell class.
 '''
 
-from game_of_life.data_structures import state
+from game_of_life.data_structures.states import Alive, Dead
 
 
 class Cell(object):
@@ -15,7 +15,7 @@ class Cell(object):
     either alive or dead at an one time.
     '''
 
-    def __init__(self, state=state.Dead()):
+    def __init__(self, state=Dead()):
         '''
         Sets the initial state of the cell to dead.
 
@@ -34,7 +34,7 @@ class Cell(object):
         '''
         Returns True if cell state has an alive state.
         '''
-        return isinstance(self._state, state.Alive)
+        return isinstance(self._state, Alive)
 
     def set_state(self, state):
         """

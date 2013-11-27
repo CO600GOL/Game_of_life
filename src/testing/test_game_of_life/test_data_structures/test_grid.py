@@ -6,7 +6,9 @@ Created on 23 Oct 2013
 A module for testing the grid module.
 '''
 
-from game_of_life.data_structures import grid, state, cell
+from game_of_life.data_structures.grid import Grid
+from game_of_life.data_structures.cell import Cell
+from game_of_life.data_structures.states import Alive, Dead
 
 
 class TestGrid(object):
@@ -19,37 +21,37 @@ class TestGrid(object):
         Tests correct initialisation of grid objects. Objects should initialise
         with a number of cells that are all dead.
         '''
-        pattern = [[cell.Cell(),
-                    cell.Cell(),
-                    cell.Cell(),
-                    cell.Cell()],
-                   [cell.Cell(),
-                    cell.Cell(),
-                    cell.Cell(),
-                    cell.Cell()],
-                   [cell.Cell(),
-                    cell.Cell(),
-                    cell.Cell(),
-                    cell.Cell()],
-                   [cell.Cell(),
-                    cell.Cell(),
-                    cell.Cell(),
-                    cell.Cell()]]
+        pattern = [[Cell(),
+                    Cell(),
+                    Cell(),
+                    Cell()],
+                   [Cell(),
+                    Cell(),
+                    Cell(),
+                    Cell()],
+                   [Cell(),
+                    Cell(),
+                    Cell(),
+                    Cell()],
+                   [Cell(),
+                    Cell(),
+                    Cell(),
+                    Cell()]]
 
-        test_grid = grid.Grid(pattern)
+        test_grid = Grid(pattern)
         assert test_grid
 
         cells = test_grid.get_cells()
 
         for row in cells:
             for c in row:
-                assert isinstance(c.get_state(), state.Dead)
+                assert isinstance(c.get_state(), Dead)
 
     def test_get_cells(self):
         '''
         Tests the ability for the grid to return its collection of cells.
         '''
-        test_grid = grid.Grid()
+        test_grid = Grid()
 
         cells = test_grid.get_cells()
         assert cells
@@ -58,7 +60,7 @@ class TestGrid(object):
         '''
         Tests the ability of the grid to store a collection of cells.
         '''
-        test_grid = grid.Grid()
+        test_grid = Grid()
 
         # Create a collection of cell objects
         # Hard coding the expectation of a 10 x 10 2D array as it will fail
@@ -68,9 +70,9 @@ class TestGrid(object):
         for x in range(0, s):
             cells.append([])
             for y in range(0, s):
-                c = cell.Cell()
+                c = Cell()
                 if y % 2 == 0:
-                    c.set_state(state.Alive())
+                    c.set_state(Alive())
                 cells[x].append(c)
 
         # Write a test to check that the collection has been stored
@@ -87,7 +89,7 @@ class TestGrid(object):
         '''
         Tests the ability of the grid to retrieve the number of living cells.
         '''
-        test_grid = grid.Grid()
+        test_grid = Grid()
         alive_cells = test_grid.get_no_alive_cells()
         assert alive_cells == 0
 
@@ -96,11 +98,11 @@ class TestGrid(object):
         for x in range(0, s):
             cells.append([])
             for y in range(0, s):
-                c = cell.Cell()
+                c = Cell()
                 if y % 2 == 0:
-                    c.set_state(state.Alive())
+                    c.set_state(Alive())
                 cells[x].append(c)
 
-        test_grid = grid.Grid(cells)
+        test_grid = Grid(cells)
         alive_cells = test_grid.get_no_alive_cells()
         assert alive_cells == (s * s) / 2
