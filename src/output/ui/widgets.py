@@ -5,16 +5,16 @@ Created on 7 Nov 2013
 '''
 
 from tkinter import Frame, Canvas, Button
-from game_of_life.data_structures.cell import Cell
-from game_of_life.data_structures.grid import Grid
-from game_of_life.data_structures import state
+from game_of_life.data_structures.cell import GolCell
+from game_of_life.data_structures.grid import GolGrid
+from game_of_life.data_structures.states import Alive
 
 C_SIZE = 15
 ALIVE_COLOUR = "black"
 DEAD_COLOUR = "white"
 
 
-class GridWidget(Frame, Grid):
+class GridWidget(Frame, GolGrid):
     '''
     Grid widget, contains a collection of cell widgets which reflect the state
     of the game of life cell and the cells it contains.
@@ -37,7 +37,7 @@ class GridWidget(Frame, Grid):
                 cols.append(cell)
             cells.append(cols)
 
-        Grid.__init__(self, cells)
+        GolGrid.__init__(self, cells)
 
     def repaint(self):
         '''
@@ -49,7 +49,7 @@ class GridWidget(Frame, Grid):
                 c.repaint()
 
 
-class CellWidget(Canvas, Cell):
+class CellWidget(Canvas, GolCell):
     '''
     Cell widget, a version of the game of life cell, that is capable of being
     displayed in a gui.
@@ -63,14 +63,14 @@ class CellWidget(Canvas, Cell):
         '''
         Canvas.__init__(self, **kwargs)
         self['bg'] = DEAD_COLOUR
-        Cell.__init__(self)
+        GolCell.__init__(self)
 
     def repaint(self):
         '''
         Checks game of life cell and changes the colour dependent
         on the game of life state
         '''
-        if self.get_state() == state.Alive():
+        if self.get_state() == Alive():
             self["bg"] = ALIVE_COLOUR
         else:
             self["bg"] = DEAD_COLOUR
