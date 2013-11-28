@@ -7,6 +7,9 @@ This module contains all the logic for the game controls used
 by the system.
 '''
 
+from game.game import Game
+from utilities.timer import Timer
+
 
 class GameController(object):
     '''
@@ -19,33 +22,23 @@ class GameController(object):
         '''
         Ctor - Initialises game controller.
         '''
-        pass
-
-    def set_game(self, game):
-        '''
-        Sets a game to be played to the game controller.
-        '''
-        pass
+        self._game = Game()
+        self._timer = Timer(time)
 
     def get_game(self):
         '''
         Returns the game currently being played.
         '''
-        pass
+        return self._game
 
     def get_time_remaining(self):
         '''
         Returns the timer being used on this game controller.
         '''
+        return self._timer.get_time_remaining()
 
     def play_next_turn(self):
         '''
         Plays a single turn of the game.
         '''
-        pass
-
-    def play_game(self):
-        '''
-        Plays the game until its end.
-        '''
-        pass
+        self._game.next_turn()

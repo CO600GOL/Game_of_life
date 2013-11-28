@@ -23,30 +23,13 @@ class TestGameController(object):
         gc = GameController()
         assert gc
 
-    def test_set_game(self):
-        '''
-        Tests a game object can be set to the game controller.
-        '''
-        gc = GameController()
-        g = Game()
-
-        # test logic works
-        gc.set_game(g)
-        assert gc._game
-
-        # Test logic works as expected
-        assert gc._game == g
-
     def test_get_game(self):
         '''
         Tests the game currently being played can be retrieved.
         '''
         gc = GameController()
-        g = Game()
-        gc.set_game(g)
 
-        returned_game = gc.get_game()
-        assert returned_game == g
+        assert isinstance(gc.get_game(), Game)
 
     def test_get_time_remaining(self):
         '''
@@ -59,10 +42,7 @@ class TestGameController(object):
         '''
         Tests a single turn of the game can be played.
         '''
-        pass
+        gc = GameController()
+        gc.play_next_turn()
 
-    def test_play_game(self):
-        '''
-        Tests the game can be played through to the end.
-        '''
-        pass
+        assert gc.get_game().get_turn_count() == 1
