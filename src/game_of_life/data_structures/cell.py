@@ -1,15 +1,16 @@
 '''
 Created on 20 Oct 2013
 
-@author: Richard & Michael
+@author: Richard, Michael & Geoff
 
 This is a module containing the Cell class.
 '''
 
+from game.data_structures.cell import Cell
 from game_of_life.data_structures.states import Alive, Dead
 
 
-class Cell(object):
+class GolCell(Cell):
     '''
     Cell represents a single cell on a Conway's Game of Life board. It can be
     either alive or dead at an one time.
@@ -22,25 +23,10 @@ class Cell(object):
         Keyword arguments:
         state -- Initial state of cell. Defaults to Dead
         '''
-        self._state = state
-
-    def get_state(self):
-        """
-        Returns the current state of the cell
-        """
-        return self._state
+        Cell.__init__(self, state)
 
     def is_alive(self):
         '''
         Returns True if cell state has an alive state.
         '''
         return isinstance(self._state, Alive)
-
-    def set_state(self, state):
-        """
-        Assign new state to cell object.
-
-        Arguments:
-        state -- new state to assign
-        """
-        self._state = state

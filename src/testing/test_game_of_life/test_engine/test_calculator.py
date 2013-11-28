@@ -8,8 +8,8 @@ This module contains the tests required for the calculator module.
 
 import math
 
-from game_of_life.data_structures.grid import Grid
-from game_of_life.data_structures.cell import Cell
+from game_of_life.data_structures.grid import GolGrid
+from game_of_life.data_structures.cell import GolCell
 from game_of_life.data_structures.states import Alive, Dead
 from game_of_life.engine import calculator, rule_sets
 
@@ -28,7 +28,7 @@ def get_grid():
     '''
     Creates and returns a grid to use for testing purposes.
     '''
-    return Grid([[Cell() for _col in range(0, GRID_COL_LEN)]
+    return GolGrid([[GolCell() for _col in range(0, GRID_COL_LEN)]
                                    for _row in range(0, GRID_ROW_LEN)])
 
 
@@ -88,20 +88,20 @@ class TestCalculator(object):
         rs = get_rule_set()
         calc = calculator.Calculator(rs)
 
-        checked_cell = Cell()
+        checked_cell = GolCell()
         #======================================================================
         # 1. Collection of 8 neighbours and one being checked. Test Starvation
         #     - Should result in dead
         #======================================================================
         checked_cell.set_state(Alive())
-        neighbours = [Cell(),
-                      Cell(Alive()),
-                      Cell(),
-                      Cell(),
-                      Cell(),
-                      Cell(),
-                      Cell(),
-                      Cell()]
+        neighbours = [GolCell(),
+                      GolCell(Alive()),
+                      GolCell(),
+                      GolCell(),
+                      GolCell(),
+                      GolCell(),
+                      GolCell(),
+                      GolCell()]
 
         next_state = calc._next_state(checked_cell, neighbours)
         assert isinstance(next_state, Dead)
@@ -111,14 +111,14 @@ class TestCalculator(object):
         #     - Should result in alive
         #======================================================================
         checked_cell.set_state(Alive())
-        neighbours = [Cell(),
-                      Cell(Alive()),
-                      Cell(),
-                      Cell(Alive()),
-                      Cell(),
-                      Cell(),
-                      Cell(),
-                      Cell()]
+        neighbours = [GolCell(),
+                      GolCell(Alive()),
+                      GolCell(),
+                      GolCell(Alive()),
+                      GolCell(),
+                      GolCell(),
+                      GolCell(),
+                      GolCell()]
 
         next_state = calc._next_state(checked_cell, neighbours)
         assert isinstance(next_state, Alive)
@@ -129,14 +129,14 @@ class TestCalculator(object):
         #    - Should result in dead
         #======================================================================
         checked_cell.set_state(Alive())
-        neighbours = [Cell(),
-                      Cell(Alive()),
-                      Cell(),
-                      Cell(Alive()),
-                      Cell(Alive()),
-                      Cell(),
-                      Cell(Alive()),
-                      Cell()]
+        neighbours = [GolCell(),
+                      GolCell(Alive()),
+                      GolCell(),
+                      GolCell(Alive()),
+                      GolCell(Alive()),
+                      GolCell(),
+                      GolCell(Alive()),
+                      GolCell()]
 
         next_state = calc._next_state(checked_cell, neighbours)
         assert isinstance(next_state, Dead)
@@ -146,14 +146,14 @@ class TestCalculator(object):
         #     - Should result in alive
         #======================================================================
         checked_cell.set_state(Dead())
-        neighbours = [Cell(),
-                      Cell(Alive()),
-                      Cell(),
-                      Cell(),
-                      Cell(Alive()),
-                      Cell(),
-                      Cell(Alive()),
-                      Cell()]
+        neighbours = [GolCell(),
+                      GolCell(Alive()),
+                      GolCell(),
+                      GolCell(),
+                      GolCell(Alive()),
+                      GolCell(),
+                      GolCell(Alive()),
+                      GolCell()]
 
         next_state = calc._next_state(checked_cell, neighbours)
         assert isinstance(next_state, Alive)
@@ -172,22 +172,22 @@ class TestCalculator(object):
         # ddad
         # dadd
         # dddd
-        test_pattern = [[Cell(),
-                         Cell(Alive()),
-                         Cell(),
-                         Cell(Alive())],
-                        [Cell(),
-                         Cell(),
-                         Cell(Alive()),
-                         Cell()],
-                        [Cell(),
-                         Cell(Alive()),
-                         Cell(),
-                         Cell()],
-                        [Cell(),
-                         Cell(),
-                         Cell(),
-                         Cell()]]
+        test_pattern = [[GolCell(),
+                         GolCell(Alive()),
+                         GolCell(),
+                         GolCell(Alive())],
+                        [GolCell(),
+                         GolCell(),
+                         GolCell(Alive()),
+                         GolCell()],
+                        [GolCell(),
+                         GolCell(Alive()),
+                         GolCell(),
+                         GolCell()],
+                        [GolCell(),
+                         GolCell(),
+                         GolCell(),
+                         GolCell()]]
 
         gr.set_cells(test_pattern)
 
@@ -196,22 +196,22 @@ class TestCalculator(object):
         # aaad
         # dddd
         # adad
-        check_pattern = [[Cell(),
-                          Cell(),
-                          Cell(Alive()),
-                          Cell()],
-                         [Cell(Alive()),
-                          Cell(Alive()),
-                          Cell(Alive()),
-                          Cell()],
-                         [Cell(),
-                          Cell(),
-                          Cell(),
-                          Cell()],
-                         [Cell(Alive()),
-                          Cell(),
-                          Cell(Alive()),
-                          Cell()]]
+        check_pattern = [[GolCell(),
+                          GolCell(),
+                          GolCell(Alive()),
+                          GolCell()],
+                         [GolCell(Alive()),
+                          GolCell(Alive()),
+                          GolCell(Alive()),
+                          GolCell()],
+                         [GolCell(),
+                          GolCell(),
+                          GolCell(),
+                          GolCell()],
+                         [GolCell(Alive()),
+                          GolCell(),
+                          GolCell(Alive()),
+                          GolCell()]]
 
         # Compare the resulting pattern with the expected pattern.
         result_pattern = calc.calculate_generation(gr)

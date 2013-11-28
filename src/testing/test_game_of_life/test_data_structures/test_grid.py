@@ -6,8 +6,8 @@ Created on 23 Oct 2013
 A module for testing the grid module.
 '''
 
-from game_of_life.data_structures.grid import Grid
-from game_of_life.data_structures.cell import Cell
+from game_of_life.data_structures.grid import GolGrid
+from game_of_life.data_structures.cell import GolCell
 from game_of_life.data_structures.states import Alive, Dead
 
 
@@ -19,26 +19,26 @@ class TestGrid(object):
     def test_grid_init(self):
         '''
         Tests correct initialisation of grid objects. Objects should initialise
-        with a number of cells that are all dead.
+        with a number of GolCells that are all dead.
         '''
-        pattern = [[Cell(),
-                    Cell(),
-                    Cell(),
-                    Cell()],
-                   [Cell(),
-                    Cell(),
-                    Cell(),
-                    Cell()],
-                   [Cell(),
-                    Cell(),
-                    Cell(),
-                    Cell()],
-                   [Cell(),
-                    Cell(),
-                    Cell(),
-                    Cell()]]
+        pattern = [[GolCell(),
+                    GolCell(),
+                    GolCell(),
+                    GolCell()],
+                   [GolCell(),
+                    GolCell(),
+                    GolCell(),
+                    GolCell()],
+                   [GolCell(),
+                    GolCell(),
+                    GolCell(),
+                    GolCell()],
+                   [GolCell(),
+                    GolCell(),
+                    GolCell(),
+                    GolCell()]]
 
-        test_grid = Grid(pattern)
+        test_grid = GolGrid(pattern)
         assert test_grid
 
         cells = test_grid.get_cells()
@@ -49,20 +49,20 @@ class TestGrid(object):
 
     def test_get_cells(self):
         '''
-        Tests the ability for the grid to return its collection of cells.
+        Tests the ability for the grid to return its collection of GolCells.
         '''
-        test_grid = Grid()
+        test_grid = GolGrid()
 
         cells = test_grid.get_cells()
         assert cells
 
     def test_set_cells(self):
         '''
-        Tests the ability of the grid to store a collection of cells.
+        Tests the ability of the grid to store a collection of GolCells.
         '''
-        test_grid = Grid()
+        test_grid = GolGrid()
 
-        # Create a collection of cell objects
+        # Create a collection of GolCell objects
         # Hard coding the expectation of a 10 x 10 2D array as it will fail
         # if someone changes the keyword parameters
         s = 10
@@ -70,7 +70,7 @@ class TestGrid(object):
         for x in range(0, s):
             cells.append([])
             for y in range(0, s):
-                c = Cell()
+                c = GolCell()
                 if y % 2 == 0:
                     c.set_state(Alive())
                 cells[x].append(c)
@@ -89,7 +89,7 @@ class TestGrid(object):
         '''
         Tests the ability of the grid to retrieve the number of living cells.
         '''
-        test_grid = Grid()
+        test_grid = GolGrid()
         alive_cells = test_grid.get_no_alive_cells()
         assert alive_cells == 0
 
@@ -98,11 +98,11 @@ class TestGrid(object):
         for x in range(0, s):
             cells.append([])
             for y in range(0, s):
-                c = Cell()
+                c = GolCell()
                 if y % 2 == 0:
                     c.set_state(Alive())
                 cells[x].append(c)
 
-        test_grid = Grid(cells)
+        test_grid = GolGrid(cells)
         alive_cells = test_grid.get_no_alive_cells()
         assert alive_cells == (s * s) / 2

@@ -4,7 +4,7 @@ Created on 20 Oct 2013
 @author: Michael and Richard
 '''
 
-from game_of_life.data_structures.cell import Cell
+from game_of_life.data_structures.cell import GolCell
 from game_of_life.data_structures.states import Alive, Dead
 
 
@@ -12,7 +12,7 @@ def initialise_cell():
     '''
     Abstracted initialisation as it was being repeated
     '''
-    return Cell()
+    return GolCell()
 
 
 class TestCell(object):
@@ -41,7 +41,7 @@ class TestCell(object):
         '''
         Test whether the cell knows it is alive.
         '''
-        c = Cell(Alive())
+        c = GolCell(Alive())
         assert c.is_alive()
 
         c = initialise_cell()

@@ -7,12 +7,12 @@ This module contains the logic and functionality for the Game of Life.
 It works as the complete engine for the game.
 '''
 
-from game import game
-from game_of_life.data_structures import grid
+from game.game import Game
+from game_of_life.data_structures.grid import GolGrid
 from game_of_life.engine import calculator
 
 
-class GameOfLife(game.Game):
+class GameOfLife(Game):
     '''
     This class represents the Game of Life with a defined, persistent
     rule set.
@@ -23,7 +23,7 @@ class GameOfLife(game.Game):
         Ctor - Initialises the Game of Life with a rule set and an initial
         pattern, both defined by the user. Also initialises a calculator.
         '''
-        game.Game.__init__(self)
+        Game.__init__(self)
 
         # Initialise the rule set
         self._rule_set = rule_set
@@ -66,7 +66,7 @@ class GameOfLife(game.Game):
         collection of cells given to it.
         '''
         new_generation = self._calculator.calculate_generation(cur_gen)
-        gr = grid.Grid(cell_pattern=new_generation)
+        gr = GolGrid(cell_pattern=new_generation)
         return gr
 
     def next_turn(self):
@@ -89,7 +89,7 @@ class GameOfLife(game.Game):
         self._current_generation.set_cells(nex_gen.get_cells())
 
         # Increment turn count
-        game.Game.next_turn(self)
+        Game.next_turn(self)
 
     def is_game_forsaken(self):
         '''
