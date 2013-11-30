@@ -9,7 +9,7 @@ It works as the complete engine for the game.
 
 from game.game import Game
 from game_of_life.data_structures.grid import GolGrid
-from game_of_life.engine import calculator
+from game_of_life.engine.calculator import Calculator
 
 
 class GameOfLife(Game):
@@ -32,7 +32,7 @@ class GameOfLife(Game):
         self._current_generation = initial_input
 
         # Give the game engine a calculator to use.
-        self._calculator = calculator.Calculator(rule_set)
+        self._calculator = Calculator(rule_set)
 
     def _set_current_generation(self, new_cur_gen):
         '''
