@@ -6,10 +6,10 @@ Created on 7 Nov 2013
 '''
 
 from tkinter import Frame, Tk
-from game_of_life.data_structures import state
+from game_of_life.data_structures.states import Alive, Dead
 from game_of_life.engine.game_of_life import GameOfLife
 from game_of_life.engine.rule_sets import RuleSetStandard
-from game_of_life.display.ui.widgets import GridWidget, NextButton
+from output.ui.widgets import GridWidget, NextButton
 
 X_SIZE = 10
 Y_SIZE = 10
@@ -65,9 +65,9 @@ class Gui(Frame):
         Event: an object created when the cell is clicked
         '''
         cell = event.widget
-        a = state.Alive()
+        a = Alive()
         if cell.get_state() == a:
-            cell.set_state(state.Dead())
+            cell.set_state(Dead())
         else:
             cell.set_state(a)
 

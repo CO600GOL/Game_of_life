@@ -4,8 +4,8 @@ Created on 7 Nov 2013
 @author: Niklas and Richard
 '''
 
-from game_of_life.display.ui import gui
-from game_of_life.data_structures import state
+from output.ui import gui
+from game_of_life.data_structures.states import Alive, Dead
 
 
 class TestGui(object):
@@ -36,7 +36,7 @@ class TestGui(object):
         for row in cells:
             for c in row:
                 c.event_generate('<Button-1>')
-                assert c.get_state() == state.Alive()
+                assert c.get_state() == Alive()
 
     def test_next_step_button_listener(self):
         '''
@@ -60,7 +60,7 @@ class TestGui(object):
 
         for row in cells:
             for c in row:
-                assert c.get_state() == state.Dead()
+                assert c.get_state() == Dead()
 
     def test_start_stop_button_listener(self):
         '''

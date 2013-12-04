@@ -4,8 +4,8 @@ Created on 7 Nov 2013
 @author: Niklas and Richard
 '''
 
-from game_of_life.display.ui import widgets
-from game_of_life.data_structures import state
+from output.ui import widgets
+from game_of_life.data_structures.states import Alive
 
 
 class TestGrid(object):
@@ -30,7 +30,7 @@ class TestGrid(object):
             row_colour = []
             for c in row:
                 row_colour.append(c['bg'])
-                c.set_state(state.Alive())
+                c.set_state(Alive())
             cell_colours.append(row_colour)
 
         gw.repaint()
@@ -57,7 +57,7 @@ class TestCell(object):
         '''
         cw = widgets.CellWidget()
         initial_colour = cw['bg']
-        cw.set_state(state.Alive())
+        cw.set_state(Alive())
         cw.repaint()
 
         assert initial_colour != cw['bg']
