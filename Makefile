@@ -5,7 +5,7 @@
 # by inline comments.
 
 PROJECTNAME    = "Project Conway"
-TARGET_VERSION = 1,line,input
+#TARGET_VERSION = 1,line,input
 help:
 	# Usage: make <target>, where target is
 	# setup         -- setup python egg & install dependencys/env if needed
