@@ -2,3 +2,7 @@
 *.pydevproject*
 *pycache*
 *.pyc
+env/
+*.swp
+*.swo
+*.egg-info/
