@@ -5,6 +5,7 @@ from sqlalchemy.exc import DBAPIError
 
 from .models import DBSession
 from .models.run import Run
+from .models.time_slot import TimeSlot
 
 
 @view_config(route_name='home', renderer='templates/mytemplate.pt')
