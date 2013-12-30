@@ -3,19 +3,10 @@ import sys
 import transaction
 
 from sqlalchemy import engine_from_config
-
-from pyramid.paster import (
-    get_appsettings,
-    setup_logging,
-    )
-
+from pyramid.paster import get_appsettings, setup_logging
 from pyramid.scripts.common import parse_vars
-
-from ..models import (
-    DBSession,
-    MyModel,
-    Base,
-    )
+from ..models import Base, DBSession
+from ..models.run import Run
 
 
 def usage(argv):
@@ -36,5 +27,4 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        model = MyModel(name='one', value=1)
-        DBSession.add(model)
+        pass
