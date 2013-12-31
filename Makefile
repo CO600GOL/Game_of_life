@@ -4,8 +4,6 @@
 # This code has been reconfigured for use in this project. These configurations will be made clear
 # by inline comments.
 
-PROJECTNAME    = "Project Conway"
-#TARGET_VERSION = 1,line,input
 help:
 	# Usage: make <target>, where target is
 	# setup         -- setup python egg & install dependencys/env if needed
@@ -14,7 +12,6 @@ help:
 	# run           -- run the site in development mode
 	# run_production -- run in production mode
 	# clean         -- reset the folder to clean git checkout (removes virtual python env)
-	# project <PROJECTNAME> <VERSION> -- run the python version of the project (using your system python install, make sure you have pygame installed)
 
 env_activate:
 	source env/bin/activate
@@ -39,9 +36,7 @@ env:
 	cd env;	bin/easy_install pyramid
 
 setup: env
-	env/bin/python setup.py develop
-	#env/bin/python easy_install 'zope.interface==3.8.0' # Unnneded as zope has been fixed
-	#env/bin/populate_MyProject development.ini
+	env/bin/python ProjectConway/setup.py develop
 
 run:
 	#$(MAKE) env_activate
@@ -54,10 +49,6 @@ run_production:
 shell:
 	env/bin/pshell development.ini
 
-project:
-	cd teachprogramming/static/projects/; ../../../env/bin/python ../../lib/make_ver.py $(PROJECTNAME).py --target_version $(TARGET_VERSION) | python -
-
 clean:
 	rm env -rf
 	rm *.egg-info -rf
-	#rm TeachProgramming.db
