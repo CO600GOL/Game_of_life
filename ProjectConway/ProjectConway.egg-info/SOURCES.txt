@@ -16,7 +16,6 @@ projectconway/__init__.py
 projectconway/views.py
 projectconway/models/__init__.py
 projectconway/models/run.py
-projectconway/models/time_slot.py
 projectconway/scripts/__init__.py
 projectconway/scripts/initializedb.py
 projectconway/static/favicon.ico

@@ -1,6 +1,7 @@
 import time
+import datetime
 import transaction
-from sqlalchemy import create_engine
+from sqlalchemy  import create_engine
 from pyramid import testing
 from projectconway.models import Base, DBSession
 from projectconway.models.run import Run
@@ -45,7 +46,7 @@ class TestRunTable():
         Test insertion of data into the runs table
         '''
         with transaction.manager:
-            run = Run(create_input_pattern(), self._insert_name)
+            run = Run(create_input_pattern(), datetime.datetime.now(), self._insert_name)
             DBSession.add(run)
             DBSession.commit()
          
