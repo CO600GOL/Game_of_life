@@ -49,6 +49,9 @@ run_production:
 shell:
 	env/bin/pshell development.ini
 
+test:
+	. env/bin/activate;	py.test src ProjectConway
+
 clean:
 	rm env -rf
 	rm *.egg-info -rf
