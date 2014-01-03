@@ -22,16 +22,17 @@ def create_initial_input():
     # Eventually, output will store the given input as an array
     # of integer arrays. This can be turned into a grid object by the
     # GameOfLifeController.
-    init_input = [[0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-                  [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-                  [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-                  [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-                  [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-                  [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-                  [1, 0, 1, 0, 1, 0, 1, 0, 1, 0]]
+    init_input = """\
+-*-*-*-*-*
+*-*-*-*-*-
+-*--------
+--*-------
+---*------
+----*-----
+-----*----
+*-*-*-*-*-
+-*-*-*-*-*
+*-*-*-*-*-"""
 
     return init_input
 
@@ -116,14 +117,15 @@ class TestGameOfLifeController(object):
         assert isinstance(golc._game, GameOfLife)
 
         # Test the input has been set correctly.
+        init_input = init_input.split("\n")
         for x, row in enumerate(init_input):
             for y, _col in enumerate(row):
-                if init_input[x][y] == 0:
-                    assert golc.get_game().get_current_generation()\
-                    .get_cells()[x][y].get_state() == Dead()
-                else:
+                if init_input[x][y] == "*":
                     assert golc.get_game().get_current_generation()\
                     .get_cells()[x][y].get_state() == Alive()
+                else:
+                    assert golc.get_game().get_current_generation()\
+                    .get_cells()[x][y].get_state() == Dead()
 
     def test_play_next_turn(self):
         '''
