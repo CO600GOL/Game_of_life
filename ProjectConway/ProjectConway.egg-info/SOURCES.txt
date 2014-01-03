@@ -13,9 +13,9 @@ ProjectConway.egg-info/not-zip-safe
 ProjectConway.egg-info/requires.txt
 ProjectConway.egg-info/top_level.txt
 projectconway/__init__.py
-projectconway/models.py
-projectconway/tests.py
 projectconway/views.py
+projectconway/models/__init__.py
+projectconway/models/run.py
 projectconway/scripts/__init__.py
 projectconway/scripts/initializedb.py
 projectconway/static/favicon.ico
