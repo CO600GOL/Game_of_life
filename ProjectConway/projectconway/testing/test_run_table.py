@@ -54,7 +54,19 @@ class TestRunTable():
         '''
         Test querying of data from the runs table
         '''
+        # Test logic works
         assert DBSession.query(Run).filter(Run.user_name==self._insert_name).all()
+        
+        # Test logic works as expected (Grid object is not altered in any way)
+        for row in DBSession.query(Run).filter(Run.user_name==self._insert_name).all():
+            returned_pattern = row.input_pattern.split('\n')
+            test_pattern = create_input_pattern().split('\n')
+            for x, row in enumerate(test_pattern):
+                for y, col in enumerate(row):
+                    if test_pattern[x][y] == '*':
+                        assert returned_pattern[x][y] == '*'
+                    else:
+                        assert returned_pattern[x][y] == '-'           
          
     def test_delete(self):
         '''
