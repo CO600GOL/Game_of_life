@@ -50,7 +50,7 @@ shell:
 	env/bin/pshell development.ini
 
 test:
-	. env/bin/activate;	py.test src ProjectConway
+	. env/bin/activate;	py.test -v src ProjectConway
 
 clean:
 	rm env -rf
