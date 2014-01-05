@@ -7,7 +7,6 @@ from pyramid.paster import get_appsettings, setup_logging
 from pyramid.scripts.common import parse_vars
 from ..models import Base, DBSession
 from ..models.run import Run
-from ..models.time_slot import TimeSlot
 
 
 def usage(argv):
