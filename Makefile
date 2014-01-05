@@ -36,7 +36,7 @@ env:
 	cd env;	bin/easy_install pyramid
 
 setup: env
-	env/bin/python ProjectConway/setup.py develop
+	cd ProjectConway; ../env/bin/python setup.py develop
 
 run:
 	#$(MAKE) env_activate
@@ -48,6 +48,9 @@ run_production:
 
 shell:
 	env/bin/pshell development.ini
+
+test:
+	. env/bin/activate;	py.test -v src ProjectConway
 
 clean:
 	rm env -rf

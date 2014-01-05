@@ -79,14 +79,15 @@ class GameOfLifeController(GameController):
 
         # Create the initial input
         cell_pattern = []
+        init_input = init_input.split("\n")
 
         for row in range(0, len(init_input)):
             cell_pattern.append([])
             for i in init_input[row]:
-                if i == 0:
-                    cell_pattern[row].append(GolCell())
-                else:
+                if i == "*":
                     cell_pattern[row].append(GolCell(Alive()))
+                else:
+                    cell_pattern[row].append(GolCell())
 
         initial_input = GolGrid(cell_pattern)
 
