@@ -3,11 +3,11 @@ from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
 
-from .models import DBSession
-from .models.run import Run
+from projectconway.models import DBSession
+from projectconway.models.run import Run
 
 
-@view_config(route_name='home', renderer='templates/mytemplate.pt')
+@view_config(route_name='home', renderer='../templates/mytemplate.pt')
 def my_view(request):
     try:
         pass
