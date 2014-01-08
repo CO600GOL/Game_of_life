@@ -12,6 +12,7 @@ from game.game_controllers.game_controllers import GameOfLifeController
 from game.game import Game
 from game_of_life.engine.game_of_life import GameOfLife
 from game_of_life.data_structures.states import Alive, Dead
+from game_of_life.data_structures.grid import GolGrid
 
 
 def create_initial_input():
@@ -46,14 +47,14 @@ class TestGameController(object):
         '''
         Tests initialisation of a GameController.
         '''
-        gc = GameController(300)
+        gc = GameController()
         assert gc
 
     def test_set_up_game(self):
         '''
         Tests whether the game to be played can be correctly set up.
         '''
-        gc = GameController(300)
+        gc = GameController()
         gc.set_up_game()
 
         assert isinstance(gc._game, Game)
@@ -62,24 +63,16 @@ class TestGameController(object):
         '''
         Tests the game currently being played can be retrieved.
         '''
-        gc = GameController(300)
+        gc = GameController()
         gc.set_up_game()
 
         assert isinstance(gc.get_game(), Game)
-
-    def test_get_time_remaining(self):
-        '''
-        Tests the remaining time on the controller can be retrieved.
-        '''
-        gc = GameController(300)
-
-        assert gc.get_time_remaining() == 300
 
     def test_play_next_turn(self):
         '''
         Tests a single turn of the game can be played.
         '''
-        gc = GameController(300)
+        gc = GameController()
         gc.set_up_game()
 
         gc.play_next_turn()
@@ -160,18 +153,23 @@ class TestGameOfLifeController(object):
                     assert golc.get_game().get_current_generation()\
                     .get_cells()[x][y].get_state() == Alive()
 
-    def test_play_game(self):
+    def test_get_turn_count(self):
         '''
-        Tests an entire Game of Life can be played to its end.
+        Tests the turn count accessor method
         '''
         golc = GameOfLifeController()
         golc.set_up_game(create_initial_input())
-        golc.play_game()
 
-        # According to http://www.julianpulgarin.com/canvaslife/, this pattern
-        # dies before the time limit of 5 minutes is hit.
-        assert golc.get_game().is_game_forsaken()
+        for i in range(0, 9):
+            assert golc.get_turn_count() == i
+            golc.play_next_turn()
 
-        # According to http://www.julianpulgarin.com/canvaslife/, the initial
-        # pattern should take 53 turns to die.
-        assert golc.get_game().get_turn_count() == 53
+    def test_get_current_generation(self):
+        '''
+        Returns the current generation of the game of life
+        '''
+        golc = GameOfLifeController()
+        golc.set_up_game(create_initial_input())
+
+        current_gen = golc.get_current_generation()
+        assert current_gen and isinstance(current_gen, GolGrid)
