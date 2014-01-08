@@ -80,7 +80,8 @@ class GameOfLifeController(GameController):
                 else:
                     cell_pattern[row].append(GolCell())
 
-        initial_input = GolGrid(cell_pattern)
+        initial_input = GolGrid()
+        initial_input.set_cells(cell_pattern)
 
         # Create the Rule Set
         rule_set = RuleSetStandard()

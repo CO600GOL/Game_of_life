@@ -1,1 +1,2 @@
 TIME_DELAY = 0.5
+TIME_LIMIT = 300  # seconds

@@ -37,6 +37,7 @@ env:
 
 setup: env
 	cd ProjectConway; ../env/bin/python setup.py develop
+	cd src; ../env/bin/python setup.py develop
 
 run:
 	#$(MAKE) env_activate
