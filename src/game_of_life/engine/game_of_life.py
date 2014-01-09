@@ -80,10 +80,6 @@ class GameOfLife(Game):
         # Stores next generation in self._next_generation
         self._set_next_generation(nex_gen)
 
-        # Passes current generation back to Game Control to be shown on
-        # the GUI.
-        pass
-
         # The state in of the next generation is stored as the current
         # generation
         self._current_generation.set_cells(nex_gen.get_cells())
