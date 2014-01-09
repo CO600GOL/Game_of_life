@@ -16,8 +16,6 @@ from game_of_life.data_structures.states import Alive
 from game_of_life.engine.rule_sets import RuleSetStandard
 from game_of_life.engine.game_of_life import GameOfLife
 
-from utilities.timer import Timer
-
 
 class GameController(object):
     '''
@@ -26,11 +24,10 @@ class GameController(object):
     all game controls.
     '''
 
-    def __init__(self, time):
+    def __init__(self):
         '''
         Ctor - Initialises game controller.
         '''
-        self._timer = Timer(time)
 
     def set_up_game(self):
         '''
@@ -43,12 +40,6 @@ class GameController(object):
         Returns the game currently being played.
         '''
         return self._game
-
-    def get_time_remaining(self):
-        '''
-        Returns the timer being used on this game controller.
-        '''
-        return self._timer.get_time_remaining()
 
     def play_next_turn(self):
         '''
@@ -65,11 +56,11 @@ class GameOfLifeController(GameController):
     to the game engine.
     '''
 
-    def __init__(self, time=300):
+    def __init__(self):
         '''
         Ctor - Initialises the GoL Controller.
         '''
-        GameController.__init__(self, time)
+        GameController.__init__(self)
 
     def set_up_game(self, init_input):
         '''
@@ -79,16 +70,18 @@ class GameOfLifeController(GameController):
 
         # Create the initial input
         cell_pattern = []
+        init_input = init_input.split("\n")
 
         for row in range(0, len(init_input)):
             cell_pattern.append([])
             for i in init_input[row]:
-                if i == 0:
-                    cell_pattern[row].append(GolCell())
-                else:
+                if i == "*":
                     cell_pattern[row].append(GolCell(Alive()))
+                else:
+                    cell_pattern[row].append(GolCell())
 
-        initial_input = GolGrid(cell_pattern)
+        initial_input = GolGrid()
+        initial_input.set_cells(cell_pattern)
 
         # Create the Rule Set
         rule_set = RuleSetStandard()
@@ -103,13 +96,15 @@ class GameOfLifeController(GameController):
         if not self.get_game().is_game_forsaken():
             self.get_game().next_turn()
 
-    def play_game(self):
+    def get_turn_count(self):
         '''
-        Plays the Game of Life until it ends.
+        Returns the current turn count of the game of life
         '''
-        self._timer.start()
+        return self._game.get_turn_count()
 
-        while not self.get_game().is_game_forsaken() and\
-        self._timer.get_time_remaining() > 0:
-            self.get_game().next_turn()
-        self._timer.stop()
+    def get_current_generation(self):
+        '''
+        Returns the current generation of the game of life, in the form of a
+        Grid object
+        '''
+        return self._game.get_current_generation()

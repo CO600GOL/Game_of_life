@@ -37,6 +37,7 @@ env:
 
 setup: env
 	cd ProjectConway; ../env/bin/python setup.py develop
+	cd src; ../env/bin/python setup.py develop
 
 run:
 	#$(MAKE) env_activate
@@ -50,7 +51,7 @@ shell:
 	env/bin/pshell development.ini
 
 test:
-	. env/bin/activate;	py.test src ProjectConway
+	. env/bin/activate;	py.test -v src ProjectConway
 
 clean:
 	rm env -rf

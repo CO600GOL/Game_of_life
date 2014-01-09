@@ -27,3 +27,5 @@ projectconway/static/pylons.css
 projectconway/static/pyramid.png
 projectconway/static/transparent.gif
 projectconway/templates/mytemplate.pt
+projectconway/views/__init__.py
+projectconway/views/pattern_input.py
