@@ -1,7 +1,7 @@
 import json
 import time
 import urllib.request as urllib
-from subprocess import Popen
+import pexpect
 '''
 This module will test HTTP access to the web application.
 '''
@@ -12,18 +12,20 @@ def setup_module(module):
     '''
     Sets up everything required for each test class to function.
     '''
-    module.p = Popen(["/bin/bash", "-c", "make run"])
-    time.sleep(1)  # Allow server to start
+    module.p = pexpect.spawn("/bin/bash", ["-c", "make run"])
 
+    # Wait for the pyramid process to start serving requests
+    # There is a time limit of 10 seconds
+    module.p.expect("serving on", timeout=10)
 
 def teardown_module(module):
     '''
     Sets up everything required to shut down each class after testing has been
     completed.
     '''
-    module.p.send_signal(15)  # Same as sending SIGTERM
+    module.p.kill(15)  # Same as sending SIGTERM
     # Using SIGTERM instead of kill() as it does not close all pyramid threads
-    assert module.p.wait()
+    module.p.wait()
 
 
 class TestPatternInputPage(object):
