@@ -41,7 +41,7 @@ setup: env
 
 run:
 	#$(MAKE) env_activate
-	env/bin/pserve --reload development.ini
+	env/bin/pserve --reload ProjectConway/development.ini
 	#$(MAKE) env_deactivate
 
 run_production:
