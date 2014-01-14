@@ -7,3 +7,4 @@ transaction
 zope.sqlalchemy
 waitress
 pytest
+pexpect
