@@ -2,7 +2,7 @@ from pyramid.view import view_config
 from game_of_life import TIME_LIMIT, TIME_DELAY
 from game.game_controllers.game_controllers import GameOfLifeController
 
-@view_config(route_name='pattern_input')
+@view_config(route_name='pattern_input', renderer="projectconway:templates/pattern_input.mako")
 def pattern_input_view(request):
     '''
     Executes the logic for the Pattern Input web page, allowing the user
