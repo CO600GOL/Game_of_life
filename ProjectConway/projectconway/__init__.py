@@ -17,5 +17,6 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('pattern_input', '/create')
     config.add_route('pattern_input_receiver', '/pattern_receiver.json')
+    config.add_route('about', '/about')
     config.scan()
     return config.make_wsgi_app()

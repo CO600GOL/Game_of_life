@@ -34,20 +34,20 @@
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <%
-                            homeactive, tutorialactive, patternactive, helpactive = [""] * 4
+                            homeactive, tutorialactive, patternactive, aboutactive = [""] * 4
                             if page == "homepage":
                                 homeactive = "active"
                             elif page == "tutorialpage":
                                 tutorialactive = "active"
                             elif page == "patternpage":
                                 patternactive = "active"
-                            elif page == "helppage":
-                                helpactive = "active"
+                            elif page == "aboutpage":
+                                aboutactive = "active"
                             %>
-                            <li class="${homeactive}"><a href="#">Home</a></li>
+                            <li class="${homeactive}"><a href="/">Home</a></li>
                             <li class="${tutorialactive}"><a href="#">Tutorial</a></li>
                             <li class="${patternactive}"><a href="#">Create Pattern</a></li>
-                            <li class="${helpactive}"><a href="#">Help</a></li>
+                            <li class="${aboutactive}"><a href="/about">About</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="http://deeson-online.co.uk/" target="_blank">Deeson Online</a></li>
