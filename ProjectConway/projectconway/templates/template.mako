@@ -55,7 +55,20 @@
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
+
             <%block name="content" />
+
+            <div class="row">
+                <div class="navbar navbar-inverse">
+                    <%
+                    import datetime
+                    year = str(datetime.datetime.now().year)
+                    %>
+                    <ul class="nav navbar-nav">
+                       <li><a>© Deeson Group ${year}</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
     	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
