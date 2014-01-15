@@ -47,6 +47,26 @@ class TestHomePage(object):
         assert content
 
 
+class TestAboutPage(object):
+    '''
+    This class runs automated HTTP tests on the About page - this
+    includes all views used on the page.
+    '''
+
+    def test_habout_page(self):
+        '''
+        This method ensures that
+        '''
+        url = "%sabout" % URL
+
+        request = urllib.Request(url)
+        response = urllib.urlopen(request)
+        content = response.read().decode("utf-8")
+
+        # Ensure we have a response
+        assert content
+
+
 class TestPatternInputPage(object):
     '''
     This class runs automated HTTP tests on the Pattern Input Page - this
