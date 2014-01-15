@@ -23,27 +23,37 @@
                 <!-- NAVBAR!-->
                 <div class="navbar navbar-inverse" role="navigation">
                     <div class="navbar-header">
-                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                      </button>
-                      <span class="navbar-brand">Menu</span>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <span class="navbar-brand">Menu</span>
                     </div>
                     <div class="navbar-collapse collapse">
-                      <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Tutorial</a></li>
-                        <li><a href="#">Create Pattern</a></li>
-                        <li><a href="#">Help</a></li>
-                      </ul>
-                      <ul class="nav navbar-nav navbar-right">
-                        <li><a href="http://deeson-online.co.uk/" target="_blank">Deeson Online</a></li>
-                      </ul>
+                        <ul class="nav navbar-nav">
+                            <%
+                            homeactive, tutorialactive, patternactive, helpactive = [""] * 4
+                            if page == "homepage":
+                                homeactive = "active"
+                            elif page == "tutorialpage":
+                                tutorialactive = "active"
+                            elif page == "patternpage":
+                                patternactive = "active"
+                            elif page == "helppage":
+                                helpactive = "active"
+                            %>
+                            <li class="${homeactive}"><a href="#">Home</a></li>
+                            <li class="${tutorialactive}"><a href="#">Tutorial</a></li>
+                            <li class="${patternactive}"><a href="#">Create Pattern</a></li>
+                            <li class="${helpactive}"><a href="#">Help</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="http://deeson-online.co.uk/" target="_blank">Deeson Online</a></li>
+                        </ul>
                     </div><!--/.nav-collapse -->
-                  </div>
-
+                </div>
             </div>
             <%block name="content" />
         </div>
