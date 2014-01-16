@@ -1,5 +1,4 @@
 import json
-import time
 import urllib.request as urllib
 import pexpect
 '''
@@ -26,6 +25,46 @@ def teardown_module(module):
     module.p.kill(15)  # Same as sending SIGTERM
     # Using SIGTERM instead of kill() as it does not close all pyramid threads
     module.p.wait()
+
+
+class TestHomePage(object):
+    '''
+    This class runs automated HTTP tests on the Homepage - this
+    includes all views used on the page.
+    '''
+
+    def test_home_page(self):
+        '''
+        This method ensures that
+        '''
+        url = URL
+
+        request = urllib.Request(url)
+        response = urllib.urlopen(request)
+        content = response.read().decode("utf-8")
+
+        # Ensure we have a response
+        assert content
+
+
+class TestAboutPage(object):
+    '''
+    This class runs automated HTTP tests on the About page - this
+    includes all views used on the page.
+    '''
+
+    def test_habout_page(self):
+        '''
+        This method ensures that
+        '''
+        url = "%sabout" % URL
+
+        request = urllib.Request(url)
+        response = urllib.urlopen(request)
+        content = response.read().decode("utf-8")
+
+        # Ensure we have a response
+        assert content
 
 
 class TestPatternInputPage(object):
