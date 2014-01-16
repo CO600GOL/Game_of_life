@@ -7,19 +7,36 @@
  *     "\n" : denotes the next row
  */
 
-function Grid(gridId, x, y) {
+function CanvasGrid(selectorString, x, y, pixels) {
     /**
      * This class represents an editable grid that can be used to input a pattern
      * to the Game of Life engine.
      */
-    var canvas = $(gridId);
+    console.log("executed");
+    var canvas = $(selectorString);
     var xCells = x;
     var yCells = y;
+    var pixels = pixels;              // number of pixels per cell
 
     this.setup = function() {
         /**
-         *
+         * Sets up the grid on top of the canvas.
+         *  - Draw the grid
+         *  - Setup the event listener (duck knows how this works in javascript)
          */
+        // Draw Canvas
+        var canvasWidth = (xCells * pixels) + (xCells + 1);
+        var canvasHeight = (yCells * pixels) + (yCells + 1);
+        canvas.css("width", canvasWidth);
+        canvas.css("height", canvasHeight);
 
+        // Draw Grid
+        this.drawGrid();
     };
-};
+
+    this.drawGrid = function() {
+        /**
+         * Draws the grid.
+         */
+    };
+}
