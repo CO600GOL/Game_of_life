@@ -1,16 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+## The overarching template file with headers and more
+<%inherit file="projectconway:templates/template.mako" />
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-
-<title>TEST GRID</title>
-
-</head>
-
-<body>
-	<h1>THIS IS A TEST GRID</h1>
-	
-</body>
-</html>
+<%block name="content">
+</%block>

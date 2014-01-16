@@ -9,7 +9,8 @@ def pattern_input_view(request):
     to input a pattern to the website - the application must then input
     that pattern to a session for persistance across pages.
     '''
-    return {}
+    return {'title': 'Create Pattern',
+            'page': 'patternpage'}
 
 
 @view_config(route_name="pattern_input_receiver", renderer='json')

@@ -7,4 +7,5 @@ def about_view(request):
     to access general information about the project and the people who created
     it.
     '''
-    return {'page': 'aboutpage'}
+    return {'title': 'About',
+            'page': 'aboutpage'}

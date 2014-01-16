@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Project Conway</title>
+        <title>Project Conway - ${title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <link href="static/css/bootstrap.css" rel="stylesheet">
