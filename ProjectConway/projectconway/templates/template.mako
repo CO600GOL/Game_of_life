@@ -46,7 +46,7 @@
                             %>
                             <li class="${homeactive}"><a href="/">Home</a></li>
                             <li class="${tutorialactive}"><a href="#">Tutorial</a></li>
-                            <li class="${patternactive}"><a href="#">Create Pattern</a></li>
+                            <li class="${patternactive}"><a href="/create">Create Pattern</a></li>
                             <li class="${aboutactive}"><a href="/about">About</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -73,6 +73,7 @@
 
     	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     	<script src="https://code.jquery.com/jquery.js"></script>
+        <%block name="scripts" />
     	<!-- Include all compiled plugins (below), or include individual files as needed -->
     	<script src="static/js/bootstrap.js"></script>
     </body>

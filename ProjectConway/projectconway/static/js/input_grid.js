@@ -12,11 +12,17 @@ function CanvasGrid(selectorString, x, y, pixels) {
      * This class represents an editable grid that can be used to input a pattern
      * to the Game of Life engine.
      */
-    console.log("executed");
+    console.log("Creating CanvasGrid");
     var canvas = $(selectorString);
+    console.log(selectorString);
+    console.log(canvas);
+    if (!canvas){
+        throw "Canvas object could not be found";
+    }
     var xCells = x;
     var yCells = y;
-    var pixels = pixels;              // number of pixels per cell
+    var canvasWidth = (xCells * pixels) + (xCells + 1);
+    var canvasHeight = (yCells * pixels) + (yCells + 1);
 
     this.setup = function() {
         /**
@@ -25,18 +31,19 @@ function CanvasGrid(selectorString, x, y, pixels) {
          *  - Setup the event listener (duck knows how this works in javascript)
          */
         // Draw Canvas
-        var canvasWidth = (xCells * pixels) + (xCells + 1);
-        var canvasHeight = (yCells * pixels) + (yCells + 1);
-        canvas.css("width", canvasWidth);
-        canvas.css("height", canvasHeight);
+        //canvas.css("width", canvasWidth);
+        //canvas.css("height", canvasHeight);
 
         // Draw Grid
-        this.drawGrid();
+        drawGrid();
     };
 
-    this.drawGrid = function() {
+    function drawGrid() {
         /**
          * Draws the grid.
          */
+        console.log("Drawing grid");
+        var ctx = canvas[0].getContext("2d");
+        ctx.strokeRect(5, 5, 20, 20);
     };
 }
