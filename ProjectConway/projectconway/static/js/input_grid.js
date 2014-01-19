@@ -14,15 +14,14 @@ function CanvasGrid(selectorString, x, y, pixels) {
      */
     console.log("Creating CanvasGrid");
     var canvas = $(selectorString);
-    console.log(selectorString);
-    console.log(canvas);
+    this.canvasSelector = selectorString;
     if (!canvas){
         throw "Canvas object could not be found";
     }
     var xCells = x;
     var yCells = y;
-    var canvasWidth = (xCells * pixels) + (xCells + 1);
-    var canvasHeight = (yCells * pixels) + (yCells + 1);
+    var canvasWidth = (xCells * (pixels + 1)) + (xCells + 1);
+    var canvasHeight = (yCells * (pixels + 1)) + (yCells + 1);
 
     this.setup = function() {
         /**
@@ -30,12 +29,12 @@ function CanvasGrid(selectorString, x, y, pixels) {
          *  - Draw the grid
          *  - Setup the event listener (duck knows how this works in javascript)
          */
-        // Draw Canvas
-        //canvas.css("width", canvasWidth);
-        //canvas.css("height", canvasHeight);
+         // Draw Canvas
+         canvas[0].width =  canvasWidth;
+         canvas[0].height = canvasHeight;
 
-        // Draw Grid
-        drawGrid();
+         // Draw Grid
+         drawGrid();
     };
 
     function drawGrid() {
@@ -43,7 +42,25 @@ function CanvasGrid(selectorString, x, y, pixels) {
          * Draws the grid.
          */
         console.log("Drawing grid");
-        var ctx = canvas[0].getContext("2d");
-        ctx.strokeRect(5, 5, 20, 20);
+
+        // Draw X lines
+        var noOfLines = xCells + 1;
+
+        for (var i = 0; i <= noOfLines; i++){
+            var offset = ((pixels * i) + 0.5);
+            canvas.drawLine({
+                strokeStyle: '#000',
+                strokeWidth: 0.5,
+                x1: 0, y1: offset,
+                x2: canvasWidth, y2: offset
+            });
+
+            canvas.drawLine({
+                strokeStyle: '#000',
+                strokeWidth: 0.5,
+                x1: offset, y1: 0,
+                x2: offset, y2: canvasHeight
+            });
+        }
     };
 }
