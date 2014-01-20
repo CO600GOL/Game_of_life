@@ -7,19 +7,21 @@
  *     "\n" : denotes the next row
  */
 
-function CanvasGrid(selectorString, xCells, yCells, pixels) {
+function CanvasGrid(selectorString, xCells, yCells) {
     /**
      * This class represents an editable grid that can be used to input a pattern
      * to the Game of Life engine.
      */
     console.log("Creating CanvasGrid");
     var canvas = $(selectorString);
-    var canvasWidth = (xCells * (pixels + 1)) + (xCells + 1);
-    var canvasHeight = (yCells * (pixels + 1)) + (yCells + 1);
+    var canvasWidth;
+    var canvasHeight;
+    var pixels
 
     if (!canvas){
         throw "Canvas object could not be found";
     }
+    $(window).resize(this.setup); // resize on window change
 
     this.setup = function() {
         /**
@@ -27,10 +29,11 @@ function CanvasGrid(selectorString, xCells, yCells, pixels) {
          *  - Draw the grid
          *  - Setup the event listener (duck knows how this works in javascript)
          */
+        // Resize the canvas taking into consideration the parent container
         resizeCanvas();
-        $(window).resize(resizeCanvas); // resize on window change
 
         // Draw Grid
+        canvas.clearCanvas();
         drawGrid();
     };
 
@@ -42,11 +45,16 @@ function CanvasGrid(selectorString, xCells, yCells, pixels) {
          * The parent container requires an id of "canvas-container"
          */
         // Size the canvas relative to the div above
-        var xSize = $("#canvas-container").innerWidth();
-        canvas[0].width =  xSize;
-        //Set the size of the heigth relative to the size of the width
-        var ySize = Math.floor((xSize / xCells) * yCells);
-        canvas[0].height = ySize;
+        canvasWidth = $("#canvas-container").innerWidth();
+        canvasWidth = canvasWidth - (canvasWidth % xCells); //
+        canvas[0].width =  canvasWidth + 1;
+
+        // Set the size of the heigth relative to the size of the width
+        canvasHeight = Math.floor((canvasWidth / xCells) * yCells);
+        canvas[0].height = canvasHeight + 1;
+
+        // Adjust the pixel size of squares, given the new grid size
+        pixels = Math.floor(canvasWidth / xCells);
     }
 
     function drawGrid() {
