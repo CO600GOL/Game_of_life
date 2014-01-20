@@ -17,11 +17,13 @@ function CanvasGrid(selectorString, xCells, yCells) {
     var canvasWidth;
     var canvasHeight;
     var pixels;
+    var grid;
 
     if (!canvas){
         throw "Canvas object could not be found";
     }
     $("#canvas-container").resize(this.setup); // resize on window change
+    buildGrid();
 
     this.setup = function() {
         /**
@@ -36,6 +38,23 @@ function CanvasGrid(selectorString, xCells, yCells) {
         canvas.clearCanvas();
         drawGrid();
     };
+
+    function buildGrid() {
+        /**
+         * This function will build the grid variable
+         * a 2-dimensional array of bools, representing dead or living cells.
+         */
+        grid = new Array(yCells); // rows
+
+        for (var i = 0; i < xCells; i++) {
+            grid[i] = new Array(xCells); // columns
+
+            for (var j = 0; j < xCells; j++) {
+                grid[i][j] = false;
+            }
+        }
+
+    }
 
     function resizeCanvas(){
         /**
