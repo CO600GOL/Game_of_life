@@ -16,12 +16,12 @@ function CanvasGrid(selectorString, xCells, yCells) {
     var canvas = $(selectorString);
     var canvasWidth;
     var canvasHeight;
-    var pixels
+    var pixels;
 
     if (!canvas){
         throw "Canvas object could not be found";
     }
-    $(window).resize(this.setup); // resize on window change
+    $("#canvas-container").resize(this.setup); // resize on window change
 
     this.setup = function() {
         /**
@@ -46,7 +46,7 @@ function CanvasGrid(selectorString, xCells, yCells) {
          */
         // Size the canvas relative to the div above
         canvasWidth = $("#canvas-container").innerWidth();
-        canvasWidth = canvasWidth - (canvasWidth % xCells); //
+        canvasWidth = canvasWidth - (canvasWidth % xCells);
         canvas[0].width =  canvasWidth + 1;
 
         // Set the size of the heigth relative to the size of the width
