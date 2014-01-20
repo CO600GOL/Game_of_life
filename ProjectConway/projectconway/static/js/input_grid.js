@@ -29,16 +29,27 @@ function CanvasGrid(selectorString, x, y, pixels) {
          *  - Draw the grid
          *  - Setup the event listener (duck knows how this works in javascript)
          */
-        // Size the canvas relative to the div above
-        var xSize = $("#canvas-container").innerWidth()
-        canvas[0].width =  xSize;
-        //Set the size of the heigth relative to the size of the width
-        var ySize = Math.floor(xSize / xCells) * yCells
-        canvas[0].height = ySize;
+        resizeCanvas();
+        $(window).resize(resizeCanvas); // resize on window change
 
         // Draw Grid
         drawGrid();
     };
+
+    function resizeCanvas(){
+        /**
+         * This function resizes the Grid canvas, relative to
+         * the size of the parent div and the number of pixels required.
+         *
+         * The parent container requires an id of "canvas-container"
+         */
+        // Size the canvas relative to the div above
+        var xSize = $("#canvas-container").innerWidth();
+        canvas[0].width =  xSize;
+        //Set the size of the heigth relative to the size of the width
+        var ySize = Math.floor((xSize / xCells) * yCells);
+        canvas[0].height = ySize;
+    }
 
     function drawGrid() {
         /**
