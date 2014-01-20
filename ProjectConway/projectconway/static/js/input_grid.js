@@ -7,15 +7,13 @@
  *     "\n" : denotes the next row
  */
 
-function CanvasGrid(selectorString, x, y, pixels) {
+function CanvasGrid(selectorString, xCells, yCells, pixels) {
     /**
      * This class represents an editable grid that can be used to input a pattern
      * to the Game of Life engine.
      */
     console.log("Creating CanvasGrid");
     var canvas = $(selectorString);
-    var xCells = x;
-    var yCells = y;
     var canvasWidth = (xCells * (pixels + 1)) + (xCells + 1);
     var canvasHeight = (yCells * (pixels + 1)) + (yCells + 1);
 
@@ -58,9 +56,7 @@ function CanvasGrid(selectorString, x, y, pixels) {
         console.log("Drawing grid");
 
         // Draw X lines
-        var noOfLines = xCells + 1;
-
-        for (var i = 0; i <= noOfLines; i++){
+        for (var i = 0; i <= (xCells + 1); i++){
             var offset = ((pixels * i) + 0.5);
             canvas.drawLine({
                 strokeStyle: '#000',
@@ -69,12 +65,17 @@ function CanvasGrid(selectorString, x, y, pixels) {
                 x2: canvasWidth, y2: offset
             });
 
-            canvas.drawLine({
-                strokeStyle: '#000',
-                strokeWidth: 1,
-                x1: offset, y1: 0,
-                x2: offset, y2: canvasHeight
-            });
+        }
+
+        // Draw Y lines
+        for (var i = 0; i <= (yCells + 1); i++){
+           var offset = ((pixels * i) + 0.5);
+           canvas.drawLine({
+                    strokeStyle: '#000',
+                    strokeWidth: 1,
+                    x1: offset, y1: 0,
+                    x2: offset, y2: canvasHeight
+           });
         }
     };
 }
