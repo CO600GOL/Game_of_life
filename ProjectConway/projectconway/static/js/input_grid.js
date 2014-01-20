@@ -23,6 +23,7 @@ function CanvasGrid(selectorString, xCells, yCells) {
         throw "Canvas object could not be found";
     }
     $("#canvas-container").resize(this.setup); // resize on window change
+    canvas.click(handleMouseClick);
     buildGrid();
 
     this.setup = function() {
@@ -37,6 +38,7 @@ function CanvasGrid(selectorString, xCells, yCells) {
         // Draw Grid
         canvas.clearCanvas();
         drawGrid();
+        drawCells();
     };
 
     function buildGrid() {
@@ -44,12 +46,12 @@ function CanvasGrid(selectorString, xCells, yCells) {
          * This function will build the grid variable
          * a 2-dimensional array of bools, representing dead or living cells.
          */
-        grid = new Array(yCells); // rows
+        grid = new Array(xCells); // columns
 
         for (var i = 0; i < xCells; i++) {
-            grid[i] = new Array(xCells); // columns
+            grid[i] = new Array(yCells); // rows
 
-            for (var j = 0; j < xCells; j++) {
+            for (var j = 0; j < yCells; j++) {
                 grid[i][j] = false;
             }
         }
@@ -105,4 +107,53 @@ function CanvasGrid(selectorString, xCells, yCells) {
            });
         }
     };
+
+    function handleMouseClick(e) {
+        /**
+         * Deals with mouse events.
+         * Finds which cells as been clicked and toggles that cell's state.
+         */
+        var x = Math.floor(e.offsetX / pixels);
+        var y = Math.floor(e.offsetY / pixels);
+
+        toggleCell(x, y);
+    }
+
+    function toggleCell(x, y) {
+        /**
+         * This function toggles a cell's state and
+         * paints the result on the grid.
+         */
+        var state = !grid[x][y];
+        grid[x][y] = state;
+
+        drawCell(x, y, state);
+    }
+
+    function drawCells() {
+        /**
+         * Draw all the cells, given the states in the grid array
+         */
+        for (var i = 0; i < xCells; i++) {
+            for (var j = 0; j < yCells; j++) {
+                drawCell(i, j, grid[i][j]);
+            }
+        }
+    }
+
+    function drawCell(x, y, state) {
+        /**
+         * Function that draws a given cell on the grid with a given state
+         */
+        var colour;
+        colour = state ? "#000": "#FFF";
+
+        $('canvas').drawRect({
+            fillStyle: colour,
+            x: (pixels * x) + 1, y: (pixels * y) + 1,
+            width: pixels - 1,
+            height: pixels - 1,
+            fromCenter: false
+        });
+    }
 }
