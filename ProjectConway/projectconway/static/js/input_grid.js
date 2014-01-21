@@ -12,7 +12,7 @@ function CanvasGrid(selectorString, xCells, yCells) {
      * This class represents an editable grid that can be used to input a pattern
      * to the Game of Life engine.
      */
-    console.log("Creating CanvasGrid");
+    // Global variables
     var canvas = $(selectorString);
     var canvasWidth;
     var canvasHeight;
@@ -23,13 +23,14 @@ function CanvasGrid(selectorString, xCells, yCells) {
         throw "Canvas object could not be found";
     }
 
+
+    // Class Methods
     this.setup = function() {
         /**
          * Sets up the grid on top of the canvas.
          *  - Draw the grid
          *  - Setup the event listener (duck knows how this works in javascript)
          */
-        console.log("Setup called");
         // Resize the canvas taking into consideration the parent container
         resizeCanvas();
 
@@ -39,11 +40,34 @@ function CanvasGrid(selectorString, xCells, yCells) {
         drawCells();
     };
 
-    //var setup = function() {console.log("TEst")};
+    this.getGridPattern = function() {
+        /**
+         * This method returns the grid pattern in the form of a string.
+         * Rows - "\n"
+         * Alive Cells - "*"
+         * Dead Cells - "-"
+         */
+        var patternString = "";
+        for (var i = 0; i < grid.length; i++) {
+            for (var j = 0; j < grid[i].length; j++) {
+                patternString += grid[j][i] ? "*": "-";
+            }
+            if (i < (grid.length - 1)){
+                patternString += "\n";
+            }
+        }
+
+        return patternString;
+    }
+
+
+    // Class Construction
     window.addEventListener("resize", this.setup, false)// resize on window change
     canvas.click(handleMouseClick);
     buildGrid();
 
+
+    // Private functions
     function buildGrid() {
         /**
          * This function will build the grid variable
