@@ -85,10 +85,11 @@ function CanvasGrid(selectorString, xCells, yCells) {
         console.log("Drawing grid");
 
         // Draw X lines
-        for (var i = 0; i <= (xCells + 1); i++){
+        for (var i = 0; i < (xCells + 1); i++){
+            var lineColour =  (i == 0 || i == xCells)? "#000" : "#777";
             var offset = ((pixels * i) + 0.5);
             canvas.drawLine({
-                strokeStyle: '#000',
+                strokeStyle: lineColour,
                 strokeWidth: 1,
                 x1: 0, y1: offset,
                 x2: canvasWidth, y2: offset
@@ -97,14 +98,15 @@ function CanvasGrid(selectorString, xCells, yCells) {
         }
 
         // Draw Y lines
-        for (var i = 0; i <= (yCells + 1); i++){
-           var offset = ((pixels * i) + 0.5);
-           canvas.drawLine({
-                    strokeStyle: '#000',
-                    strokeWidth: 1,
-                    x1: offset, y1: 0,
-                    x2: offset, y2: canvasHeight
-           });
+        for (var i = 0; i < (yCells + 1); i++){
+            var lineColour =  (i == 0 || i == yCells)? "#000" : "#777";
+            var offset = ((pixels * i) + 0.5);
+            canvas.drawLine({
+                strokeStyle: lineColour,
+                strokeWidth: 1,
+                x1: offset, y1: 0,
+                x2: offset, y2: canvasHeight
+            });
         }
     };
 
