@@ -20,53 +20,57 @@
             </div>
 
             <div class="row">
-                <!-- NAVBAR!-->
-                <div class="navbar navbar-inverse" role="navigation">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <span class="navbar-brand">Menu</span>
+                <div class="col-md-12">
+                    <!-- NAVBAR!-->
+                    <div class="navbar navbar-inverse" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <span class="navbar-brand">Menu</span>
+                        </div>
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <%
+                                homeactive, tutorialactive, patternactive, aboutactive = [""] * 4
+                                if page == "homepage":
+                                    homeactive = "active"
+                                elif page == "tutorialpage":
+                                    tutorialactive = "active"
+                                elif page == "patternpage":
+                                    patternactive = "active"
+                                elif page == "aboutpage":
+                                    aboutactive = "active"
+                                %>
+                                <li class="${homeactive}"><a href="/">Home</a></li>
+                                <li class="${tutorialactive}"><a href="#">Tutorial</a></li>
+                                <li class="${patternactive}"><a href="/create">Create Pattern</a></li>
+                                <li class="${aboutactive}"><a href="/about">About</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="http://deeson-online.co.uk/" target="_blank">Deeson Online</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
                     </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <%
-                            homeactive, tutorialactive, patternactive, aboutactive = [""] * 4
-                            if page == "homepage":
-                                homeactive = "active"
-                            elif page == "tutorialpage":
-                                tutorialactive = "active"
-                            elif page == "patternpage":
-                                patternactive = "active"
-                            elif page == "aboutpage":
-                                aboutactive = "active"
-                            %>
-                            <li class="${homeactive}"><a href="/">Home</a></li>
-                            <li class="${tutorialactive}"><a href="#">Tutorial</a></li>
-                            <li class="${patternactive}"><a href="/create">Create Pattern</a></li>
-                            <li class="${aboutactive}"><a href="/about">About</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="http://deeson-online.co.uk/" target="_blank">Deeson Online</a></li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
                 </div>
             </div>
 
             <%block name="content" />
 
             <div class="row">
-                <div class="navbar navbar-inverse">
-                    <%
-                    import datetime
-                    year = str(datetime.datetime.now().year)
-                    %>
-                    <ul class="nav navbar-nav">
-                       <li><a>© Deeson Group ${year}</a></li>
-                    </ul>
+                <div class="col-md-12">
+                   <div class="navbar navbar-inverse">
+                        <%
+                        import datetime
+                        year = str(datetime.datetime.now().year)
+                        %>
+                        <ul class="nav navbar-nav">
+                           <li><a>© Deeson Group ${year}</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

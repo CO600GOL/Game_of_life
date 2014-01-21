@@ -22,9 +22,6 @@ function CanvasGrid(selectorString, xCells, yCells) {
     if (!canvas){
         throw "Canvas object could not be found";
     }
-    $("#canvas-container").resize(this.setup); // resize on window change
-    canvas.click(handleMouseClick);
-    buildGrid();
 
     this.setup = function() {
         /**
@@ -32,6 +29,7 @@ function CanvasGrid(selectorString, xCells, yCells) {
          *  - Draw the grid
          *  - Setup the event listener (duck knows how this works in javascript)
          */
+        console.log("Setup called");
         // Resize the canvas taking into consideration the parent container
         resizeCanvas();
 
@@ -40,6 +38,11 @@ function CanvasGrid(selectorString, xCells, yCells) {
         drawGrid();
         drawCells();
     };
+
+    //var setup = function() {console.log("TEst")};
+    window.addEventListener("resize", this.setup, false)// resize on window change
+    canvas.click(handleMouseClick);
+    buildGrid();
 
     function buildGrid() {
         /**

@@ -3,7 +3,7 @@
 
 <%block name="content">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3" id="canvas-container">
+            <div class="col-xs-10 col-sm-8 col-md-6 col-xs-offset-1 col-sm-offset-2 col-md-offset-3" id="canvas-container">
                 <canvas id="pattern_input"></canvas>
             </div>
         </div>
