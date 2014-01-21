@@ -17,7 +17,8 @@ requires = [
     'transaction',
     'zope.sqlalchemy',
     'waitress',
-    'pytest'
+    'pytest',
+    'pexpect'
     ]
 
 setup(name='ProjectConway',
