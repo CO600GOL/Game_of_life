@@ -33,5 +33,5 @@ def pattern_input_receiver_JSON(request):
         golcontroller.play_next_turn()
 
 
-    return {"turns": golcontroller.get_turn_count() ,
+    return {"turns": golcontroller.get_turn_count(),
             "runtime": golcontroller.get_turn_count() * TIME_DELAY}
