@@ -19,7 +19,18 @@ function Submitter(grid) {
             type: "POST",
             data: JSON.stringify(pattern),
             dataType: 'json',
-            success: function(result) {alert("Turns: " + result["turns"] + " Time: " + result["runtime"])}
+            success: function(result) {
+                $("#loading_popup").modal("hide");
+                $("#success_popup").modal({show: true});
+                var gen_string = (result["turns"] > 1) ? "generations" : "generation";
+                var sec_string = (result["runtime"] != 1) ? "seconds" : "second";
+                $("#success_content").html("<p>This pattern will last " + result["turns"] + " " + gen_string + " and " + result["runtime"] + " " + sec_string + ".</p> <p>Do you wish to continue?</p>");
+            },
+            error: function() {
+                $("#loading_popup").modal("hide");
+                $("#error_alert").addClass("in");
+                $("#error_content").html("<p>An issue occurred while connecting with the server. Please try again.</p>");
+            }
         });
     }
 }
