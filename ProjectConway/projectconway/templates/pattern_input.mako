@@ -40,8 +40,8 @@
                 </div>
             </div>
 
-            <div class="alert alert-danger alert-block fade" id="error_alert">
-                <button type="button" class="close" data-dismiss="alert">x</button>
+            <div class="alert alert-danger alert-block in" id="error_alert">
+                <button type="button" class="close" id="closealert_button">x</button>
                 <h4>Opps! There has been an error:</h4>
                 <div id="error_content"></div>
             </div>
@@ -71,6 +71,7 @@
                 // Set up pattern submission
                 var s = new Submitter(g);
                 $("#submit_button").click(s.submissionEventHandler);
+                $('#closealert_button').click(s.alertCloseHandler);
             });
         </script>
 </%block>

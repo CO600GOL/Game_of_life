@@ -28,10 +28,19 @@ function Submitter(grid) {
             },
             error: function() {
                 $("#loading_popup").modal("hide");
-                $("#error_alert").addClass("in");
+
+                $("#error_alert").css("top", "auto").css("left", "auto");
                 $("#error_content").html("<p>An issue occurred while connecting with the server. Please try again.</p>");
             }
         });
+    }
+
+    this.alertCloseHandler = function(event) {
+        /**
+         * Deal with the error alert close button being clicked.
+         * Ie. move it back off the screen.
+         */
+        $("#error_alert").css("top", "").css("left", "");
     }
 }
 
