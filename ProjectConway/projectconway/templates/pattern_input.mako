@@ -63,6 +63,10 @@
                 // Setup grid
                 var g = new CanvasGrid("#pattern_input", ${x_cells}, ${y_cells}, 20);
                 g.setup();
+                // Check the variable has been passed in
+                % if pattern:
+                    g.setGridPattern("${pattern}");
+                % endif
 
                 // Set up pattern submission
                 var s = new Submitter(g);

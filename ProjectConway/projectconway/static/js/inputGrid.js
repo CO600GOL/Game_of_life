@@ -60,6 +60,26 @@ function CanvasGrid(selectorString, xCells, yCells) {
         return patternString;
     }
 
+    this.setGridPattern = function(patternString) {
+        /**
+         * This method translates a string into a grid pattern, printing
+         * it back on screen.
+         * Rows - "\n"
+         * Living Cells - "*"
+         * Dead Cells - "-"
+         */
+        patternString = patternString.split("\n")
+        for (var i = 0; i < patternString.length; i++) {
+            for (var j = 0; j < patternString[i].length; j++) {
+                if(patternString[j][i] == "*") {
+                    grid[i][j] = true;
+                }
+            }
+        }
+
+        drawCells();
+    }
+
 
     // Class Construction
     window.addEventListener("resize", this.setup, false)// resize on window change
