@@ -1,4 +1,3 @@
-import json
 from pyramid.view import view_config
 from game_of_life import TIME_LIMIT, TIME_DELAY
 from game.game_controllers.game_controllers import GameOfLifeController
