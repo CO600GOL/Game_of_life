@@ -18,6 +18,7 @@
                     <div class="modal-content">
                         <div class="modal-body">
                             <p class="loading_popup_txt">Loading...</p>
+                            <img class="loading_image" src="static/images/loading.gif"/>
                         </div>
                     </div>
                 </div>

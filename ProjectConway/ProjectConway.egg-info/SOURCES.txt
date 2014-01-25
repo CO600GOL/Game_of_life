@@ -22,6 +22,7 @@ projectconway/static/css/bootstrap-theme.css
 projectconway/static/css/bootstrap-theme.min.css
 projectconway/static/css/bootstrap.css
 projectconway/static/css/bootstrap.min.css
+projectconway/static/css/projectConway.css
 projectconway/static/images/deeson-online.png
 projectconway/static/images/tinkersoc.png
 projectconway/static/images/ukcschoolofcomputing.jpg
