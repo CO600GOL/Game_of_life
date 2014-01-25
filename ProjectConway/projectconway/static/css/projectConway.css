@@ -1,0 +1,17 @@
+#loading_popup {
+
+}
+
+#error_alert {
+  position: absolute;
+  top: -999px;
+  left: -999px;
+  z-index: 1050;
+  width: auto;
+  margin: auto;
+}
+
+.loading_popup_txt {
+    text-align: center;
+    font-weight: bold;
+}

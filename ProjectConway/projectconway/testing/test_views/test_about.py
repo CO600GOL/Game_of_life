@@ -18,3 +18,5 @@ class TestAbout(object):
 
         # Test that a response has been given.
         assert response
+        assert response["page"] == "aboutpage"
+        assert response["title"] == "About"
