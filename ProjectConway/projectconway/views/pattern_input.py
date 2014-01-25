@@ -8,9 +8,19 @@ def pattern_input_view(request):
     Executes the logic for the Pattern Input web page, allowing the user
     to input a pattern to the website - the application must then input
     that pattern to a session for persistance across pages.
+
+    The method also checks for a pattern already existing in the session, so
+    that the user can go back and edit it at any point.
     '''
-    return {'title': 'Create Pattern',
+
+    data = {'title': 'Create Pattern',
             'page': 'patternpage'}
+
+    # Work out if a pattern is already in the session
+    if 'pattern' in request.session:
+        data['pattern'] = request.session['pattern'].replace('\n', "\\n")
+
+    return data
 
 
 @view_config(route_name="pattern_input_receiver", renderer='json')
@@ -33,5 +43,5 @@ def pattern_input_receiver_JSON(request):
         golcontroller.play_next_turn()
 
 
-    return {"turns": golcontroller.get_turn_count() ,
+    return {"turns": golcontroller.get_turn_count(),
             "runtime": golcontroller.get_turn_count() * TIME_DELAY}
