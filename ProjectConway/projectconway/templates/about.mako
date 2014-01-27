@@ -2,19 +2,27 @@
 <%inherit file="projectconway:templates/template.mako" />
 
 <%block name="content">
-	<div class="container">
-    	<div class="row">
-        	<div class="col-md-12">
-            	<h1>About...</h1>
-        	</div>
-    	</div>
+	<link href="static/css/projectConway.css" rel="stylesheet">
 
+	<div class="page-title">
+		<div class="container">
+    		<div class="row">
+        		<div class="col-md-12">
+            		<h1>About...</h1>
+        		</div>
+    		</div>
+    	</div>
+    </div>
+
+	<div class="container">
     	<div class="row">
         	<div class="col-md-12">
             	<h2>UKC School of Computing</h2>
         	</div>
     	</div>
+    </div>
 
+	<div class="container">
     	<div class="row">
         	<div class="col-md-8">
             	<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
@@ -28,13 +36,17 @@
             	<img src="static/images/ukcschoolofcomputing.jpg" alt="UKC School of Computing Logo" class="img-responsive"/>
         	</div>
     	</div>
+    </div>
 
+	<div class="container">
     	<div class="row">
         	<div class="col-md-12">
             	<h2>Tinkersoc</h2>
         	</div>
     	</div>
+    </div>
 
+	<div class="container">
     	<div class="row">
         	<div class="col-md-8">
             	<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
@@ -54,13 +66,17 @@
             	<img src="static/images/tinkersoc.png" alt="Tinkersoc Logo" class="img-responsive"/>
         	</div>
     	</div>
-
+    </div>
+    
+    <div class="container">
     	<div class="row">
         	<div class="col-md-12">
             	<h2>The Deeson Group</h2>
         	</div>
     	</div>
+    </div>
 
+	<div class="container">
     	<div class="row">
         	<div class="col-md-8">
             	<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris

@@ -2,7 +2,9 @@
 <%inherit file="projectconway:templates/template.mako" />
 
 <%block name="content">
-	<div>
+	<link href="static/css/projectConway.css" rel="stylesheet">
+
+	<div class="page-title">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
