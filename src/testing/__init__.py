@@ -7,4 +7,4 @@ Created on 20 Oct 2013
 if __name__ == "__main__":
     import pytest
 
-    pytest.main(args='-v')
+    pytest.main(args='-v ../../ProjectConway')

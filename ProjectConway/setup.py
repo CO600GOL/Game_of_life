@@ -17,6 +17,8 @@ requires = [
     'transaction',
     'zope.sqlalchemy',
     'waitress',
+    'pytest',
+    'pexpect'
     ]
 
 setup(name='ProjectConway',
@@ -29,9 +31,9 @@ setup(name='ProjectConway',
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
         ],
-      author='',
-      author_email='',
-      url='',
+      author='Michael Wilson, Richard Lancaster, Geoff Doffs, Niklas Scholz',
+      author_email='mw362@kent.ac.uk, rl221@kent.ac.uk, gd96@kent.ac.uk, ns468@kent.ac.uk',
+      url='https://github.com/CO600GOL/Game_of_life',
       keywords='web wsgi bfg pylons pyramid',
       packages=find_packages(),
       include_package_data=True,
