@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- NAVBAR!-->
-                    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">                    
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                 <span class="sr-only">Toggle navigation</span>
@@ -26,8 +26,10 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <span class="navbar-brand">Menu</span>
+                            
+                    		<li><span class="navbar-brand">Project Conway</span></li>
                         </div>
+                        
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
                                 <%
