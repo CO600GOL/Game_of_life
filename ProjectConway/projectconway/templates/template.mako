@@ -16,13 +16,9 @@
     <body>
         <div class="container">
             <div class="row">
-                <img src="static/images/conwaylogo.svg" alt="Project Conway logo" class="img-responsive" />
-            </div>
-
-            <div class="row">
                 <div class="col-md-12">
                     <!-- NAVBAR!-->
-                    <div class="navbar navbar-inverse" role="navigation">
+                    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                 <span class="sr-only">Toggle navigation</span>
@@ -62,7 +58,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                   <div class="navbar navbar-inverse">
+                   <div class="navbar navbar-inverse navbar-fixed-bottom">
                         <%
                         import datetime
                         year = str(datetime.datetime.now().year)
