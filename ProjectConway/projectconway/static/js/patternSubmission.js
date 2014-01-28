@@ -11,7 +11,6 @@ function Submitter(grid) {
          * An event handling function that submits the current pattern of the grid
          * to the central webserver
          */
-        console.log("Submit button pressed");
         var pattern = grid.getGridPattern();
 
         $.ajax({
@@ -27,20 +26,9 @@ function Submitter(grid) {
                 $("#success_content").html("<p>This pattern will last " + result["turns"] + " " + gen_string + " and " + result["runtime"] + " " + sec_string + ".</p> <p>Do you wish to continue?</p>");
             },
             error: function() {
-                $("#loading_popup").modal("hide");
-
-                $("#error_alert").css("top", "auto").css("left", "auto");
-                $("#error_content").html("<p>An issue occurred while connecting with the server. Please try again.</p>");
+                $.getScript('static/js/ajaxError.js', alertOpenHandler());
             }
         });
-    }
-
-    this.alertCloseHandler = function(event) {
-        /**
-         * Deal with the error alert close button being clicked.
-         * Ie. move it back off the screen.
-         */
-        $("#error_alert").css("top", "").css("left", "");
     }
 }
 
