@@ -3,6 +3,7 @@ from pyramid.testing import DummyRequest
 from game_of_life import TIME_DELAY
 from projectconway.views.pattern_input import pattern_input_view
 from projectconway.views.pattern_input import pattern_input_receiver_JSON
+from projectconway.views.pattern_input import pattern_input_clearer_JSON
 
 
 def create_input_pattern():
@@ -89,3 +90,20 @@ class TestPatternInput(object):
 
         # Test correct time has been calculated
         assert responseDict["runtime"] == TIME_DELAY * 53
+    
+    def test_pattern_clearer_JSON(self):
+        '''
+        Tests the JSON clearer view linked to the Pattern Input web page.
+        '''
+        # Setup
+        request = DummyRequest(route='/pattern_clearer.json')
+        input = create_input_pattern()
+        request.body = json.dumps(input)
+        request.content_type = "application/json"
+        
+        request.json_body = input
+        request.session["pattern"] = input
+        
+        # Test input has been removed from session
+        response = pattern_input_clearer_JSON(request)
+        assert "pattern" not in response.keys()

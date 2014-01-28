@@ -5,12 +5,16 @@
         <link href="static/css/projectConway.css" rel="stylesheet">
 
         <div class="row">
-            <div class="col-xs-10 col-sm-8 col-md-6 col-xs-offset-1 col-sm-offset-2 col-md-offset-3" id="canvas-container">
+            <div class="col-xs-9 col-sm-7 col-md-5 col-xs-offset-1 col-sm-offset-2 col-md-offset-3" id="canvas-container">
                 <canvas id="pattern_input"></canvas>
             </div>
 
             <div class="col-xs-1 col-sm-2 col-md-3">
                 <button id="submit_button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#loading_popup">Submit</button>
+            </div>
+            
+            <div class="col-xs-1 col-sm-2 col-md-3">
+            	<button id="clear_button" type="button" class="btn btn-primary">Clear</button>
             </div>
 
             <div class="modal fade" id="loading_popup" role="dialog" aria-hidden="true">
@@ -53,6 +57,8 @@
         <script src="static/js/jcanvas.js"></script>
         <script src="static/js/inputGrid.js"></script>
         <script src="static/js/patternSubmission.js"></script>
+        <script src="static/js/patternClear.js"></script>
+        <script src="static/js/ajaxError.js"></script>
         <script>
             <%
                 from game_of_life import X_CELLS, Y_CELLS
@@ -72,6 +78,11 @@
                 var s = new Submitter(g);
                 $("#submit_button").click(s.submissionEventHandler);
                 $('#closealert_button').click(s.alertCloseHandler);
+                
+                // Set up pattern clearer
+                var c = new Clearer(g);
+                $("#clear_button").click(c.clearEventHandler);
+                $('#closealert_button').click(c.alertCloseHandler);
             });
         </script>
 </%block>

@@ -45,3 +45,13 @@ def pattern_input_receiver_JSON(request):
 
     return {"turns": golcontroller.get_turn_count(),
             "runtime": golcontroller.get_turn_count() * TIME_DELAY}
+
+@view_config(route_name="pattern_input_clearer", renderer='json')
+def pattern_input_clearer_JSON(request):
+    '''
+    This view receives a user's pattern input in the form of a JSON string and
+    removes it from the session.
+    '''
+    if 'pattern' in request.session:
+        del request.session["pattern"]
+    return request.session

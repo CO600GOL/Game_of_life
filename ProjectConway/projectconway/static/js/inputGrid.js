@@ -79,6 +79,20 @@ function CanvasGrid(selectorString, xCells, yCells) {
 
         drawCells();
     }
+    
+    this.clearGrid = function() {
+    	/**
+    	 * This method clears the grid of its current pattern, making every
+    	 * cell dead.
+    	 */
+    	 for (var i = 0; i < grid.length; i++) {
+    	 	for (var j = 0; j < grid[i].length; j++) {
+    	 		grid[i][j] = false;
+    	 	}
+    	 }
+    	 
+    	 drawCells();
+    }
 
 
     // Class Construction
