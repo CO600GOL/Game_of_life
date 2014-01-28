@@ -11,7 +11,6 @@ function Submitter(grid) {
          * An event handling function that submits the current pattern of the grid
          * to the central webserver
          */
-        console.log("Submit button pressed");
         var pattern = grid.getGridPattern();
 
         $.ajax({
