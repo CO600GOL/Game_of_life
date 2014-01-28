@@ -16,21 +16,12 @@ function Clearer(grid) {
             url: URL,
             type: "POST",
             dataType: 'json',
-            success: function(result) {
+            success: function() {
             	grid.clearGrid();
             },
             error: function() {
-                $("#error_alert").css("top", "auto").css("left", "auto");
-                $("#error_content").html("<p>An issue occurred while connecting with the server. Please try again.</p>");
+            	$.getScript('static/ajaxError.js', alertOpenHandler());
             }
         });
  	}
- 	
- 	this.alertCloseHandler = function(event) {
-        /**
-         * Deal with the error alert close button being clicked.
-         * Ie. move it back off the screen.
-         */
-        $("#error_alert").css("top", "").css("left", "");
-    }
  }

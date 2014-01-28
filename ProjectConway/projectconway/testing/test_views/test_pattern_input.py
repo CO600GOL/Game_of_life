@@ -102,10 +102,7 @@ class TestPatternInput(object):
         request.content_type = "application/json"
         
         request.json_body = input
-        
-        # Test correct input has been given to session
-        response = pattern_input_receiver_JSON(request)
-        assert request.session["pattern"] == input
+        request.session["pattern"] = input
         
         # Test input has been removed from session
         response = pattern_input_clearer_JSON(request)

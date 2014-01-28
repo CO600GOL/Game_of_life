@@ -58,6 +58,7 @@
         <script src="static/js/inputGrid.js"></script>
         <script src="static/js/patternSubmission.js"></script>
         <script src="static/js/patternClear.js"></script>
+        <script src="static/js/ajaxError.js"></script>
         <script>
             <%
                 from game_of_life import X_CELLS, Y_CELLS
