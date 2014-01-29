@@ -4,7 +4,7 @@
  */
 
 function Submitter(grid) {
-    var URL = "/pattern_receiver.json";
+    var URL = "/fpattern_receiver.json";
 
     this.submissionEventHandler = function(event) {
         /**
@@ -29,7 +29,7 @@ function Submitter(grid) {
             error: function() {
                 $("#loading_popup").modal("hide");
 
-                $("#error_alert").css("top", "auto").css("left", "auto");
+                $("#error_alert").css("top", "5%").css("left", "3%");
                 $("#error_content").html("<p>An issue occurred while connecting with the server. Please try again.</p>");
             }
         });
