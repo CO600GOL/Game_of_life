@@ -22,6 +22,7 @@
                     <div class="modal-content">
                         <div class="modal-body">
                             <p class="loading_popup_txt">Loading...</p>
+                            <img class="loading_image" src="static/images/loading.gif"/>
                         </div>
                     </div>
                 </div>
@@ -67,7 +68,7 @@
             %>
             $(document).ready(function() {
                 // Setup grid
-                var g = new CanvasGrid("#pattern_input", ${x_cells}, ${y_cells}, 20);
+                var g = new CanvasGrid("#pattern_input", ${x_cells}, ${y_cells});
                 g.setup();
                 // Check the variable has been passed in
                 % if pattern:
