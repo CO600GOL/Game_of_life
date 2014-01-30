@@ -5,13 +5,11 @@
 	<link href="static/css/projectConway.css" rel="stylesheet">
 
 	<div class="container">
-		<div class="page-title">
-			<div class="row">
-				<div class="col-md-12">
-					<h1>About...</h1>
-				</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h1>About...</h1>
 			</div>
-	    </div>
+		</div>
 	
 		
 		<div class="row">

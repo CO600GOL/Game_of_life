@@ -5,26 +5,24 @@
 	<link href="static/css/projectConway.css" rel="stylesheet">
 	
 	<div class="container">
-		<div class="page-title">
-	        <div class="row">
-	            <div class="col-xs-9 col-sm-7 col-md-5 col-xs-offset-1 col-sm-offset-2 col-md-offset-3" id="canvas-container">
-	                <canvas id="pattern_input"></canvas>
-	            </div>
-	
-	            <div class="col-xs-1 col-sm-2 col-md-3">
-	                <button id="submit_button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#loading_popup">Submit</button>
-	            </div>
-				
-	            <div class="modal fade" id="loading_popup" role="dialog" aria-hidden="true">
-	                <div class="modal-dialog">
-	                    <div class="modal-content">
-	                        <div class="modal-body">
-	                            <p class="loading_popup_txt">Loading...</p>
-	                     	</div>
-	                   	</div>
-	                </div>
-	            </div>
-	        </div>
+        <div class="row">
+            <div class="col-xs-9 col-sm-7 col-md-5 col-xs-offset-1 col-sm-offset-2 col-md-offset-3" id="canvas-container">
+                <canvas id="pattern_input"></canvas>
+            </div>
+
+            <div class="col-xs-1 col-sm-2 col-md-3">
+                <button id="submit_button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#loading_popup">Submit</button>
+            </div>
+			
+            <div class="modal fade" id="loading_popup" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p class="loading_popup_txt">Loading...</p>
+                     	</div>
+                   	</div>
+                </div>
+            </div>
         </div>
 
         <div class="modal fade" id="success_popup" role="dialog" aria-hidden="true">
