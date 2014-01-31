@@ -46,6 +46,25 @@
                 </div>
             </div>
         </div>
+        
+        <div class="modal fade" id="clear_warning" role="dialog" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+        			<div class="modal-header">
+        				<h4>Warning!</h4>
+        			</div>
+        			
+        			<div class="modal-body">
+        				<div id="warning_content"></div>
+        			</div>
+        			
+        			<div class="modal-footer">
+        				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        				<button type="button" class="btn btn-danger" id="clearconfirm_button" "data-dismiss="modal">Clear</button>
+        			</div>
+        		</div>
+        	</div>
+        </div>
 		
         <div class="alert alert-danger alert-block in" id="error_alert">
             <button type="button" class="close" id="closealert_button">x</button>
@@ -85,6 +104,7 @@
                 // Set up pattern clearer
                 var c = new Clearer(g);
                 $("#clear_button").click(c.clearEventHandler);
+                $("#clearconfirm_button").click(c.clearConfirmEventHandler);
                 $('#closealert_button').click(c.alertCloseHandler);
             });
         </script>
