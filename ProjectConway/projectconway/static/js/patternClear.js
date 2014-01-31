@@ -21,6 +21,7 @@ function Clearer(grid) {
             },
             error: function() {
             	$.getScript('static/ajaxError.js', alertOpenHandler());
+                $("#error_alert").css("top", "5%").css("left", "3%");
             }
         });
  	}
