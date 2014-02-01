@@ -5,7 +5,7 @@ Created on 23 Oct 2013
 '''
 
 import copy
-from game_of_life.data_structures import state
+from game_of_life.data_structures.states import Alive, Dead
 
 
 class Calculator(object):
@@ -54,16 +54,16 @@ class Calculator(object):
 
         alive = 0
         for neighbour in neighbour_cells:
-            if neighbour.get_state() == state.Alive():
+            if neighbour.get_state() == Alive():
                 alive += 1
 
-        if alive == born and (cell.get_state() == state.Dead()):
-            return state.Alive()
-        elif cell.get_state() == state.Alive() and \
+        if alive == born and (cell.get_state() == Dead()):
+            return Alive()
+        elif cell.get_state() == Alive() and \
                     (alive == stay_one or alive == stay_two):
-            return state.Alive()
+            return Alive()
         else:
-            return state.Dead()
+            return Dead()
 
     def calculate_generation(self, grid):
         '''

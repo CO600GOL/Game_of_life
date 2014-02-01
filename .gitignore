@@ -2,3 +2,10 @@
 *.pydevproject*
 *pycache*
 *.pyc
+env/
+*.swp
+*.swo
+*.sqlite
+*.egg-info/
+.idea
+.settings

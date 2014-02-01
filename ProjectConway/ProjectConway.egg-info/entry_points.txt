@@ -1,0 +1,5 @@
+      [paste.app_factory]
+      main = projectconway:main
+      [console_scripts]
+      initialize_ProjectConway_db = projectconway.scripts.initializedb:main
+      

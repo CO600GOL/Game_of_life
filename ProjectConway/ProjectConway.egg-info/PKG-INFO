@@ -1,0 +1,35 @@
+Metadata-Version: 1.1
+Name: ProjectConway
+Version: 0.0
+Summary: ProjectConway
+Home-page: https://github.com/CO600GOL/Game_of_life
+Author: Michael Wilson, Richard Lancaster, Geoff Doffs, Niklas Scholz
+Author-email: mw362@kent.ac.uk, rl221@kent.ac.uk, gd96@kent.ac.uk, ns468@kent.ac.uk
+License: UNKNOWN
+Description: ProjectConway README
+        ==================
+        
+        Getting Started
+        ---------------
+        
+        - cd <directory containing this file>
+        
+        - $VENV/bin/python setup.py develop
+        
+        - $VENV/bin/initialize_ProjectConway_db development.ini
+        
+        - $VENV/bin/pserve development.ini
+        
+        
+        
+        0.0
+        ---
+        
+        -  Initial version
+        
+Keywords: web wsgi bfg pylons pyramid
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Framework :: Pyramid
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: WSGI :: Application
