@@ -1,0 +1,7 @@
+language: python
+python:
+  - "3.2"
+
+install: "make setup"
+
+script: "make test"
