@@ -22,6 +22,11 @@ projectconway/static/css/bootstrap-theme.css
 projectconway/static/css/bootstrap-theme.min.css
 projectconway/static/css/bootstrap.css
 projectconway/static/css/bootstrap.min.css
+projectconway/static/css/projectConway.css
+projectconway/static/images/Rule_1.gif
+projectconway/static/images/Rule_2.gif
+projectconway/static/images/Rule_3.gif
+projectconway/static/images/Rule_4.gif
 projectconway/static/images/deeson-online.png
 projectconway/static/images/tinkersoc.png
 projectconway/static/images/ukcschoolofcomputing.jpg
@@ -34,8 +39,10 @@ projectconway/templates/about.mako
 projectconway/templates/homepage.mako
 projectconway/templates/mytemplate.pt
 projectconway/templates/pattern_input.mako
+projectconway/templates/rules.mako
 projectconway/templates/template.mako
 projectconway/views/__init__.py
 projectconway/views/about.py
 projectconway/views/home_page.py
 projectconway/views/pattern_input.py
+projectconway/views/rules.py
