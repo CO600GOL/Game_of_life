@@ -1,5 +1,5 @@
 from pyramid.testing import DummyRequest
-from projectconway.views.about import about_view
+from projectconway.views.rules import rules_view
 
 
 class TestRules(object):
