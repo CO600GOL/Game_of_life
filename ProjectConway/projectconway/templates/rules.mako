@@ -26,7 +26,7 @@
 	            <p>Any cell that is alive and has less than two alive neighbours will die due to under-population.</p>
 	        </div>
 	        <div class="col-md-4">
-	            <img src="static/images/Rule_1.gif" alt="Rule 1 diagram" class="img-responsive"/>
+	            <img src="static/images/rule1.gif" alt="Rule 1 diagram" class="img-responsive"/>
 	        </div>
 	    </div>
 	
@@ -36,7 +36,7 @@
 	            <p>Any cell that is alive and has two or three neighbours lives onto the next generation.</p>
 	        </div>
 	        <div class="col-md-4">
-	            <img src="static/images/Rule_2.gif" alt="Rule 2 diagram" class="img-responsive"/>
+	            <img src="static/images/rule2.gif" alt="Rule 2 diagram" class="img-responsive"/>
 	        </div>
 	    </div>
 	    
@@ -46,7 +46,7 @@
 	            <p>Any cell that is alive and has more than three alive neighbours will die due to over-population.</p>
 	        </div>
 	        <div class="col-md-4">
-	            <img src="static/images/Rule_3.gif" alt="Rule 3 diagram" class="img-responsive"/>
+	            <img src="static/images/rule3.gif" alt="Rule 3 diagram" class="img-responsive"/>
 	        </div>
 	    </div>
 	    
@@ -56,7 +56,7 @@
 	            <p>Any cell that is dead and has exactly three alive neighbours will become alive due to reproduction.</p>
 	        </div>
 	        <div class="col-md-4">
-	            <img src="static/images/Rule_4.gif" alt="Rule 4 diagram" class="img-responsive"/>
+	            <img src="static/images/rule4.gif" alt="Rule 4 diagram" class="img-responsive"/>
 	        </div>
 	    </div>
 	    
