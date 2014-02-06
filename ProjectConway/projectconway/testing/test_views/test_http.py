@@ -53,7 +53,7 @@ class TestAboutPage(object):
     includes all views used on the page.
     '''
 
-    def test_habout_page(self):
+    def test_about_page(self):
         '''
         This method ensures that
         '''
@@ -103,3 +103,21 @@ class TestPatternInputPage(object):
         res_data = json.loads(content)
         assert res_data["turns"] == 53
         assert res_data["runtime"] == 26.5
+
+class TestRulesPage(object):
+    '''
+    This class runs automated HTTP tests on the Rules page - this
+    includes all views on this page
+    '''
+    
+    def test_rules_page(self):
+        '''
+        This method ensures that
+        '''
+        url = "%srules" % URL
+        request = urllib.Request(url)
+        response = urllib.urlopen(request)
+        content = response.read().decode("utf-8")
+        
+        #Ensure we have a response
+        assert content
