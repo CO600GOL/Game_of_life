@@ -30,9 +30,11 @@
         		<div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <%
-                        homeactive, tutorialactive, patternactive, aboutactive = [""] * 4
+                        homeactive, rulesactive, tutorialactive, patternactive, aboutactive = [""] * 5
                         if page == "homepage":
                             homeactive = "active"
+                        elif page == "rulespage":
+                        	rulesactive = "active"
                         elif page == "tutorialpage":
                             tutorialactive = "active"
                         elif page == "patternpage":
@@ -40,6 +42,7 @@
                         elif page == "aboutpage":
                             aboutactive = "active"
                         %>
+                        <li class="${rulesactive}"><a href="/rules">Rules</a></li>
                         <li class="${tutorialactive}"><a href="#">Tutorial</a></li>
                         <li class="${patternactive}"><a href="/create">Create Pattern</a></li>
                         <li class="${aboutactive}"><a href="/about">About</a></li>
