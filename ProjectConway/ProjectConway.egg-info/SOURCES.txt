@@ -28,12 +28,15 @@ projectconway/static/images/Rule_2.gif
 projectconway/static/images/Rule_3.gif
 projectconway/static/images/Rule_4.gif
 projectconway/static/images/deeson-online.png
+projectconway/static/images/loading.gif
 projectconway/static/images/tinkersoc.png
 projectconway/static/images/ukcschoolofcomputing.jpg
+projectconway/static/js/ajaxError.js
 projectconway/static/js/bootstrap.js
 projectconway/static/js/bootstrap.min.js
 projectconway/static/js/inputGrid.js
 projectconway/static/js/jcanvas.js
+projectconway/static/js/patternClear.js
 projectconway/static/js/patternSubmission.js
 projectconway/templates/about.mako
 projectconway/templates/homepage.mako

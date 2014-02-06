@@ -73,6 +73,19 @@ class TestPatternInputPage(object):
     includes all views used on the page. 
     '''
 
+    def test_create_page(self):
+        '''
+        This method ensures that the create route is working
+        '''
+        url = "%screate" % URL
+
+        request = urllib.Request(url)
+        response = urllib.urlopen(request)
+        content = response.read().decode("utf-8")
+
+        # Ensure we have a response
+        assert content
+
     def test_pattern_input_receiver_JSON(self):
         '''
         This method tests HTTP functionality on the pattern input JSON receiver
