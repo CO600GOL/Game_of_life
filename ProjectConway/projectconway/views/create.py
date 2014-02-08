@@ -24,10 +24,14 @@ def create_view(request):
         page_keys[2]: "confirmation.mako"
     }
 
-
-    if "create_page" in request.session:
+    page = ""
+    if "create_page" in request.POST:
+        req_page = request.POST["create_page"]
+        if req_page in pages:
+            page = req_page
+    elif "create_page" in request.session:
         page = request.session["create_page"]
-    else:
+    if not page:
         page = page_keys[0]
     request.override_renderer = pages[page]
 
