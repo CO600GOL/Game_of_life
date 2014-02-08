@@ -9,16 +9,14 @@
 </%block>
 
 <%block name="large_text">
-    <div>
-        <h3>Rules</h3>
-        <p>Here is a quick reminder of the rules:</p>
-        <ol>
-            <li>${rule_texts.rule_one()}</li>
-            <li>${rule_texts.rule_two()}</li>
-            <li>${rule_texts.rule_three()}</li>
-            <li>${rule_texts.rule_four()}</li>
-        </ol>
-    </div>
+    <h3>Rules</h3>
+    <p>Here is a quick reminder of the rules:</p>
+    <ol>
+        <li>${rule_texts.rule_one()}</li>
+        <li>${rule_texts.rule_two()}</li>
+        <li>${rule_texts.rule_three()}</li>
+        <li>${rule_texts.rule_four()}</li>
+    </ol>
 </%block>
 
 <%block name="extras">
@@ -54,7 +52,10 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="#">Next</a>
+                    <form method="post">
+                        <input type="hidden" name="create_page" value="scheduler" />
+                        <input type="submit" class="btn btn-primary" value="Next" />
+                    </form>
                 </div>
             </div>
         </div>

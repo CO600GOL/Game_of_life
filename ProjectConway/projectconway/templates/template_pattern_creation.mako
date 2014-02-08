@@ -7,11 +7,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-md-offset-2">
-                <div class="row">
-                    <%block name="small_text" />
+                <div class="row" id="small_text">
+                    <%block name="small_text_row" />
                 </div>
 
-                <div class="row">
+                <div class="row" id="large_text_row">
                     <%block name="large_text" />
                 </div>
 			</div>

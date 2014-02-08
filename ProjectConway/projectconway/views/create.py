@@ -14,6 +14,7 @@ def create_view(request):
     
     '''
     data = {}
+    data["page"] = "patternpage"
     page_keys = [
         "pattern_input",
         "scheduler",
@@ -39,6 +40,7 @@ def create_view(request):
     # scheduler page
     if page == page_keys[1]:
         request.session["create_page"] = page_keys[1]
+        data["title"] = "Scheduler"
 
     # confirmation page
     elif page == page_keys[2]:
@@ -48,7 +50,6 @@ def create_view(request):
     else:
         request.session["create_page"] = page_keys[0]
         data["title"] = "Create Pattern"
-        data["page"] = "patternpage"
         # Work out if a pattern is already in the session
         if 'pattern' in request.session:
             data['pattern'] = request.session['pattern'].replace('\n', "\\n")
