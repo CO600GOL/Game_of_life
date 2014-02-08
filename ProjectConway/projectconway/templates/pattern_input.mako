@@ -1,7 +1,6 @@
 ## The overarching template file with headers and more
-<%inherit file="projectconway:templates/template_pattern_creation.mako" />
 
-<%namespace name="rule_texts" file="rule_texts.mako" />
+<%inherit file="template_pattern_cce name="rule_texts" file="rule_texts.mako" />
 
 <%block name="small_text">
     <h2>Give it a go!</h2>
