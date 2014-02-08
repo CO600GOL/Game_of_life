@@ -7,7 +7,7 @@
  *     "\n" : denotes the next row
  */
 
-function CanvasGrid(selectorString, xCells, yCells) {
+function CanvasGrid(selectorString, xCells, yCells, locked) {
     /**
      * This class represents an editable grid that can be used to input a pattern
      * to the Game of Life engine.
@@ -22,7 +22,6 @@ function CanvasGrid(selectorString, xCells, yCells) {
     if (!canvas){
         throw "Canvas object could not be found";
     }
-
 
     // Class Methods
     this.setup = function() {
@@ -94,12 +93,11 @@ function CanvasGrid(selectorString, xCells, yCells) {
     	 drawCells();
     }
 
-
     // Class Construction
     window.addEventListener("resize", this.setup, false)// resize on window change
-    canvas.click(handleMouseClick);
+    if (locked != true)
+        canvas.click(handleMouseClick);
     buildGrid();
-
 
     // Private functions
     function buildGrid() {
