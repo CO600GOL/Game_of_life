@@ -1,5 +1,5 @@
 ## The overarching template file with headers and more
-<%inherit file="projectconway:templates/template.mako" />
+<%inherit file="template.mako" />
 
 <%block name="content">
 	<link href="static/css/projectConway.css" rel="stylesheet">

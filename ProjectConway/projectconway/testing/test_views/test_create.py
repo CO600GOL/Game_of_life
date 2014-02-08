@@ -1,9 +1,9 @@
 import json
 from pyramid.testing import DummyRequest
 from game_of_life import TIME_DELAY
-from projectconway.views.pattern_input import pattern_input_view
-from projectconway.views.pattern_input import pattern_input_receiver_JSON
-from projectconway.views.pattern_input import pattern_input_clearer_JSON
+from projectconway.views.create import create_view
+from projectconway.views.create import pattern_input_receiver_JSON
+from projectconway.views.create import pattern_input_clearer_JSON
 
 
 def create_input_pattern():
@@ -29,7 +29,7 @@ class TestPatternInput(object):
     Tests all of the views linked to the Pattern Input web page.
     '''
 
-    def test_pattern_input_view(self):
+    def test_create(self):
         '''
         Tests the pattern input view, emulating when the user is visiting
         the page for the first time and there is currently no pattern
@@ -37,7 +37,7 @@ class TestPatternInput(object):
         '''
         request = DummyRequest(route='/create')
 
-        response = pattern_input_view(request)
+        response = create_view(request)
 
         # Test there was a response
         assert response
@@ -57,7 +57,7 @@ class TestPatternInput(object):
         input = create_input_pattern()
         request.session["pattern"] = input
 
-        response = pattern_input_view(request)
+        response = create_view(request)
 
         # Test there was a response
         assert response
