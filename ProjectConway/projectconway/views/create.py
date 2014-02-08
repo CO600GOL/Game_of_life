@@ -11,6 +11,7 @@ def create_view(request):
 
     The method also checks for a pattern already existing in the session, so
     that the user can go back and edit it at any point.
+    
     '''
     data = {}
     page_keys = [
@@ -37,11 +38,11 @@ def create_view(request):
 
     # scheduler page
     if page == page_keys[1]:
-        pass
+        request.session["create_page"] = page_keys[1]
 
     # confirmation page
     elif page == page_keys[2]:
-        pass
+        request.session["create_page"] = page_keys[2]
 
     # patter input page
     else:
