@@ -6,34 +6,21 @@
 	
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4">
-				<div class="row">
-					<div class="col-md-12">
-						<%block name="small_text" />
-					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col-md-12">
-						<%block name="large_text" />
-					</div>
-				</div>
+			<div class="col-md-4 col-md-offset-2">
+                <%block name="small_text" />
+
+                <%block name="large_text" />
 			</div>
 			
-			<div class="col-md-8">
-				<div class="row">
-					<div class="col-md-12">
-						<%block name="extras" />
-					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col-md-12">
-						<%block name="grid" />
-					</div>
-				</div>
+			<div class="col-md-6">
+                <%block name="extras" />
+
+                <%block name="grid">
+                        <div class="col-xs-9 col-sm-7 col-md-6" id="canvas-container">
+                            <canvas id="pattern_input"></canvas>
+                        </div>
+                </%block>
 			</div>
-			
 		</div>
 	</div>
 </%block>

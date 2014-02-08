@@ -6,20 +6,20 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-8 col-md-offset-2">
 				<h1>About...</h1>
 			</div>
 		</div>
 	
 		
 		<div class="row">
-	    	<div class="col-md-12">
+	    	<div class="col-md-8 col-md-offset-2">
 	        	<h2>UKC School of Computing</h2>
 	    	</div>
 		</div>
 	
 		<div class="row">
-	    	<div class="col-md-8">
+	    	<div class="col-md-6 col-md-offset-2">
 	        	<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
 	        	tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
 	        	mollis euismod. Donec sed odio dui.</p>
@@ -27,19 +27,19 @@
 	        	tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
 	        	mollis euismod. Donec sed odio dui.</p>
 	    	</div>
-	    	<div class="col-md-4">
+	    	<div class="col-md-2">
 	        	<img src="static/images/ukcschoolofcomputing.jpg" alt="UKC School of Computing Logo" class="img-responsive"/>
 	    	</div>
 		</div>
 	
 		<div class="row">
-	    	<div class="col-md-12">
+	    	<div class="col-md-8 col-md-offset-2">
 	        	<h2>Tinkersoc</h2>
 	    	</div>
 		</div>
 	
 		<div class="row">
-	    	<div class="col-md-8">
+	    	<div class="col-md-6 col-md-offset-2">
 	        	<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
 	       		condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
 	       		Donec sed odio dui.</p>
@@ -53,20 +53,20 @@
 	       		condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
 	       		Donec sed odio dui.</p>
 	    	</div>
-	    	<div class="col-md-4">
+	    	<div class="col-md-2">
 	        	<img src="static/images/tinkersoc.png" alt="Tinkersoc Logo" class="img-responsive"/>
 	    	</div>
 		</div>
 	    
 		<div class="row">
-	    	<div class="col-md-12">
+	    	<div class="col-md-8 col-md-offset-2">
 	        	<h2>The Deeson Group</h2>
 	    	</div>
 		</div>
 	    	
 	
 		<div class="row">
-	    	<div class="col-md-8">
+	    	<div class="col-md-6 col-md-offset-2">
 	        	<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
 	        	condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
 	        	Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
@@ -88,7 +88,7 @@
 	        	<!-- N.B. Creates a buffer between the text and image columns on medium devices but is ignored on small
 	         	and extra-small devices. -->
 	    	</div>
-	    	<div class="col-md-3">
+	    	<div class="col-md-1">
 	        	<img src="static/images/deeson-online.png" alt="Deeson Online Logo" class="img-responsive"
 	             	style="max-width:75%"/>
 	    	</div>

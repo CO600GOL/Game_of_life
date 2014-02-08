@@ -3,6 +3,10 @@ body {
 	padding-bottom: 70px;
 }
 
+#pattern_input {
+    padding-top: 2px
+}
+
 #error_alert {
   position: absolute;
   top: -999px;
