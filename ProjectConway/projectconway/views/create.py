@@ -52,7 +52,6 @@ def create_view(request):
         if 'pattern' in request.session:
             data['pattern'] = request.session['pattern'].replace('\n', "\\n")
 
-    print("Renderer", request.override_renderer)
     return data
 
 
