@@ -7,6 +7,7 @@
 
 <%block name="large_text">
     <h2>Scheduler</h2>
+    <p>Choose a date and time to go and see your pattern come to life!</p>
 </%block>
 
 <%block name="extras">
