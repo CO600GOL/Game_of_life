@@ -15,7 +15,7 @@ def main(global_config, **settings):
     config.include('pyramid_chameleon')
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
-    config.add_route('pattern_input', '/create')
+    config.add_route('create', '/create')
     config.add_route('pattern_input_receiver', '/pattern_receiver.json')
     config.add_route('pattern_input_clearer', '/pattern_clearer.json')
     config.add_route('about', '/about')
