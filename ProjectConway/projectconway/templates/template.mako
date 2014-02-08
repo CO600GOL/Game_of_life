@@ -73,6 +73,7 @@
 
     	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     	<script src="https://code.jquery.com/jquery.js"></script>
+        <%block name="grid_init_scripts" />
         <%block name="scripts" />
     	<!-- Include all compiled plugins (below), or include individual files as needed -->
     	<script src="static/js/bootstrap.js"></script>

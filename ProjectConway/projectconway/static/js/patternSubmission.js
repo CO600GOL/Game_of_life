@@ -13,12 +13,14 @@ function Submitter(grid) {
          */
         var pattern = grid.getGridPattern();
 
+        console.log("AJAX called")
         $.ajax({
             url: URL,
             type: "POST",
             data: JSON.stringify(pattern),
             dataType: 'json',
             success: function(result) {
+                console.log("Button Clicked")
                 $("#loading_popup").modal("hide");
                 $("#success_popup").modal({show: true});
                 var gen_string = (result["turns"] > 1) ? "generations" : "generation";

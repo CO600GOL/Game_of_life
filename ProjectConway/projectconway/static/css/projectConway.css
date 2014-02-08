@@ -16,6 +16,14 @@ body {
   margin: auto;
 }
 
+#extra_row {
+    margin-top: 20px;
+}
+
+#grid_row {
+    margin-top: 20px;
+}
+
 .loading_popup_txt {
     text-align: center;
     font-weight: bold;
