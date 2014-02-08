@@ -3,6 +3,7 @@
 
 <%block name="content">
 	<link href="static/css/projectConway.css" rel="stylesheet">
+    <%namespace name="rule_texts" file="rule_texts.mako" />
 
 	<div class="container">
 	    <div class="row">
@@ -16,14 +17,14 @@
 				<p>Conway's Game of Life is an interesting game simulating population. The game takes place on a
 				grid with cells that can be either be dead or alive, each of these cells interact with its eight
 				neighbours in order to determine its fate. </p>
-				<p><b> The rules of the game are:</b></p>
+				<p><b> The standard rules of the game are:</b></p>
 			</div>
 		</div>
 	
 	    <div class="row">
 	        <div class="col-md-8">
 	            <p><h3><u>Rule 1:</u></h3> </p>
-	            <p>Any cell that is alive and has less than two alive neighbours will die due to under-population.</p>
+                ${rule_texts.rule_one()}
 	        </div>
 	        <div class="col-md-4">
 	            <img src="static/images/rule1.gif" alt="Rule 1 diagram" class="img-responsive"/>
@@ -33,7 +34,7 @@
 	 <div class="row">
 	        <div class="col-md-8">
 	            <p><h3><u>Rule 2:</u></h3> </p>
-	            <p>Any cell that is alive and has two or three neighbours lives onto the next generation.</p>
+	            ${rule_texts.rule_two()}
 	        </div>
 	        <div class="col-md-4">
 	            <img src="static/images/rule2.gif" alt="Rule 2 diagram" class="img-responsive"/>
@@ -43,7 +44,7 @@
 	     <div class="row">
 	        <div class="col-md-8">
 	            <p><h3><u>Rule 3:</u></h3> </p>
-	            <p>Any cell that is alive and has more than three alive neighbours will die due to over-population.</p>
+	            ${rule_texts.rule_three()}
 	        </div>
 	        <div class="col-md-4">
 	            <img src="static/images/rule3.gif" alt="Rule 3 diagram" class="img-responsive"/>
@@ -53,7 +54,7 @@
 	     <div class="row">
 	        <div class="col-md-8">
 	            <p><h3><u>Rule 4:</u></h3> </p>
-	            <p>Any cell that is dead and has exactly three alive neighbours will become alive due to reproduction.</p>
+	            ${rule_texts.rule_four()}
 	        </div>
 	        <div class="col-md-4">
 	            <img src="static/images/rule4.gif" alt="Rule 4 diagram" class="img-responsive"/>
