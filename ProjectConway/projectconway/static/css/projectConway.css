@@ -3,6 +3,10 @@ body {
 	padding-bottom: 70px;
 }
 
+#datepicker {
+    width: 50%;
+}
+
 #pattern_input {
     padding-top: 2px
 }

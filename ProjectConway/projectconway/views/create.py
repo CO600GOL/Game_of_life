@@ -1,3 +1,4 @@
+from datetime import date
 from pyramid.view import view_config
 from game_of_life import TIME_LIMIT, TIME_DELAY
 from game.game_controllers.game_controllers import GameOfLifeController
@@ -42,11 +43,17 @@ def create_view(request):
         request.session["create_page"] = page_keys[1]
         data["title"] = "Scheduler"
 
+        if "viewing_date" in request.session:
+            viewing_date = request.session["viewing_date"]
+        else:
+            viewing_date = date.today().strftime("%d-%m-%Y")
+        data["viewing_date"] = viewing_date
+
     # confirmation page
     elif page == page_keys[2]:
         request.session["create_page"] = page_keys[2]
 
-    # patter input page
+    # pattern input page
     else:
         request.session["create_page"] = page_keys[0]
         data["title"] = "Create Pattern"
