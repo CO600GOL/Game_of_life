@@ -23,26 +23,18 @@
     </div>
 
     <div class="col-md-2">
-        <label class="control-label">Viewing Hour</label>
+        <label class="control-label" for="viewing_hour">Viewing Hour</label>
     </div>
 
     <div class="col-md-3">
-        <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                ${str(viewing_hour)}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+          <select class="form-control" name="viewing_hour" id="viewing_hour">
                 % for i in range(0, 24):
-                    <li>${str(i)}</li>
+                    <option value="${str(i)}" ${"selected" if (i == viewing_hour) else ""}>${format(i, "02d")}</option>
                 % endfor
-            </ul>
-        </div>
+          </select>
     </div>
 
-    <div class="col-md-1"></div>
-
-    <div class="col-md-2">
+    <div class="col-md-2 col-md-offset-1">
         <label class="contol-label">Viewing Slot</label>
     </div>
 
@@ -54,7 +46,7 @@
             </button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                 % for i in range(0, 60, 5):
-                    <li>${str(format(i, '02d'))}</li>
+                    <li>${format(i, '02d')}</li>
                 % endfor
             </ul>
         </div>
@@ -98,7 +90,8 @@
 
             // Set up event handling for the datepicker
             var s = new Scheduler();
-            $("#datepicker").datepicker().on("changeDate", s.datepickerEventHandler)
+            $("#datepicker").datepicker().on("changeDate", s.datepickerEventHandler);
+            $("#viewing_hour").change(s.datepickerEventHandler);
 
             // Lock the grid so that it cannot be edited
             g.lockGrid();
