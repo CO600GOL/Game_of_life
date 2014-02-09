@@ -32,9 +32,8 @@
                  <p><b>Current Generation</b></p>
                 </div>
             <div class="col-md-6">
-                <span class="arrow-inverse-large" data-angle="90"></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam bibendum massa eget elementum
-                    pharetra. Suspendisse convallis scelerisque elit. Aenean elit risus.</p>
+                <h2><img src="static/images/arrow.svg" alt="Arrow" class="img-responsive"/></h2>
+                <p>In this first pattern, the two cells have fewer than two neighbours, so they die on the next turn</p>
             </div>
              <div class="col-md-3">
                 <h2><img src="static/images/rule1_b.jpg" alt="Rule 1 next generation diagram"
@@ -54,9 +53,8 @@
                 <p><b>Current Generation</b></p>
             </div>
             <div class="col-md-6">
-                <span class="arrow"></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam bibendum massa eget elementum
-                    pharetra. Suspendisse convallis scelerisque elit. Aenean elit risus.</p>
+                <h2><img src="static/images/arrow.svg" alt="Arrow" class="img-responsive"/></h2>
+                <p>The highlighted cell survives into the next generation because it has three neighbours.</p>
             </div>
             <div class="col-md-3">
                 <h2><img src="static/images/rule2_b.jpg" alt="Rule 2 next generation diagram"
@@ -76,9 +74,8 @@
                 <p><b>Current Generation</b></p>
             </div>
             <div class="col-md-6">
-                <span class="arrow"></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam bibendum massa eget elementum
-                    pharetra. Suspendisse convallis scelerisque elit. Aenean elit risus.</p>
+               <h2><img src="static/images/arrow.svg" alt="Arrow" class="img-responsive"/></h2>
+                <p>The central cell dies as it has four neighbours (more than three).</p>
             </div>
             <div class="col-md-3">
                 <h2><img src="static/images/rule3_b.jpg" alt="Rule 3 next generation diagram"
@@ -98,9 +95,8 @@
                 <p><b>Current Generation</b></p>
             </div>
             <div class="col-md-6">
-                <span class="arrow"></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam bibendum massa eget elementum
-                    pharetra. Suspendisse convallis scelerisque elit. Aenean elit risus.</p>
+                <h2><img src="static/images/arrow.svg" alt="Arrow" class="img-responsive"/></h2>
+                <p>The highlighted cell is born on the next turn as it has three neighbours. </p>
             </div>
             <div class="col-md-3">
                 <h2><img src="static/images/rule4_b.jpg" alt="Rule 4 next generation diagram"
