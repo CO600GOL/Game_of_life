@@ -6,7 +6,7 @@
 	
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4 col-md-offset-2">
+			<div class="col-md-5">
                 <div class="row">
                     <%block name="small_text" />
                 </div>
@@ -15,15 +15,17 @@
                     <%block name="large_text" />
                 </div>
 			</div>
+
+            <div class="col-md-1"></div>
 			
-			<div class="col-md-6">
+			<div class="col-md-5">
                 <div class="row" id="extra_row">
                     <%block name="extras" />
                 </div>
 
                 <%block name="grid">
                         <div class="row" id="grid_row">
-                            <div class="col-xs-9 col-sm-7 col-md-6" id="canvas-container">
+                            <div class="col-xs-9 col-sm-7 col-md-12" id="canvas-container">
                                 <canvas id="pattern_input"></canvas>
                             </div>
                         </div>
