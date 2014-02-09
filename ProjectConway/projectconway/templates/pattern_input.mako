@@ -3,13 +3,15 @@
 <%inherit file="template_pattern_creation.mako" />
 <%namespace name="rule_texts" file="rule_texts.mako" />
 <%block name="small_text">
-    <h2>Give it a go!</h2>
-    <p>This is where you create your pattern!</p>
-    <p>Click a cell to begin!</p>
+    <div class="col-md-12">
+        <h2>Give it a go!</h2>
+        <p>This is where you create your pattern!</p>
+        <p>Click a cell to begin!</p>
+    </div>
 </%block>
 
 <%block name="large_text">
-    <div>
+    <div class="col-md-12">
         <h3>Rules</h3>
         <p>Here is a quick reminder of the rules:</p>
         <ol>
