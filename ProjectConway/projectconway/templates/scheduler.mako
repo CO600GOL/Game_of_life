@@ -77,6 +77,7 @@
     <link href="static/css/datepicker3.css" rel="stylesheet">
     <script src="static/js/bootstrap/bootstrap-datepicker.js"></script>
     <script src="static/js/create/inputGrid.js"></script>
+    <script src="static/js/create/scheduler.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -86,12 +87,18 @@
                 enddate = today + datetime.timedelta(weeks=12)
             %>
 
+            // Set up some options for the datepicker including setting a start and end date and
+            // automatically closing the calender when a date is picked.
             $("#datepicker").datepicker({
                 "autoclose": true,
                 "format": "dd/mm/yyyy",
                 "startDate": "${today.strftime("%d/%m/%Y")}",
                 "endDate": "${enddate.strftime("%d/%m/%Y")}"
             });
+
+            // Set up event handling for the datepicker
+            var s = new Scheduler();
+            $("#datepicker").datepicker().on("changeDate", s.datepickerEventHandler)
 
             // Set up the grid and attach user's pattern to it from the session
             var g = window.g;
