@@ -52,8 +52,14 @@ def create_view(request):
         if "viewing_hour" in request.session:
             viewing_hour = request.session["viewing_hour"]
         else:
-            viewing_hour = datetime.now().hour
+            viewing_hour = datetime.now().hour + 1
         data["viewing_hour"] = viewing_hour
+
+        if "viewing_slot" in request.session:
+            viewing_slot = request.session["viewing_slow"]
+        else:
+            viewing_slot = 0
+        data["viewing_slot"] = viewing_slot
 
     # confirmation page
     elif page == page_keys[2]:

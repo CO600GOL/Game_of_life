@@ -2,7 +2,8 @@
 
 <%block name="small_text">
     <h2>Save your pattern!</h2>
-    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+    <p>Now that you've created a pattern, it's time to send it to the display!</p>
+    <p>Just select a date and time in the section below and press submit.</p>
     <b>Note: To edit your work so far, just press the back button below the grid!</b>
 </%block>
 
@@ -28,10 +29,10 @@
     <div class="col-md-3">
         <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                ${str(viewing_hour + 1)}
+                ${str(viewing_hour)}
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                 % for i in range(0, 24):
                     <li>${str(i)}</li>
                 % endfor
@@ -48,10 +49,10 @@
     <div class="col-md-3">
         <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                00
+                ${str(format(viewing_slot, '02d'))}
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                 % for i in range(0, 60, 5):
                     <li>${str(format(i, '02d'))}</li>
                 % endfor
