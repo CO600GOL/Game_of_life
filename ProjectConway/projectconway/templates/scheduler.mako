@@ -76,10 +76,21 @@
 <%block name="scripts">
     <link href="static/css/datepicker3.css" rel="stylesheet">
     <script src="static/js/bootstrap-datepicker.js"></script>
+    <script src="static/js/inputGrid.js"></script>
 
     <script>
         $(document).ready(function() {
             $("#datepicker").datepicker();
+
+            // Set up the grid and attach user's pattern to it from the session
+            var g = window.g;
+            % if pattern:
+                console.log("HERE")
+                g.setGridPattern("${pattern}");
+            % endif
+
+            // Lock the grid so that it cannot be edited
+            g.lockGrid();
         });
     </script>
 </%block>

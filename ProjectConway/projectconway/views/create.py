@@ -69,9 +69,10 @@ def create_view(request):
     else:
         request.session["create_page"] = page_keys[0]
         data["title"] = "Create Pattern"
-        # Work out if a pattern is already in the session
-        if 'pattern' in request.session:
-            data['pattern'] = request.session['pattern'].replace('\n', "\\n")
+
+    # Work out if a pattern is already in the session
+    if 'pattern' in request.session:
+        data['pattern'] = request.session['pattern'].replace('\n', "\\n")
 
     return data
 

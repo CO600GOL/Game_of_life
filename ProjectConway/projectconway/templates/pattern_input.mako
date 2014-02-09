@@ -21,11 +21,11 @@
 
 <%block name="extras">
     <div class="col-xs-1 col-sm-1 col-md-1">
-        <button id="submit_button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#loading_popup">Submit</button>
+        <button id="clear_button" type="button" class="btn btn-primary">Clear</button>
     </div>
 
     <div class="col-xs-1 col-sm-1 col-md-1 col-md-offset-1">
-        <button id="clear_button" type="button" class="btn btn-primary">Clear</button>
+        <button id="submit_button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#loading_popup">Submit</button>
     </div>
 
     <div class="modal fade" id="loading_popup" role="dialog" aria-hidden="true">
