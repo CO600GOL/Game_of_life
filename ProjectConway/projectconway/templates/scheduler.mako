@@ -100,12 +100,6 @@
             var s = new Scheduler();
             $("#datepicker").datepicker().on("changeDate", s.datepickerEventHandler)
 
-            // Set up the grid and attach user's pattern to it from the session
-            var g = window.g;
-            % if pattern:
-                g.setGridPattern("${pattern}");
-            % endif
-
             // Lock the grid so that it cannot be edited
             g.lockGrid();
         });
