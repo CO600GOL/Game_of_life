@@ -109,3 +109,11 @@ def pattern_input_clearer_JSON(request):
     if 'pattern' in request.session:
         del request.session["pattern"]
     return request.session
+
+@view_config(route_name="time_slot_reciever", renderer='json')
+def time_slot_reciever_JSON(request):
+    """
+    This view receives the user's time slot choice, checks that it is viable,
+    and adds it to the user's session of so.
+    """
+    pass
