@@ -87,9 +87,9 @@
 </%block>
 
 <%block name="scripts">
-    <script src="static/js/patternSubmission.js"></script>
-    <script src="static/js/patternClear.js"></script>
-    <script src="static/js/ajaxError.js"></script>
+    <script src="static/js/create/patternSubmission.js"></script>
+    <script src="static/js/create/patternClear.js"></script>
+    <script src="static/js/create/ajaxError.js"></script>
 
     <script>
         $(document).ready(function() {

@@ -75,17 +75,27 @@
 
 <%block name="scripts">
     <link href="static/css/datepicker3.css" rel="stylesheet">
-    <script src="static/js/bootstrap-datepicker.js"></script>
-    <script src="static/js/inputGrid.js"></script>
+    <script src="static/js/bootstrap/bootstrap-datepicker.js"></script>
+    <script src="static/js/create/inputGrid.js"></script>
 
     <script>
         $(document).ready(function() {
-            $("#datepicker").datepicker();
+            <%
+                import datetime
+                today = datetime.datetime.today()
+                enddate = today + datetime.timedelta(weeks=12)
+            %>
+
+            $("#datepicker").datepicker({
+                "autoclose": true,
+                "format": "dd/mm/yyyy",
+                "startDate": "${today.strftime("%d/%m/%Y")}",
+                "endDate": "${enddate.strftime("%d/%m/%Y")}"
+            });
 
             // Set up the grid and attach user's pattern to it from the session
             var g = window.g;
             % if pattern:
-                console.log("HERE")
                 g.setGridPattern("${pattern}");
             % endif
 

@@ -76,6 +76,6 @@
         <%block name="grid_init_scripts" />
         <%block name="scripts" />
     	<!-- Include all compiled plugins (below), or include individual files as needed -->
-    	<script src="static/js/bootstrap.js"></script>
+    	<script src="static/js/bootstrap/bootstrap.js"></script>
     </body>
 </html>

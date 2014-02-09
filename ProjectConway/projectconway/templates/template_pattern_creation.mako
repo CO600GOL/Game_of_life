@@ -34,8 +34,8 @@
 </%block>
 
 <%block name="grid_init_scripts">
-    <script src="static/js/jcanvas.js"></script>
-    <script src="static/js/inputGrid.js"></script>
+    <script src="static/js/create/jcanvas.js"></script>
+    <script src="static/js/create/inputGrid.js"></script>
 
     <script>
     <%

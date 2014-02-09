@@ -26,7 +26,7 @@ function Submitter(grid) {
                 $("#success_content").html("<p>This pattern will last " + result["turns"] + " " + gen_string + " and " + result["runtime"] + " " + sec_string + ".</p> <p>Do you wish to continue?</p>");
             },
             error: function() {
-                $.getScript('static/js/ajaxError.js', alertOpenHandler());
+                $.getScript('static/js/create/ajaxError.js', alertOpenHandler());
                 $("#loading_popup").modal("hide");
                 $("#error_alert").css("top", "5%").css("left", "3%");
                 $("#error_content").html("<p>An issue occurred while connecting with the server. Please try again.</p>");

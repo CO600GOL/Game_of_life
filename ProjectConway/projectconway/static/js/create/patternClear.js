@@ -21,7 +21,7 @@ function Clearer(grid) {
             	$("#warning_content").html("<p>Are you sure you want to clear your pattern?</p><p>Once it's gone, it can't come back!</p>")
             },
             error: function() {
-            	$.getScript('static/ajaxError.js', alertOpenHandler());
+            	$.getScript('static/js/create/ajaxError.js', alertOpenHandler());
                 $("#error_alert").css("top", "5%").css("left", "3%");
             }
         });
@@ -42,7 +42,7 @@ function Clearer(grid) {
  		 		$("#clear_warning").modal("hide");
  		 	},
  		 	error: function() {
- 		 		$.getScript('static/ajaxError.js', alertOpenHandler());
+ 		 		$.getScript('static/js/create/ajaxError.js', alertOpenHandler());
  		 		$("#error_alert").css("top", "5%").css("left", "3%");
  		 	}
  		 });
