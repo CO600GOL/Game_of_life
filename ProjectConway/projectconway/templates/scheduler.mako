@@ -35,21 +35,12 @@
     </div>
 
     <div class="col-md-2 col-md-offset-1">
-        <label class="contol-label">Viewing Slot</label>
+        <label class="contol-label" for="viewing_slot">Viewing Slot</label>
     </div>
 
     <div class="col-md-3">
-        <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                ${str(format(viewing_slot, '02d'))}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                % for i in range(0, 60, 5):
-                    <li>${format(i, '02d')}</li>
-                % endfor
-            </ul>
-        </div>
+        <select class="form-control" name="viewing_slot" id="viewing_slot" disabled>
+        </select>
     </div>
 </%block>
 
