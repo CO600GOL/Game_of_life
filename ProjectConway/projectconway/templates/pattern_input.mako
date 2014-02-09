@@ -86,3 +86,26 @@
         <div id="error_content"></div>
     </div>
 </%block>
+
+<%block name="scripts">
+    <script src="static/js/patternSubmission.js"></script>
+    <script src="static/js/patternClear.js"></script>
+    <script src="static/js/ajaxError.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var g = window.g;
+
+            // Set up pattern submission
+            var s = new Submitter(g);
+            $("#submit_button").click(s.submissionEventHandler);
+            $('#closealert_button').click(s.alertCloseHandler);
+
+            // Set up pattern clearer
+            var c = new Clearer(g);
+            $("#clear_button").click(c.clearEventHandler);
+            $("#clearconfirm_button").click(c.clearConfirmEventHandler);
+            $('#closealert_button').click(c.alertCloseHandler);
+        });
+    </script>
+</%block>

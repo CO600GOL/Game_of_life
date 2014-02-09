@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from pyramid.view import view_config
 from game_of_life import TIME_LIMIT, TIME_DELAY
 from game.game_controllers.game_controllers import GameOfLifeController
@@ -46,8 +46,14 @@ def create_view(request):
         if "viewing_date" in request.session:
             viewing_date = request.session["viewing_date"]
         else:
-            viewing_date = date.today().strftime("%d-%m-%Y")
+            viewing_date = datetime.today().strftime("%d-%m-%Y")
         data["viewing_date"] = viewing_date
+
+        if "viewing_hour" in request.session:
+            viewing_hour = request.session["viewing_hour"]
+        else:
+            viewing_hour = datetime.now().hour
+        data["viewing_hour"] = viewing_hour
 
     # confirmation page
     elif page == page_keys[2]:
