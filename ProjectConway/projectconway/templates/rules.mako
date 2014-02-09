@@ -23,41 +23,41 @@
 	
 	    <div class="row">
 	        <div class="col-md-8">
-	            <p><h3><u>Rule 1:</u></h3> </p>
+	            <h2>Rule 1</h2>
                 ${rule_texts.rule_one()}
 	        </div>
 	        <div class="col-md-4">
-	            <img src="static/images/rule1.gif" alt="Rule 1 diagram" class="img-responsive"/>
+	            <h2><img src="static/images/rule1.gif" alt="Rule 1 diagram" class="img-responsive"/></h2>
 	        </div>
 	    </div>
 	
 	 <div class="row">
 	        <div class="col-md-8">
-	            <p><h3><u>Rule 2:</u></h3> </p>
+	            <h2>Rule 2</h2>
 	            ${rule_texts.rule_two()}
 	        </div>
 	        <div class="col-md-4">
-	            <img src="static/images/rule2.gif" alt="Rule 2 diagram" class="img-responsive"/>
+	            <h2><img src="static/images/rule2.gif" alt="Rule 2 diagram" class="img-responsive"/></h2>
 	        </div>
 	    </div>
 	    
 	     <div class="row">
 	        <div class="col-md-8">
-	            <p><h3><u>Rule 3:</u></h3> </p>
+	            <h2>Rule 3</h2>
 	            ${rule_texts.rule_three()}
 	        </div>
 	        <div class="col-md-4">
-	            <img src="static/images/rule3.gif" alt="Rule 3 diagram" class="img-responsive"/>
+	            <h2><img src="static/images/rule3.gif" alt="Rule 3 diagram" class="img-responsive"/></h2>
 	        </div>
 	    </div>
 	    
 	     <div class="row">
 	        <div class="col-md-8">
-	            <p><h3><u>Rule 4:</u></h3> </p>
+	            <h2>Rule 4</h2>
 	            ${rule_texts.rule_four()}
 	        </div>
 	        <div class="col-md-4">
-	            <img src="static/images/rule4.gif" alt="Rule 4 diagram" class="img-responsive"/>
+	            <h2><img src="static/images/rule4.gif" alt="Rule 4 diagram" class="img-responsive"/></h2>
 	        </div>
 	    </div>
 	    
