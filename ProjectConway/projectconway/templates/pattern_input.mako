@@ -53,8 +53,7 @@
                 <div class="modal-footer">
                     <form method="post">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <input type="hidden" name="create_page" value="scheduler" />
-                        <input type="submit" class="btn btn-primary" value="Next" />
+                        <button name="create_page" type="submit" class="btn btn-primary" value="scheduler">Next</button>
                     </form>
                 </div>
             </div>

@@ -62,13 +62,15 @@
 </%block>
 
 <%block name="extras">
-    <div class="col-xs-1 col-sm-1 col-md-1">
-        <button id="back_button" type="button" class="btn btn-default" data-toggle="modal">Back</button>
-    </div>
+    <form method="post">
+        <div class="col-xs-1 col-sm-1 col-md-1">
+            <button name="create_page" type="submit" class="btn btn-default" value="pattern_input">Back</button>
+        </div>
 
-    <div class="col-xs-1 col-sm-1 col-md-1 col-md-offset-1">
-        <button id="confirm_button" type="button" class="btn btn-primary">Confirm</button>
-    </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-md-offset-1">
+            <button name="create_page" type="submit" class="btn btn-primary" value="confirmation">Confirm</button>
+        </div>
+    </form>
 </%block>
 
 <%block name="scripts">
