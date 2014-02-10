@@ -1,6 +1,6 @@
 import datetime
 from projectconway.models import Base, DBSession
-from sqlalchemy import Column, DateTime, Index, Integer, Sequence, String, and_, extract
+from sqlalchemy import Column, DateTime, Index, Integer, Sequence, String, and_, exc
 
 
 class Run(Base):
@@ -52,5 +52,7 @@ class Run(Base):
             t_slot = time_slot.replace(minute=slot, second=0, microsecond=0)
             if t_slot > now and t_slot not in runs_times:
                 slots.append(format(slot, "02d"))
+            elif t_slot < now:
+                raise exc.ArgumentError("Time passed in is in the past")
 
         return slots

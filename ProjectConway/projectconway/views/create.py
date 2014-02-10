@@ -1,11 +1,11 @@
 from datetime import datetime
-from pyramid import httpexceptions
+from pyramid.httpexceptions import HTTPBadRequest
 from pyramid.view import view_config
+from sqlalchemy.exc import ArgumentError
 from projectconway.models.run import Run
 from game_of_life import TIME_LIMIT, TIME_DELAY
 from game.game_controllers.game_controllers import GameOfLifeController
 
-from projectconway.models.run import Run
 
 @view_config(route_name='create', renderer="pattern_input.mako")
 def create_view(request):
@@ -124,8 +124,11 @@ def time_slot_reciever_JSON(request):
     try:
         time_slot = datetime.strptime(request.json_body, time_format)
     except:
-        raise httpexceptions.HTTPBadRequest("Timestring was not formatted correctly!")
+        raise HTTPBadRequest("Timestring was not formatted correctly!")
 
-    aval_slots = Run.get_time_slots_for_hour(time_slot)
-
+    try:
+        aval_slots = Run.get_time_slots_for_hour(time_slot)
+    except ArgumentError:
+        raise HTTPBadRequest("Time given is in the past")
+    
     return {"time_slots": aval_slots}
