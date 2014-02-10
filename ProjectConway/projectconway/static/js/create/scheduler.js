@@ -14,8 +14,8 @@ function Scheduler() {
         * the date and the hour.
         */
         // Collect the date and hour for use in the AJAX call.
+        populateHourSlot(event.date);
         var hour = $("#viewing_hour").val();
-
         populateMinuteSlotDate(event.date, hour);
     }
 
@@ -31,6 +31,36 @@ function Scheduler() {
         var date = $("#datepicker").datepicker("getDate");
 
         populateMinuteSlotDate(date, hour);
+    }
+
+    function populateHourSlot(date) {
+        /**
+         * Populates the hour slot selection with hours that are viable.
+         */
+        var hour_slot = $("#viewing_hour");
+        hour_slot.empty();
+        hour_slot.prop("disabled", true);
+
+        var stringify = function(hour){
+            var h = hour.toString();
+            if (h.length < 2) {
+                h = "0" + h;
+            }
+            return h;
+        }
+
+        var now = new Date();
+        for (var i=0; i<24; i++){
+            if (date > now){
+                hour_slot.append($("<option />").val(stringify(i)).text(stringify(i)));
+            }
+            else {
+                if (i >= now.getHours()){
+                    hour_slot.append($("<option />").val(stringify(i)).text(stringify(i)));
+                }
+            }
+        }
+        hour_slot.prop("disabled", false);
     }
 
     this.populateMinuteSlot = function() {
