@@ -128,7 +128,7 @@ class TestScheduler(object):
         Setup data that will be needed throughout the class and setup database
         '''
         self.config = testing.setUp()
-        engine = create_engine('postgresql://richard:password@localhost/test')
+        engine = create_engine('sqlite:///testdb.sqlite')
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
 
