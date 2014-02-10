@@ -82,7 +82,7 @@
             // Set up event handling for the datepicker
             var s = new Scheduler();
             $("#datepicker").datepicker().on("changeDate", s.datepickerEventHandler);
-            $("#viewing_hour").change(s.datepickerEventHandler);
+            $("#viewing_hour").change(s.hourSelectEventHandler);
 
             // Lock the grid so that it cannot be edited
             g.lockGrid();
