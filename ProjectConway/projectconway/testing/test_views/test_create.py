@@ -128,7 +128,7 @@ class TestScheduler(object):
         Setup data that will be needed throughout the class and setup database
         '''
         self.config = testing.setUp()
-        engine = create_engine('sqlite:///testdb.sqlite')
+        engine = create_engine('postgresql://richard:password@localhost/test')
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
 
@@ -138,18 +138,16 @@ class TestScheduler(object):
         from the past, this should fail.
         """
         request = DummyRequest(route='/scheduler.json')
+        time_format = '%Y-%m-%dT%H:%M:%S.000Z'
 
         past = datetime.datetime.today() - datetime.timedelta(days=1, hours=1)
-        user_input = {
-            "date": past.isoformat(),
-            "hour": past.hour
-        }
+        user_input = past.strftime(time_format)
         request.content_type = "application/json"
 
-        request.json_body = json.dumps(user_input)
+        request.json_body = user_input
 
         try:
-            response = time_slot_reciever_JSON(request)
+            time_slot_reciever_JSON(request)
         except exceptions.HTTPBadRequest:
             pass
         else:
@@ -161,15 +159,12 @@ class TestScheduler(object):
         time slot
         """
         request = DummyRequest(route='/scheduler.json')
+        time_format = '%Y-%m-%dT%H:%M:%S.000Z'
 
         now = datetime.datetime.today() + datetime.timedelta(hours=1)
-        user_input = {
-            "date": now.isoformat(),
-            "hour": now.hour
-        }
+        user_input = now.strftime(time_format)
         request.content_type = "application/json"
-
-        request.json_body = json.dumps(user_input)
+        request.json_body = user_input
 
         response = time_slot_reciever_JSON(request)
 
@@ -177,7 +172,7 @@ class TestScheduler(object):
         assert response
 
         # Test the response
-        response_dict = json.loads(response)
+        response_dict = json.loads(str(response).replace("'", '"'))
         slots = response_dict["time_slots"]
 
         assert len(slots) == 12
@@ -190,21 +185,19 @@ class TestScheduler(object):
         the correct slots are returned
         """
         request = DummyRequest(route='/scheduler.json')
+        time_format = '%Y-%m-%dT%H:%M:%S.000Z'
 
         now = datetime.datetime.today() + datetime.timedelta(hours=1)
-        user_input = {
-            "date": now.isoformat(),
-            "hour": now.hour
-        }
+        user_input = now.strftime(time_format)
         request.content_type = "application/json"
-
-        request.json_body = json.dumps(user_input)
+        request.json_body = user_input
 
         # Insert runs that will the next hour with even minutes that are a multiple of 10
         with transaction.manager:
             runs = []
             for minutes in range(0, 60, 10):
-                runs.append(Run(create_input_pattern(), datetime.datetime(1975, 1, 1, now.hour, minutes), ""))
+                runs.append(Run(create_input_pattern(), datetime.datetime(now.year, now.month,
+                                                                          now.day, now.hour, minutes), ""))
             DBSession.add_all(runs)
             DBSession.commit()
 
@@ -214,7 +207,7 @@ class TestScheduler(object):
         assert response
 
         # Test the response
-        response_dict = json.loads(response)
+        response_dict = json.loads(str(response).replace("'", '"'))
         slots = response_dict["time_slots"]
 
         assert len(slots) == 6
@@ -226,18 +219,16 @@ class TestScheduler(object):
         from too far in the future
         """
         request = DummyRequest(route='/scheduler.json')
+        time_format = '%Y-%m-%dT%H:%M:%S.000Z'
 
         future = datetime.datetime.today() + datetime.timedelta(weeks=13)
-        user_input = {
-            "date": future.isoformat(),
-            "hour": future.hour
-        }
+        user_input = future.strftime(time_format)
         request.content_type = "application/json"
 
-        request.json_body = json.dumps(user_input)
+        request.json_body = user_input
 
         try:
-            response = time_slot_reciever_JSON(request)
+            time_slot_reciever_JSON(request)
         except exceptions.HTTPBadRequest:
             pass
         else:

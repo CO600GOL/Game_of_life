@@ -1,7 +1,12 @@
 from datetime import datetime
+from pyramid import httpexceptions
 from pyramid.view import view_config
 from game_of_life import TIME_LIMIT, TIME_DELAY
 from game.game_controllers.game_controllers import GameOfLifeController
+
+from sqlalchemy import and_, cast, extract
+from projectconway.models import DBSession
+from projectconway.models.run import Run
 
 @view_config(route_name='create', renderer="pattern_input.mako")
 def create_view(request):
@@ -110,10 +115,29 @@ def pattern_input_clearer_JSON(request):
         del request.session["pattern"]
     return request.session
 
-@view_config(route_name="time_slot_reciever", renderer='json')
+@view_config(route_name="time_slot_receiver", renderer='json')
 def time_slot_reciever_JSON(request):
     """
     This view receives the user's time slot choice, checks that it is viable,
-    and adds it to the user's session of so.
+    and adds it to the user's session if so.
     """
-    pass
+    time_format = '%Y-%m-%dT%H:%M:%S.000Z'
+    try:
+        time_slot = datetime.strptime(request.json_body, time_format)
+    except:
+        raise httpexceptions.HTTPBadRequest("Timestring was not formatted correctly!")
+
+    runs = DBSession.query(Run.time_slot).filter(and_(
+        extract("year", Run.time_slot) == time_slot.year,
+        extract("month", Run.time_slot) == time_slot.month,
+        extract("day", Run.time_slot) == time_slot.day,
+        extract("hour", Run.time_slot) == time_slot.hour)).all()
+
+    slots = [i for i in range(0, 60, 5)]
+    non_aval_slots = [run.time_slot.minute for run in runs]
+
+    aval_slots = set(slots) - set(non_aval_slots)
+    aval_slots = [format(slot, "02d") for slot in aval_slots]
+    aval_slots.sort()
+
+    return {"time_slots": aval_slots}

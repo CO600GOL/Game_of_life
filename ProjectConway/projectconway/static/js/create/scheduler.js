@@ -14,7 +14,7 @@ function Scheduler() {
         * the date and the hour.
         */
         // Collect the date and hour for use in the AJAX call.
-        hour = $("#viewing_hour").val();
+        var hour = $("#viewing_hour").val();
 
         eventHandlerHelper(event.date, hour);
     }
@@ -27,8 +27,8 @@ function Scheduler() {
          * for the combination the date and the hour and changes the minute
          * select accordingly.
          */
-        hour = $("#viewing_hour").val();
-        date = $("#datepicker").datepicker("getDate");
+        var hour = $("#viewing_hour").val();
+        var date = $("#datepicker").datepicker("getDate");
 
         eventHandlerHelper(date, hour);
     }
@@ -37,16 +37,12 @@ function Scheduler() {
         /**
          * Supports the event handlers...
          */
-
-        dataDict = {
-            "date": date,
-            "hour": hour
-        }
+        var timestring = JSON.stringify(date).replace("T00", "T" + hour)
 
         $.ajax({
             url: URL,
             type: "POST",
-            data: JSON.stringify(dataDict),
+            data: timestring,
             dataType: 'json',
             success: function(){console.log("Getting slots succeeded")},
             error: function(){console.log("Getting slots failed")}
