@@ -130,5 +130,5 @@ def time_slot_reciever_JSON(request):
         aval_slots = Run.get_time_slots_for_hour(time_slot)
     except ArgumentError:
         raise HTTPBadRequest("Time given is in the past")
-    
+
     return {"time_slots": aval_slots}
