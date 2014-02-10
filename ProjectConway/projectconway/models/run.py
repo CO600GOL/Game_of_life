@@ -41,10 +41,11 @@ class Run(Base):
         max_hour = time_slot.replace(minute=0, second=0, microsecond=0) + datetime.timedelta(hours=1)
         now = datetime.datetime.now()
 
-        runs_times =  DBSession.query(Run.time_slot).filter(and_(
+        runs_times = DBSession.query(Run.time_slot).filter(and_(
             Run.time_slot < max_hour,
             Run.time_slot >= min_hour,
         )).all()
+        runs_times = [time[0] for time in runs_times]
 
         slots = []
         for slot in range(0, 60, 5):
