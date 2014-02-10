@@ -16,7 +16,7 @@ function Scheduler() {
         // Collect the date and hour for use in the AJAX call.
         var hour = $("#viewing_hour").val();
 
-        eventHandlerHelper(event.date, hour);
+        populateMinuteSlotDate(event.date, hour);
     }
 
     this.hourSelectEventHandler = function(event) {
@@ -30,22 +30,42 @@ function Scheduler() {
         var hour = $("#viewing_hour").val();
         var date = $("#datepicker").datepicker("getDate");
 
-        eventHandlerHelper(date, hour);
+        populateMinuteSlotDate(date, hour);
     }
 
-    function eventHandlerHelper(date, hour) {
+    this.populateMinuteSlot = function() {
+        /**
+         *
+         */
+        var d = new Date();
+        d.setMinutes(0);
+        d.setSeconds(0);
+        d.setMilliseconds(0);
+        populateMinuteSlotDate(d, d.getHours());
+    }
+
+    function populateMinuteSlotDate(date, hour) {
         /**
          * Supports the event handlers...
          */
-        var timestring = JSON.stringify(date).replace("T00", "T" + hour)
+        var timestring = JSON.stringify(date).replace("T00", "T" + hour);
+        var minute_slot = $("#viewing_slot");
+
+        minute_slot.empty();
+        minute_slot.prop("disabled", true);
 
         $.ajax({
             url: URL,
             type: "POST",
             data: timestring,
             dataType: 'json',
-            success: function(){console.log("Getting slots succeeded")},
-            error: function(){console.log("Getting slots failed")}
+            success: function(data){
+                $.each(data["time_slots"], function() {
+                    minute_slot.append($("<option />").val(this).text(this));
+                })
+
+                minute_slot.prop("disabled", false);
+            }
         });
     }
 

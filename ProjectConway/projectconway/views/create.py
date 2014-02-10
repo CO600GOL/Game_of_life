@@ -56,7 +56,7 @@ def create_view(request):
         if "viewing_hour" in request.session:
             viewing_hour = request.session["viewing_hour"]
         else:
-            viewing_hour = datetime.now().hour + 1
+            viewing_hour = datetime.now().hour
         data["viewing_hour"] = viewing_hour
 
         if "viewing_slot" in request.session:
@@ -126,13 +126,6 @@ def time_slot_reciever_JSON(request):
     except:
         raise httpexceptions.HTTPBadRequest("Timestring was not formatted correctly!")
 
-    runs = Run.get_time_slots_match_hour(time_slot)
-
-    slots = [i for i in range(0, 60, 5)]
-    non_aval_slots = [run.time_slot.minute for run in runs]
-
-    aval_slots = set(slots) - set(non_aval_slots)
-    aval_slots = [format(slot, "02d") for slot in aval_slots]
-    aval_slots.sort()
+    aval_slots = Run.get_time_slots_for_hour(time_slot)
 
     return {"time_slots": aval_slots}

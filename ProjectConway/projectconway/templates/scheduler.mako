@@ -28,9 +28,13 @@
 
     <div class="col-md-3">
           <select class="form-control" name="viewing_hour" id="viewing_hour">
-                % for i in range(0, 24):
-                    <option value="${str(i)}" ${"selected" if (i == viewing_hour) else ""}>${format(i, "02d")}</option>
-                % endfor
+              <%
+              import datetime
+              current_hour = datetime.datetime.now().hour
+              %>
+              % for i in range(current_hour, 24):
+                  <option value="${str(i)}" ${"selected" if (i == viewing_hour) else ""}>${format(i, "02d")}</option>
+              % endfor
           </select>
     </div>
 
@@ -81,6 +85,7 @@
 
             // Set up event handling for the datepicker
             var s = new Scheduler();
+            s.populateMinuteSlot();
             $("#datepicker").datepicker().on("changeDate", s.datepickerEventHandler);
             $("#viewing_hour").change(s.hourSelectEventHandler);
 

@@ -32,15 +32,24 @@ class Run(Base):
         return ("Run<Pattern=%s, Time Slot=%s, User Name=%s>" % (self.input_pattern, self.time_slot, self.user_name))
 
     @classmethod
-    def get_time_slots_match_hour(cls, time_slot):
+    def get_time_slots_for_hour(cls, time_slot):
         """
         Returns the times slots for the same year, month, day, hour as a
         given datetime object
         """
         min_hour = time_slot.replace(minute=0, second=0, microsecond=0)
         max_hour = time_slot.replace(minute=0, second=0, microsecond=0) + datetime.timedelta(hours=1)
+        now = datetime.datetime.now()
 
-        return DBSession.query(Run.time_slot).filter(and_(
-            Run.time_slot <= max_hour,
-            Run.time_slot >= min_hour
+        runs_times =  DBSession.query(Run.time_slot).filter(and_(
+            Run.time_slot < max_hour,
+            Run.time_slot >= min_hour,
         )).all()
+
+        slots = []
+        for slot in range(0, 60, 5):
+            t_slot = time_slot.replace(minute=slot, second=0, microsecond=0)
+            if t_slot > now and t_slot not in runs_times:
+                slots.append(format(slot, "02d"))
+
+        return slots

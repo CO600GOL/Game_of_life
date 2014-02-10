@@ -18,8 +18,7 @@ requires = [
     'zope.sqlalchemy',
     'waitress',
     'pytest',
-    'pexpect',
-    'psycopg2'
+    'pexpect'
     ]
 
 setup(name='ProjectConway',
