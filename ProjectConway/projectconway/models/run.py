@@ -1,5 +1,6 @@
-from projectconway.models import Base
-from sqlalchemy import Column, DateTime, Index, Integer, Sequence, String
+import datetime
+from projectconway.models import Base, DBSession
+from sqlalchemy import Column, DateTime, Index, Integer, Sequence, String, and_, extract
 
 
 class Run(Base):
@@ -29,3 +30,16 @@ class Run(Base):
         Returns: a representation of the table object.
         '''
         return("Run<Pattern=%s, Time Slot=%s, User Name=%s>" % (self.input_pattern, self.time_slot, self.user_name))
+
+    @classmethod
+    def get_time_slots_match_hour(cls, time_slot):
+        """
+        Returns the times slots for the same year, month, day, hour as a
+        given datetime object
+        """
+
+        return DBSession.query(Run.time_slot).filter(and_(
+            extract("year", Run.time_slot) == time_slot.year,
+            extract("month", Run.time_slot) == time_slot.month,
+            extract("day", Run.time_slot) == time_slot.day,
+            extract("hour", Run.time_slot) == time_slot.hour)).all()

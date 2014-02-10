@@ -1,11 +1,10 @@
 from datetime import datetime
 from pyramid import httpexceptions
 from pyramid.view import view_config
+from projectconway.models.run import Run
 from game_of_life import TIME_LIMIT, TIME_DELAY
 from game.game_controllers.game_controllers import GameOfLifeController
 
-from sqlalchemy import and_, cast, extract
-from projectconway.models import DBSession
 from projectconway.models.run import Run
 
 @view_config(route_name='create', renderer="pattern_input.mako")
@@ -127,11 +126,7 @@ def time_slot_reciever_JSON(request):
     except:
         raise httpexceptions.HTTPBadRequest("Timestring was not formatted correctly!")
 
-    runs = DBSession.query(Run.time_slot).filter(and_(
-        extract("year", Run.time_slot) == time_slot.year,
-        extract("month", Run.time_slot) == time_slot.month,
-        extract("day", Run.time_slot) == time_slot.day,
-        extract("hour", Run.time_slot) == time_slot.hour)).all()
+    runs = Run.get_time_slots_match_hour(time_slot)
 
     slots = [i for i in range(0, 60, 5)]
     non_aval_slots = [run.time_slot.minute for run in runs]
