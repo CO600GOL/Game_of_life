@@ -15,9 +15,10 @@
         <label class="control-label">Date of Viewing</label>
     </div>
 
+    <form method="post">
     <div class="col-md-12">
-        <div class="input-group date" id="datepicker" data-date=${viewing_date} data-date-format="dd-mm-yyyy">
-          <input class="form-control" type="text" readonly="" value=${viewing_date}>
+        <div class="input-group date" id="datepicker" data-date="${viewing_date}" data-date-format="dd/mm/yyyy">
+          <input class="form-control" type="text" readonly="" value="${viewing_date}" name="date">
           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
         </div>
     </div>
@@ -25,6 +26,7 @@
     <div class="col-md-2">
         <label class="control-label" for="viewing_hour">Viewing Hour</label>
     </div>
+
 
     <div class="col-md-3">
           <select class="form-control" name="viewing_hour" id="viewing_hour">
@@ -49,7 +51,7 @@
 </%block>
 
 <%block name="extras">
-    <form method="post">
+
         <div class="col-xs-1 col-sm-1 col-md-1">
             <button name="create_page" type="submit" class="btn btn-default" value="pattern_input">Back</button>
         </div>

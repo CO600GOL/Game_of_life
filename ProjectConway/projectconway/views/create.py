@@ -50,7 +50,7 @@ def create_view(request):
         if "viewing_date" in request.session:
             viewing_date = request.session["viewing_date"]
         else:
-            viewing_date = datetime.today().strftime("%d-%m-%Y")
+            viewing_date = datetime.today().strftime("%d/%m/%Y")
         data["viewing_date"] = viewing_date
 
         if "viewing_hour" in request.session:

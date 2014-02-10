@@ -65,7 +65,7 @@ function Scheduler() {
 
     this.populateMinuteSlot = function() {
         /**
-         *
+         * Populates the minute slot selection with minutes that are viable.
          */
         var d = new Date();
         d.setMinutes(0);
