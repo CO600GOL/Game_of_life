@@ -17,7 +17,7 @@
 			</div>
 
             <div class="col-md-1"></div>
-			
+
 			<div class="col-md-5">
                 <div class="row" id="extra_row">
                     <%block name="extras" />
@@ -31,9 +31,6 @@
                         </div>
                 </%block>
 
-                <div class="row" id="extra_row">
-                    <%block name="extras" />
-                </div>
 			</div>
 		</div>
 	</div>
