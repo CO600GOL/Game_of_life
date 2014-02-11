@@ -76,7 +76,7 @@ function Scheduler() {
 
     function populateMinuteSlotDate(date, hour) {
         /**
-         * Supports the event handlers...
+         * Populates the minute slot selection with the correct available slots.
          */
         var timestring = JSON.stringify(date).replace("T00", "T" + hour);
         var minute_slot = $("#viewing_slot");

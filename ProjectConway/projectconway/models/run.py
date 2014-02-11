@@ -54,7 +54,7 @@ class Run(Base):
             t_slot = time_slot.replace(minute=slot, second=0, microsecond=0)
             if t_slot > now and t_slot < max_date and t_slot not in runs_times:
                 slots.append(format(slot, "02d"))
-            elif t_slot < now:
+            elif t_slot >= now:
                 raise exc.ArgumentError("Time passed in is in the past")
             elif t_slot > max_date:
                 raise exc.ArgumentError("Time is above the maximum")
