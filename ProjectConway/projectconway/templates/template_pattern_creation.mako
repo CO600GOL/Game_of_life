@@ -60,13 +60,14 @@
         // Set up pattern submission
         var s = new Submitter(g);
         $("#submit_button").click(s.submissionEventHandler);
-        $('#closealert_button').click(s.alertCloseHandler);
 
         // Set up pattern clearer
         var c = new Clearer(g);
         $("#clear_button").click(c.clearEventHandler);
         $("#clearconfirm_button").click(c.clearConfirmEventHandler);
-        $('#closealert_button').click(c.alertCloseHandler);
+
+        // Set up ajax error warning closure
+        $('#closealert_button').click(alertCloseHandler);
     });
     </script>
 </%block>

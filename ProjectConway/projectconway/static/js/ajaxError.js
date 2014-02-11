@@ -13,5 +13,5 @@ this.alertCloseHandler = function(event) {
      * Deal with the error alert close button being clicked.
      * Ie. move it back off the screen.
      */
-    $("#error_alert").css("top", "").css("left", "");
+    $("#error_alert").css("top", "-999px").css("left", "-999px");
     }
