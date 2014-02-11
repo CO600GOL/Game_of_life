@@ -141,7 +141,6 @@ function CanvasGrid(selectorString, xCells, yCells, locked) {
         /**
          * Draws the grid.
          */
-        console.log("Drawing grid");
 
         // Draw X lines
         for (var i = 0; i < (xCells + 1); i++){
