@@ -3,8 +3,13 @@ body {
 	padding-bottom: 70px;
 }
 
+#datepicker {
+    width: 50%;
+    padding-bottom: 10px;
+}
+
 #pattern_input {
-    padding-top: 2px
+    padding-top: 2px;
 }
 
 #error_alert {
