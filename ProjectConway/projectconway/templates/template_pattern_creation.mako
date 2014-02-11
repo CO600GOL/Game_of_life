@@ -19,10 +19,6 @@
             <div class="col-md-1"></div>
 
 			<div class="col-md-5">
-                <div class="row" id="extra_row">
-                    <%block name="extras" />
-                </div>
-
                 <%block name="grid">
                         <div class="row" id="grid_row">
                             <div class="col-xs-9 col-sm-7 col-md-12" id="canvas-container">
@@ -30,6 +26,10 @@
                             </div>
                         </div>
                 </%block>
+
+                <div class="row" id="extra_row">
+                    <%block name="extras" />
+                </div>
 
 			</div>
 		</div>
