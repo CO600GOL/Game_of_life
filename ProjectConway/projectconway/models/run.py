@@ -43,16 +43,16 @@ class Run(Base):
         max_date = max_date.replace(minute=0, second=0, microsecond=0)
         now = datetime.datetime.now()
 
-        runs_times = DBSession.query(Run.time_slot).filter(and_(
+        run_times = DBSession.query(Run.time_slot).filter(and_(
             Run.time_slot < max_hour,
             Run.time_slot >= min_hour,
         )).all()
-        runs_times = [time[0] for time in runs_times]
+        run_times = [time[0] for time in run_times]
 
         slots = []
         for slot in range(0, 60, 5):
             t_slot = time_slot.replace(minute=slot, second=0, microsecond=0)
-            if t_slot > now and t_slot < max_date and t_slot not in runs_times:
+            if t_slot > now and t_slot < max_date and t_slot not in run_times:
                 slots.append(format(slot, "02d"))
             elif t_slot >= now:
                 raise exc.ArgumentError("Time passed in is in the past")
