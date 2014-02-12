@@ -65,7 +65,6 @@
 <%block name="scripts">
     <link href="static/css/datepicker3.css" rel="stylesheet">
     <script src="static/js/bootstrap/bootstrap-datepicker.js"></script>
-    <script src="static/js/create/inputGrid.js"></script>
     <script src="static/js/create/scheduler.js"></script>
 
     <script>

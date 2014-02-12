@@ -68,6 +68,7 @@ def create_view(request):
     # confirmation page
     elif page == page_keys[2]:
         request.session["create_page"] = page_keys[2]
+        data["title"] = "Confirmation"
 
     # pattern input page
     else:
