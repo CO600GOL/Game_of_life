@@ -35,7 +35,7 @@
 
         <div class="row">
             <div class="col-xs-2 col-sm-2 col-md-2 col-xs-offset-4 col-sm-offset-5 col-md-offset-6">
-                <button type="button" class="btn btn-primary" id="start_button">Try it now!</button>
+                <a type="button" class="btn btn-primary" href="/create" id="start_button">Try it now!</a>
             </div>
         </div>
 	</div>
