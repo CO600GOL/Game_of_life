@@ -66,3 +66,11 @@ class Run(Base):
                 raise exc.ArgumentError("Time is above the maximum")
 
         return slots
+
+    @classmethod
+    def get_run_for_time(cls, time_slot):
+        """
+        Returns a run if it exists for the given timeslot otherwise
+        return None
+        """
+        return DBSession.query(Run).filter(Run.time_slot == time_slot)

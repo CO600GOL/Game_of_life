@@ -178,3 +178,11 @@ def time_slot_reciever_JSON(request):
         raise HTTPBadRequest("Time given is in the past")
 
     return {"time_slots": aval_slots}
+
+@view_config(route_name="confirmation_receiver", renderer='json')
+def confirmation_receiver_JSON(request):
+    """
+    This view takes the user's information from the session and
+    puts it in the database, then removes it from the session.
+    """
+    pass

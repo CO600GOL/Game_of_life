@@ -26,6 +26,7 @@ def main(global_config, **settings):
     config.add_route('pattern_input_receiver', '/pattern_receiver.json')
     config.add_route('pattern_input_clearer', '/pattern_clearer.json')
     config.add_route('time_slot_receiver', '/scheduler.json')
+    config.add_route('confirmation_receiver', 'confirm.json')
     config.add_route('about', '/about')
     config.add_route('rules', '/rules')
     config.scan()

@@ -11,6 +11,7 @@ from projectconway.views.create import create_view
 from projectconway.views.create import pattern_input_receiver_JSON
 from projectconway.views.create import pattern_input_clearer_JSON
 from projectconway.views.create import time_slot_reciever_JSON
+from projectconway.views.create import confirmation_receiver_JSON
 from projectconway.models import Base, DBSession
 from projectconway.models.run import Run
 
@@ -233,6 +234,68 @@ class TestScheduler(object):
             pass
         else:
             raise Exception("View did not return a HTTPBadRequest due to request from the future")
+
+    def test_confirmation_receiver_JSON(self):
+        """
+        This tests that the content of a session can successfully
+        be added to the database.
+        """
+        request = DummyRequest(route='/confirm.json')
+
+        # create a pattern to be saved to the database
+        request.session["pattern"] = create_input_pattern()
+        # create a time and date to be saved for the pattern on the database
+        time = datetime.datetime.now().replace(minute=0, second=0, microsecond=0)
+        request.session["viewing_date"] = time.strftime("%d/%m/%Y")
+        request.session["viewing_hour"] = time.strftime("%h")
+        request.session["viewing_slot"] = time.strftime("%M")
+
+        response_dict = confirmation_receiver_JSON(request)
+
+        # Test response has arrived
+        assert response_dict
+        assert response_dict["success"]
+
+        # Test session has been saved to database
+        assert Run.get_run_for_time(time)
+
+        # Test session has been emptied
+        assert not request.session["pattern"]
+        assert not request.session["viewing_date"]
+        assert not request.session["viewing_hour"]
+        assert not request.session["viewing_slot"]
+
+    def test_confirmation_receiver_JSON_failure(self):
+        """
+        This tests that the confirmation logic recognises when a
+        session has already been added to the database and fails
+        to be added again.
+        """
+        # Add pattern and time to database
+        time = datetime.datetime.now().replace(minute=5, second=0, microsecond=0)
+        with transaction.manager:
+            DBSession.add(Run(create_input_pattern(), time, ""))
+            DBSession.commit
+
+        # Set up request
+        request = DummyRequest(route='/confirm.json')
+        request.session["pattern"] = create_input_pattern()
+        request.session["viewing_date"] = time.strftime("%d/%m/%Y")
+        request.session["viewing_hour"] = time.strftime("%h")
+        request.session["viewing_slot"] = time.strftime("%M")
+
+        response_dict = json.loads(confirmation_receiver_JSON(request))
+
+        # Test response has arrived
+        assert response_dict
+        assert not response_dict["success"]
+        assert response_dict["failure_message"]
+
+        # Test session still exists
+        assert request.session["pattern"]
+        assert request.session["viewing_date"]
+        assert request.session["viewing_hour"]
+        assert request.session["viewing_slot"]
 
     def teardown_class(self):
         '''
