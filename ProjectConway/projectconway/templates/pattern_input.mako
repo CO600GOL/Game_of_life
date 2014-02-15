@@ -25,7 +25,7 @@
 
 <%block name="extras">
     <div class="col-xs-1 col-sm-1 col-md-1">
-        <button id="clear_button" type="button" class="btn btn-primary">Clear</button>
+        <button id="clear_button" type="button" class="btn btn-default">Clear</button>
     </div>
 
     <div class="col-xs-1 col-sm-1 col-md-1 col-md-offset-1">

@@ -18,7 +18,7 @@
     <form method="post">
     <div class="col-md-12">
         <div class="input-group date" id="datepicker" data-date="${viewing_date}" data-date-format="dd/mm/yyyy">
-          <input class="form-control" type="text" readonly="" value="${viewing_date}" name="date">
+          <input class="form-control" type="text" readonly="" value="${viewing_date}" name="viewing_date">
           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
         </div>
     </div>

@@ -43,3 +43,7 @@ body {
 .centered_text {
     text-align: center;
 }
+
+.confirmation_text {
+    font-weight: bold;
+}
