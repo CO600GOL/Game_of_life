@@ -52,7 +52,7 @@
 
 <%block name="extras">
 
-        <div class="col-xs-10 col-xs-offset-1 col-md-12">
+        <div class="col-xs-12 col-md-12">
             <button name="create_page" type="submit" class="btn btn-default left-button" value="pattern_input">Back</button>
             <button name="create_page" type="submit" class="btn btn-primary right-button" value="confirmation">Confirm</button>
         </div>

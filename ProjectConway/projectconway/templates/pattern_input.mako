@@ -24,7 +24,7 @@
 </%block>
 
 <%block name="extras">
-    <div class="col-xs-10 col-xs-offset-1 col-md-12">
+    <div class="col-xs-12 col-md-12">
         <button id="clear_button" type="button" class="btn btn-default left-button">Clear</button>
         <button id="submit_button" type="button" class="btn btn-primary right-button" data-toggle="modal" data-target="#loading_popup">Submit</button>
     </div>
