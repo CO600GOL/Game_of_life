@@ -8,10 +8,11 @@ with open(os.path.join(here, 'README.txt')) as f:
 with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
+#'pyramid_debugtoolbar==2.0',
 requires = [
     'pyramid',
-    'pyramid_chameleon',
-    'pyramid_debugtoolbar',
+    'pyramid_mako',
+    'pyramid_debugtoolbar==1.0.9',
     'pyramid_tm',
     'SQLAlchemy',
     'transaction',

@@ -25,11 +25,11 @@
 
 <%block name="extras">
     <div class="col-xs-1 col-sm-1 col-md-1">
-        <button id="submit_button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#loading_popup">Submit</button>
+        <button id="clear_button" type="button" class="btn btn-primary">Clear</button>
     </div>
 
     <div class="col-xs-1 col-sm-1 col-md-1 col-md-offset-1">
-        <button id="clear_button" type="button" class="btn btn-primary">Clear</button>
+        <button id="submit_button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#loading_popup">Submit</button>
     </div>
 
     <div class="modal fade" id="loading_popup" role="dialog" aria-hidden="true">
@@ -55,8 +55,10 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="#">Next</a>
+                    <form method="post">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button name="create_page" type="submit" class="btn btn-primary" value="scheduler">Next</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -86,4 +88,27 @@
         <h4>Opps! There has been an error:</h4>
         <div id="error_content"></div>
     </div>
+</%block>
+
+<%block name="scripts">
+    <script src="static/js/create/patternSubmission.js"></script>
+    <script src="static/js/create/patternClear.js"></script>
+    <script src="static/js/create/ajaxError.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var g = window.g;
+
+            // Set up pattern submission
+            var s = new Submitter(g);
+            $("#submit_button").click(s.submissionEventHandler);
+            $('#closealert_button').click(s.alertCloseHandler);
+
+            // Set up pattern clearer
+            var c = new Clearer(g);
+            $("#clear_button").click(c.clearEventHandler);
+            $("#clearconfirm_button").click(c.clearConfirmEventHandler);
+            $('#closealert_button').click(c.alertCloseHandler);
+        });
+    </script>
 </%block>
