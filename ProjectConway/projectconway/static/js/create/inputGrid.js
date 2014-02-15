@@ -18,6 +18,7 @@ function CanvasGrid(selectorString, xCells, yCells, locked) {
     var canvasHeight;
     var pixels;
     var grid;
+    var locked = false;
 
     if (!canvas){
         throw "Canvas object could not be found";
@@ -38,6 +39,13 @@ function CanvasGrid(selectorString, xCells, yCells, locked) {
         drawGrid();
         drawCells();
     };
+
+    this.lockGrid = function() {
+        /**
+         * Locks the grid so it cannot be edited.
+         */
+        locked = true;
+    }
 
     this.getGridPattern = function() {
         /**
@@ -173,10 +181,12 @@ function CanvasGrid(selectorString, xCells, yCells, locked) {
          * Deals with mouse events.
          * Finds which cells as been clicked and toggles that cell's state.
          */
-        var x = Math.floor(e.offsetX / pixels);
-        var y = Math.floor(e.offsetY / pixels);
+        if(locked == false) {
+                var x = Math.floor(e.offsetX / pixels);
+                var y = Math.floor(e.offsetY / pixels);
 
-        toggleCell(x, y);
+                toggleCell(x, y);
+        }
     }
 
     function toggleCell(x, y) {
