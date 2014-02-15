@@ -1,15 +1,19 @@
 <%inherit file="template_pattern_creation.mako" />
 
 <%block name="small_text">
-    <h2>Save your pattern!</h2>
-    <p>Now that you've created a pattern, it's time to send it to the display!</p>
-    <p>Just select a date and time in the section below and press submit.</p>
-    <b>Note: To edit your work so far, just press the back button below the grid!</b>
+    <div class="col-md-12">
+        <h2>Save your pattern!</h2>
+        <p>Now that you've created a pattern, it's time to send it to the display!</p>
+        <p>Just select a date and time in the section below and press submit.</p>
+        <b>Note: To edit your work so far, just press the back button below the grid!</b>
+    </div>
 </%block>
 
 <%block name="large_text">
-    <h2>Scheduler</h2>
-    <p>Choose a date and time to go and see your pattern come to life!</p>
+    <div class="col-md-12">
+        <h2>Scheduler</h2>
+        <p>Choose a date and time to go and see your pattern come to life!</p>
+    </div>
 
     <div class="col-md-12">
         <label class="control-label">Date of Viewing</label>
