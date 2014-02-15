@@ -1,4 +1,6 @@
+import datetime
 from pyramid.config import Configurator
+from pyramid.renderers import JSON
 from sqlalchemy import engine_from_config
 from .models import initialize_sql
 from pyramid.session import UnencryptedCookieSessionFactoryConfig
@@ -18,6 +20,7 @@ def main(global_config, **settings):
 
     # Template engines
     config.include('pyramid_mako')
+    config.add_renderer("conway_json", JSON(indent=4))
 
     # View setups
     config.add_static_view('static', 'static', cache_max_age=3600)
@@ -42,4 +45,15 @@ Kent,
 CT1 2RA""",
     "link": "www.canterbury.co.uk/Beaney",
     "picture": "/static/images/#"
+}
+
+project_config = {
+    # Starting hour, difference from midnight
+    "starting_hour": datetime.timedelta(hours=6),
+    # Closing hour, deifference from midnight
+    "closing_hour": datetime.timedelta(hours=21),
+    # Minimum date, should really be now
+    "minimum_date": datetime.timedelta(),
+    # Maximum_date, the max date the user can book
+    "maximum_date": datetime.timedelta(weeks=3)
 }

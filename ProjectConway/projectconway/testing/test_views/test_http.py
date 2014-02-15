@@ -122,9 +122,10 @@ class TestCreatePage(object):
         This method tests HTTP functionality on the confirmation
         receiver JSON view.
         """
-        url = "%sconfirmation.json" % URL
+        url = "%sconfirm.json" % URL
+        headers = {"Content-Type": "application/json"}
 
-        request = urllib.Request(url)
+        request = urllib.Request(url, headers=headers)
         response = urllib.urlopen(request)
         content = response.read().decode("utf-8")
 

@@ -1,6 +1,6 @@
 import datetime
 from projectconway.models import Base, DBSession
-from sqlalchemy import Column, DateTime, Index, Integer, Sequence, String, and_, exc
+from sqlalchemy import Column, DateTime, Integer, Sequence, String, and_, exc
 
 
 class Run(Base):
@@ -68,9 +68,17 @@ class Run(Base):
         return slots
 
     @classmethod
-    def get_run_for_time(cls, time_slot):
+    def get_run_for_time_slot(cls, time_slot):
         """
         Returns a run if it exists for the given timeslot otherwise
         return None
         """
         return DBSession.query(Run).filter(Run.time_slot == time_slot)
+
+    @classmethod
+    def insert_run(cls, pattern, time_slot):
+        """
+        Ensures that the pattern and time_slot meet validation
+        and inserts the run into the run table.
+        """
+        pass
