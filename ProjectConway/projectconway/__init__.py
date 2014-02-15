@@ -12,6 +12,11 @@ def main(global_config, **settings):
     config.scan('projectconway.models')
     engine = engine_from_config(settings, 'sqlalchemy.')
     initialize_sql(engine)
+
+    # Template engines
+    config.include('pyramid_mako')
+
+    # View setups
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
     config.add_route('create', '/create')
