@@ -44,21 +44,18 @@ body {
     text-align: center;
 }
 
-.confirmation_text {
+.confirmation_text {min-width: 100px;
     font-weight: bold;
 }
 
 .left-button {
     float: left;
-    min-width: 100px;
 }
 
 .center-button {
     margin-left: 2%;
-    min-width: 100px;
 }
 
 .right-button {
     float: right;
-    min-width: 100px;
 }
