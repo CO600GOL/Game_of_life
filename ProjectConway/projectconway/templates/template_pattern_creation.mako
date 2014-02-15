@@ -21,7 +21,7 @@
 			<div class="col-md-5">
                 <%block name="grid">
                         <div class="row" id="grid_row">
-                            <div class="col-xs-9 col-sm-7 col-md-12" id="canvas-container">
+                            <div class="col-xs-10 col-xs-offset-1 col-md-12" id="canvas-container">
                                 <canvas id="pattern_input"></canvas>
                             </div>
                         </div>

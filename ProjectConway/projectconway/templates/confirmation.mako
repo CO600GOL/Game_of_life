@@ -42,16 +42,10 @@
 
 <%block name="extras">
     <form method="post">
-        <div class="col-xs-1 col-sm-1 col-md-1">
-            <button name="create_page" type="submit" class="btn btn-default" value="pattern_input">Edit Pattern</button>
-        </div>
-
-        <div class="col-xs-1 col-sm-1 col-md-1">
-            <button name="create_page" type="submit" class="btn btn-default" value="scheduler">Change Time</button>
-        </div>
-
-        <div class="col-xs-1 col-sm-1 col-md-1">
-            <button name="create_page" type="submit" class="btn btn-primary" value="confirm">Confirm</button>
+        <div class="col-xs-10 col-xs-offset-1 col-md-12">
+            <button name="create_page" type="submit" class="btn btn-default left-button" value="pattern_input">Edit Pattern</button>
+            <button name="create_page" type="submit" class="btn btn-default center-button" value="scheduler">Change Time</button>
+            <button name="create_page" type="submit" class="btn btn-primary right-button" value="confirm">Confirm</button>
         </div>
     </form>
 </%block>

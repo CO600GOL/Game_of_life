@@ -1,6 +1,6 @@
 body {
-	padding-top: 70px;
-	padding-bottom: 70px;
+	padding-top: 50px;
+	padding-bottom: 50px;
 }
 
 #datepicker {
@@ -46,4 +46,19 @@ body {
 
 .confirmation_text {
     font-weight: bold;
+}
+
+.left-button {
+    float: left;
+    min-width: 100px;
+}
+
+.center-button {
+    margin-left: 2%;
+    min-width: 100px;
+}
+
+.right-button {
+    float: right;
+    min-width: 100px;
 }
