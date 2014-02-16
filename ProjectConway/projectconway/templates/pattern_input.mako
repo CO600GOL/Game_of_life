@@ -34,7 +34,6 @@
         <div id="error_content"></div>
     </div>
 
-
     <div class="modal fade" id="loading_popup" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

@@ -44,15 +44,28 @@
     <form method="post">
             <button name="create_page" type="submit" class="btn btn-default left-button" value="pattern_input">Edit Pattern</button>
             <button name="create_page" type="submit" class="btn btn-default center-button" value="scheduler">Edit Time</button>
-            <button name="create_page" type="submit" class="btn btn-primary right-button" value="confirm">Confirm</button>
+            <button type="button" class="btn btn-primary right-button" id="confirm_button">Confirm</button>
     </form>
+
+    <div class="alert alert-danger alert-block in" id="error_alert">
+        <button type="button" class="close" id="closealert_button">x</button>
+        <h4>Opps! There has been an error:</h4>
+        <div id="error_content"></div>
+    </div>
 </%block>
 
 <%block name="scripts">
+    <script src="static/js/create/ajaxError.js"></script>
     <script>
         $(document).ready(function() {
             // Lock the grid so that it cannot be edited
             g.lockGrid();
+
+            // Set up the event handling on the final confirmation button
+
+            // Set up the closing of the ajax error warning.
+            $('#closealert_button').click(alertCloseHandler);
+
         });
     </script>
 </%block>

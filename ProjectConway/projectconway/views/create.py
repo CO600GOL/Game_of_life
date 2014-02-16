@@ -1,5 +1,5 @@
 from datetime import datetime
-from pyramid.httpexceptions import HTTPFound, HTTPBadRequest
+from pyramid.httpexceptions import HTTPBadRequest
 from pyramid.view import view_config
 from sqlalchemy.exc import ArgumentError
 from projectconway import display_location
@@ -199,7 +199,7 @@ def confirmation_receiver_JSON(request):
         viewing_slot = request.session["viewing_slot"]
         viewing_time = "%s-%s-%s" % (viewing_date, viewing_hour, viewing_slot)
     except KeyError:
-        raise HTTPFound("/create")
+        raise HTTPBadRequest("Session Timeout")
     finally:
         clear_session(request)
 
