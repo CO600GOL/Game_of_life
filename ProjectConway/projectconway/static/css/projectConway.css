@@ -3,6 +3,11 @@ body {
 	padding-bottom: 70px;
 }
 
+#start_button {
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
 #datepicker {
     width: 50%;
     padding-bottom: 10px;
@@ -38,4 +43,9 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.rules_format {
+    padding-top: 8%;
+    padding-bottom: 8%;
 }
