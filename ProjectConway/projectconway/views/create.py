@@ -209,7 +209,7 @@ def confirmation_receiver_JSON(request):
     try:
         Run.insert_run(pattern, time_slot)
     except ArgumentError as e:
-        raise HTTPBadRequest("Could not save run: %s" % e)
+        data["failure_message"] = e
     else:
         data["success"] = True
 

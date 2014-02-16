@@ -186,7 +186,7 @@ class TestScheduler(object):
         the correct slots are returned
         """
         request = DummyRequest(route='/scheduler.json')
-        time_format = '%Y-%m-%dT%H:00g:00.000Z'
+        time_format = '%Y-%m-%dT%H:00:00.000Z'
 
         now = datetime.datetime.today() + datetime.timedelta(hours=1)
         user_input = now.strftime(time_format)
@@ -287,13 +287,13 @@ class TestConfirmation(object):
         assert response_dict["success"]
 
         # Test session has been saved to database
-        assert Run.get_run_for_time(time)
+        assert Run.get_run_for_time_slot(time)
 
         # Test session has been emptied
-        assert not request.session["pattern"]
-        assert not request.session["viewing_date"]
-        assert not request.session["viewing_hour"]
-        assert not request.session["viewing_slot"]
+        assert not "pattern" in request.session
+        assert not "viewing_date" in request.session
+        assert not "viewing_hour" in request.session
+        assert not "viewing_slot" in request.session
 
     def test_confirmation_receiver_JSON_failure(self):
         """
@@ -314,7 +314,7 @@ class TestConfirmation(object):
         request.session["viewing_hour"] = time.strftime("%H")
         request.session["viewing_slot"] = time.strftime("%M")
 
-        response_dict = json.loads(confirmation_receiver_JSON(request))
+        response_dict = confirmation_receiver_JSON(request)
 
         # Test response has arrived
         assert response_dict
@@ -322,10 +322,10 @@ class TestConfirmation(object):
         assert response_dict["failure_message"]
 
         # Test session still exists
-        assert request.session["pattern"]
-        assert request.session["viewing_date"]
-        assert request.session["viewing_hour"]
-        assert request.session["viewing_slot"]
+        assert not "pattern" in request.session
+        assert not "viewing_date" in request.session
+        assert not "viewing_hour" in request.session
+        assert not "viewing_slot" in request.session
 
     def teardown_class(self):
         '''

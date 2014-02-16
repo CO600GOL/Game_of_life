@@ -67,7 +67,7 @@ class Run(Base):
         Returns a run if it exists for the given timeslot otherwise
         return None
         """
-        return DBSession.query(Run).filter(Run.time_slot == time_slot)
+        return DBSession.query(Run).filter(Run.time_slot == time_slot).all()
 
     @classmethod
     def insert_run(cls, pattern, time_slot):
@@ -82,7 +82,7 @@ class Run(Base):
         if cls.get_run_for_time_slot(time_slot):
             raise exc.ArgumentError("Time slots already has a run associated")
 
-        # Insert pattern and time slot into databas
+        # Insert pattern and time slot into database
         with transaction.manager:
             DBSession.add(Run(pattern, time_slot, ""))
             DBSession.commit()
