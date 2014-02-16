@@ -4,7 +4,7 @@
  */
 
 function Submitter(grid) {
-    var URL = "/boobspattern_receiver.json";
+    var URL = "/pattern_receiver.json";
 
     this.submissionEventHandler = function(event) {
         /**
