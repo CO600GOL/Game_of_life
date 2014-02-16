@@ -193,6 +193,4 @@ def confirmation_receiver_JSON(request):
 
     # Get the information out of the session
 
-    # Ensure
-
     return data
