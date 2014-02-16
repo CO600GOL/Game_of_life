@@ -160,7 +160,7 @@ class TestScheduler(object):
         time slot
         """
         request = DummyRequest(route='/scheduler.json')
-        time_format = '%Y-%m-%dT%H:%M:%S.000Z'
+        time_format = '%Y-%m-%dT%H:00:00.000Z'
 
         now = datetime.datetime.today() + datetime.timedelta(hours=1)
         user_input = now.strftime(time_format)
@@ -186,10 +186,11 @@ class TestScheduler(object):
         the correct slots are returned
         """
         request = DummyRequest(route='/scheduler.json')
-        time_format = '%Y-%m-%dT%H:%M:%S.000Z'
+        time_format = '%Y-%m-%dT%H:00g:00.000Z'
 
         now = datetime.datetime.today() + datetime.timedelta(hours=1)
         user_input = now.strftime(time_format)
+
         request.content_type = "application/json"
         request.json_body = user_input
 
@@ -235,6 +236,35 @@ class TestScheduler(object):
         else:
             raise Exception("View did not return a HTTPBadRequest due to request from the future")
 
+    def teardown_class(self):
+        '''
+        Closes database session once the class is redundant
+        '''
+        with transaction.manager:
+            for run in DBSession.query(Run).all():
+                DBSession.delete(run)
+            DBSession.commit()
+
+        DBSession.remove()
+        testing.tearDown()
+
+
+class TestConfirmation(object):
+    """
+    This object contains a group of unit tests that test
+    pyramid views associated with confirming the user's information
+    in the database
+    """
+
+    def setup_class(self):
+        '''
+        Setup data that will be needed throughout the class and setup database
+        '''
+        self.config = testing.setUp()
+        engine = create_engine('sqlite:///testdb.sqlite')
+        DBSession.configure(bind=engine)
+        Base.metadata.create_all(engine)
+
     def test_confirmation_receiver_JSON(self):
         """
         This tests that the content of a session can successfully
@@ -247,7 +277,7 @@ class TestScheduler(object):
         # create a time and date to be saved for the pattern on the database
         time = datetime.datetime.now().replace(minute=0, second=0, microsecond=0)
         request.session["viewing_date"] = time.strftime("%d/%m/%Y")
-        request.session["viewing_hour"] = time.strftime("%h")
+        request.session["viewing_hour"] = time.strftime("%H")
         request.session["viewing_slot"] = time.strftime("%M")
 
         response_dict = confirmation_receiver_JSON(request)
@@ -281,7 +311,7 @@ class TestScheduler(object):
         request = DummyRequest(route='/confirm.json')
         request.session["pattern"] = create_input_pattern()
         request.session["viewing_date"] = time.strftime("%d/%m/%Y")
-        request.session["viewing_hour"] = time.strftime("%h")
+        request.session["viewing_hour"] = time.strftime("%H")
         request.session["viewing_slot"] = time.strftime("%M")
 
         response_dict = json.loads(confirmation_receiver_JSON(request))

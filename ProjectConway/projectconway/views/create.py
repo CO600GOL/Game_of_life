@@ -1,5 +1,5 @@
 from datetime import datetime
-from pyramid.httpexceptions import HTTPBadRequest
+from pyramid.httpexceptions import HTTPFound, HTTPBadRequest
 from pyramid.view import view_config
 from sqlalchemy.exc import ArgumentError
 from projectconway import display_location
@@ -174,8 +174,8 @@ def time_slot_reciever_JSON(request):
 
     try:
         aval_slots = Run.get_time_slots_for_hour(time_slot)
-    except ArgumentError:
-        raise HTTPBadRequest("Time given is in the past")
+    except ArgumentError as e:
+        raise HTTPBadRequest("Failed to get available slots: %s" % e)
 
     return {"time_slots": aval_slots}
 
@@ -192,5 +192,32 @@ def confirmation_receiver_JSON(request):
     }
 
     # Get the information out of the session
+    try:
+        pattern = request.session["pattern"]
+        viewing_date = request.session["viewing_date"]
+        viewing_hour = request.session["viewing_hour"]
+        viewing_slot = request.session["viewing_slot"]
+        viewing_time = "%s-%s-%s" % (viewing_date, viewing_hour, viewing_slot)
+    except KeyError:
+        raise HTTPFound("/create")
+    finally:
+        clear_session(request)
+
+    time_slot = datetime.strptime(viewing_time, "%d/%m/%Y-%H-%M")
+
+    # Insert run
+    try:
+        Run.insert_run(pattern, time_slot)
+    except ArgumentError as e:
+        raise HTTPBadRequest("Could not save run: %s" % e)
+    else:
+        data["success"] = True
 
     return data
+
+def clear_session(request):
+    """
+    This helper function will remove saved user informtion
+    from the given request session.
+    """
+    request.session = {}
