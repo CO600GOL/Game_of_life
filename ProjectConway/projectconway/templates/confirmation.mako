@@ -59,6 +59,14 @@
                 <div class="modal-header">
                     <h4>It is done!</h4>
                 </div>
+
+                <div class="modal-body">
+                    <div id="confirmation_success"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-primary" href="/">Done!</a>
+                </div>
             </div>
         </div>
     </div>

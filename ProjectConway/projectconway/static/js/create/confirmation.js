@@ -20,6 +20,8 @@ function Confirmer() {
                 console.log("SUCCESS");
                 if (data["success"] == true) {
                     $("#confirmation_success_popup").modal({show: true});
+                    $("#confirmation_success").html("<h5>Congratulations! Your pattern is going to the display!</h5>" +
+                        "<h5>See you there!</h5>")
                 }
             },
             error: function() {

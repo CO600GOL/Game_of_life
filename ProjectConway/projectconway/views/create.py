@@ -202,8 +202,8 @@ def confirmation_receiver_JSON(request):
         viewing_hour = request.session["viewing_hour"]
         viewing_slot = request.session["viewing_slot"]
         viewing_time = "%s-%s-%s" % (viewing_date, viewing_hour, viewing_slot)
-    except KeyError as ke:
-        raise HTTPBadRequest("Session Timeout: %s" % ke)
+    except KeyError:
+        raise HTTPBadRequest("Session Timeout")
     finally:
         clear_session(request)
 
