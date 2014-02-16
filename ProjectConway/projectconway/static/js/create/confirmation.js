@@ -4,7 +4,7 @@
  */
 
 function Confirmer() {
-    var URL = "/confirm.json"
+    var URL = "/confirm.json";
 
     this.confirmationButtonEventHandler = function(event) {
         /**
@@ -17,9 +17,13 @@ function Confirmer() {
             type: "GET",
             dataType: 'json',
             success: function(data) {
-                
+                console.log("SUCCESS");
+                if (data["success"] == true) {
+                    $("#confirmation_success_popup").modal({show: true});
+                }
             },
             error: function() {
+                console.log("ERROR");
                 $.getScript('static/js/create/ajaxError.js', alertOpenHandler());
                 $("#loading_popup").modal("hide");
                 $("#error_alert").css("top", "5%").css("left", "3%");

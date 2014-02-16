@@ -52,9 +52,20 @@
         <h4>Opps! There has been an error:</h4>
         <div id="error_content"></div>
     </div>
+
+    <div class="modal fade" id="confirmation_success_popup" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>It is done!</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 </%block>
 
 <%block name="scripts">
+    <script src="static/js/create/confirmation.js"></script>
     <script src="static/js/create/ajaxError.js"></script>
     <script>
         $(document).ready(function() {
@@ -62,6 +73,8 @@
             g.lockGrid();
 
             // Set up the event handling on the final confirmation button
+            var c = new Confirmer();
+            $('#confirm_button').click(c.confirmationButtonEventHandler);
 
             // Set up the closing of the ajax error warning.
             $('#closealert_button').click(alertCloseHandler);

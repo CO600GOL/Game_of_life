@@ -90,6 +90,7 @@ def create_view(request):
                 suffix = ["st", "nd", "rd"][viewing_date.day % 10 - 1]
 
             data["viewing_date"] = viewing_date.strftime("%A %d" + suffix + " %B %Y")
+            request.session["viewing_date"] = date
         except:
             raise ArgumentError("Viewing date incorrectly formatted")
 
@@ -101,6 +102,7 @@ def create_view(request):
         else:
             raise ArgumentError("Viewing hour was not submitted")
         data["viewing_hour"] = viewing_hour
+        request.session["viewing_hour"] = viewing_hour
 
         # Assign make viewing slot variable
         if "viewing_slot" in request.POST:
@@ -110,6 +112,7 @@ def create_view(request):
         else:
             raise ArgumentError("Viewing slot was not submitted")
         data["viewing_slot"] = viewing_slot
+        request.session["viewing_slot"] = viewing_slot
 
         data["display_address"] = display_location["address"]
 
@@ -194,12 +197,13 @@ def confirmation_receiver_JSON(request):
     # Get the information out of the session
     try:
         pattern = request.session["pattern"]
+        # The key error causing the confirmation page to fail is being caused by request.session["viewing date"]
         viewing_date = request.session["viewing_date"]
         viewing_hour = request.session["viewing_hour"]
         viewing_slot = request.session["viewing_slot"]
         viewing_time = "%s-%s-%s" % (viewing_date, viewing_hour, viewing_slot)
-    except KeyError:
-        raise HTTPBadRequest("Session Timeout")
+    except KeyError as ke:
+        raise HTTPBadRequest("Session Timeout: %s" % ke)
     finally:
         clear_session(request)
 

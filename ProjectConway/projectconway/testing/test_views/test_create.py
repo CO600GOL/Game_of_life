@@ -179,7 +179,7 @@ class TestScheduler(object):
         assert len(slots) == 12
         assert slots == [format(i, "02d") for i in range(0, 60, 5)]
 
-    def test_time_slot_reciever_JSON_runs(self):
+    def test_time_slot_receiver_JSON_runs(self):
         """
         This test will attempt to request minutes for a successful
         time slot. This tests ensures that there are runs in the database and ensures
