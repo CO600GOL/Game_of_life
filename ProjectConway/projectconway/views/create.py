@@ -3,6 +3,7 @@ from pyramid.httpexceptions import HTTPBadRequest
 from pyramid.view import view_config
 from sqlalchemy.exc import ArgumentError
 from projectconway import display_location
+from projectconway.lib.exceptions import RunSlotTakenError
 from projectconway.models.run import Run
 from game_of_life import TIME_LIMIT, TIME_DELAY
 from game.game_controllers.game_controllers import GameOfLifeController
@@ -212,8 +213,8 @@ def confirmation_receiver_JSON(request):
     # Insert run
     try:
         Run.insert_run(pattern, time_slot)
-    except ArgumentError as e:
-        data["failure_message"] = e
+    except RunSlotTakenError:
+        data["failure_message"] = "I'm afraid your time slot is taken! Feel free to try another."
     else:
         data["success"] = True
 

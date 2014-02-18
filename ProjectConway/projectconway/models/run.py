@@ -1,5 +1,6 @@
 import datetime
 import transaction
+from projectconway.lib.exceptions import RunSlotTakenError
 from projectconway.models import Base, DBSession
 from sqlalchemy import Column, DateTime, Integer, Sequence, String, and_, exc
 
@@ -80,7 +81,7 @@ class Run(Base):
         # Perform validation checks
         cls._validate_time_slot(now, time_slot)
         if cls.get_run_for_time_slot(time_slot):
-            raise exc.ArgumentError("Time slots already has a run associated")
+            raise RunSlotTakenError("Time slots already has a run associated")
 
         # Insert pattern and time slot into database
         with transaction.manager:
