@@ -1,8 +1,8 @@
 import datetime
 import transaction
-from projectconway.lib.exceptions import RunSlotTakenError
+from projectconway.lib.exceptions import RunSlotTakenError, RunSlotInvalidError
 from projectconway.models import Base, DBSession
-from sqlalchemy import Column, DateTime, Integer, Sequence, String, and_, exc
+from sqlalchemy import Column, DateTime, Integer, Sequence, String, and_
 
 
 class Run(Base):
@@ -97,11 +97,12 @@ class Run(Base):
 
         # Ensure time_slot meets conditions
         if time_slot < min_date:
-            raise exc.ArgumentError("Time passed in is in the past")
+            raise RunSlotInvalidError("Time passed in is in the past")
         elif time_slot > max_date:
-            raise exc.ArgumentError("Time is above the maximum")
+            raise RunSlotInvalidError("Time is above the maximum")
         if time_slot.minute % 5 != 0:
-            raise exc.ArgumentError("Minute value is not a multiple of 5")
+            raise RunSlotInvalidError("Minute value is not a multiple of 5")
+
 
 def hourify(t):
     return t.replace(minute=0, second=0, microsecond=0)

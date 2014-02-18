@@ -3,7 +3,7 @@ from pyramid.httpexceptions import HTTPBadRequest
 from pyramid.view import view_config
 from sqlalchemy.exc import ArgumentError
 from projectconway import display_location
-from projectconway.lib.exceptions import RunSlotTakenError
+from projectconway.lib.exceptions import RunSlotTakenError, RunSlotInvalidError
 from projectconway.models.run import Run
 from game_of_life import TIME_LIMIT, TIME_DELAY
 from game.game_controllers.game_controllers import GameOfLifeController
@@ -178,7 +178,7 @@ def time_slot_reciever_JSON(request):
 
     try:
         aval_slots = Run.get_time_slots_for_hour(time_slot)
-    except ArgumentError as e:
+    except RunSlotInvalidError as e:
         raise HTTPBadRequest("Failed to get available slots: %s" % e)
 
     return {"time_slots": aval_slots}
