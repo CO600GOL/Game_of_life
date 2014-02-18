@@ -51,11 +51,12 @@
 		<div class="row">
 	    	<div class="col-md-8">
                 <p>Tinkersoc is the 'maker' society at the University of Kent. It is the society where you can build,
-                    hack and (sometimes) blow things up. During the summer Tinkersoc made a call out for project ideas
-                    and sponsors to the local community and that is where Deesons Online got involved and this ultimately
-                    led to the creation of Project Conway! Although the GOL display is being built by Daniel Knox
-                    (president of Tinkersoc and a supervisor of the School of Computing software project), the society
-                    regularly gets involved with the design and the building of parts for the display.</p>
+                    hack and (sometimes) blow things up.</p>
+                <p> During the summer Tinkersoc made a call out for project ideas and sponsors to the local community
+                    and that is where Deesons Online got involved and this ultimately led to the creation of Project
+                    Conway! Although the GOL display is being built by Daniel Knox (president of Tinkersoc and a
+                    supervisor of the School of Computing software project), the society regularly gets involved with
+                    design and the building of parts for the display.</p>
                 <p>To contact Tinkersoc, send an email to committee@tinkersoc.org or checkout their site tinkersoc.org
                     for more details.</p>
 	    	</div>
