@@ -337,20 +337,3 @@ class TestConfirmation(object):
 
         DBSession.remove()
         testing.tearDown()
-
-def create_input_pattern():
-    '''
-    Create an initial input to represent the data being saved
-    to the database.
-    '''
-    return """\
--*-*-*-*-*
-*-*-*-*-*-
--*--------
---*-------
----*------
-----*-----
------*----
-*-*-*-*-*-
--*-*-*-*-*
-*-*-*-*-*-"""
