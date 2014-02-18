@@ -28,7 +28,7 @@ function Confirmer() {
                     $("#confirmation_header").html("<h4>Uh-oh!</h4>");
                     $("#confirmation_body").html("<h5>There seems to have been a problem along the way.</h5>" +
                         "<h5>" + data["failure_message"] + "</h5>");
-                    $("#confirmation_footer").html("<a type='button' class='btn btn-primary' href='/'>Go back</a>");
+                    $("#confirmation_footer").html("<button type='button' class='btn btn-default' data-dismiss='modal'>Go Back</button>");
                 }
             },
             error: function() {
