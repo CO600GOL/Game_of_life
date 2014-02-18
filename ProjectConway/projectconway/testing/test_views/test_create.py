@@ -290,6 +290,7 @@ class TestConfirmation(object):
 
         # Test session has been emptied
         assert not "pattern" in request.session
+
         assert not "viewing_date" in request.session
         assert not "viewing_hour" in request.session
         assert not "viewing_slot" in request.session
