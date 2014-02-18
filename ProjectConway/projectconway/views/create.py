@@ -206,7 +206,7 @@ def confirmation_receiver_JSON(request):
     except KeyError:
         raise HTTPBadRequest("Session Timeout")
     finally:
-        clear_session(request)
+        request.session.invalidate()
 
     time_slot = datetime.strptime(viewing_time, "%d/%m/%Y-%H-%M")
 
@@ -219,10 +219,3 @@ def confirmation_receiver_JSON(request):
         data["success"] = True
 
     return data
-
-def clear_session(request):
-    """
-    This helper method empties the session of all the user's information,
-    keeping it clean for the next use.
-    """
-    request.session = {}
