@@ -20,6 +20,7 @@ def create_view(request):
     that the user can go back and edit it at any point.
     
     '''
+
     data = {}
     data["page"] = "patternpage"
     page_keys = [
@@ -198,7 +199,6 @@ def confirmation_receiver_JSON(request):
     # Get the information out of the session
     try:
         pattern = request.session["pattern"]
-        # The key error causing the confirmation page to fail is being caused by request.session["viewing date"]
         viewing_date = request.session["viewing_date"]
         viewing_hour = request.session["viewing_hour"]
         viewing_slot = request.session["viewing_slot"]
@@ -222,7 +222,7 @@ def confirmation_receiver_JSON(request):
 
 def clear_session(request):
     """
-    This helper function will remove saved user informtion
-    from the given request session.
+    This helper method empties the session of all the user's information,
+    keeping it clean for the next use.
     """
     request.session = {}
