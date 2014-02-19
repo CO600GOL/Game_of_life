@@ -13,6 +13,31 @@
 
         <div class="row">
 	    	<div class="col-md-12">
+	        	<h2>UKC School of Computing</h2>
+	    	</div>
+		</div>
+
+		<div class="row">
+	    	<div class="col-md-8">
+                <p>Each year, the UKC School of Computing sets its final-year students the daunting task that is the
+                CO600 Project. The limits of this project depend only on the interests of the lecturers and students involved
+                with the module that year. The project is the final educational chance each student has of proving thier
+                worth to the industry.</p>
+                <p>The four UKC Computing students involved in this project; Richard Lancaster, Michael Wilson, Geoff Dodds
+                and Niklas Scholz, chose to participate in this particular project for a wide variety of reasons. It proved
+                an interesting challenge, both technically and educationally, with every one of them having to learn and
+                adapt in order to keep up with the huge amount of work needed to succeed.</p>
+                <p>Still, the result of their hard work has seen every piece of software, from the engine that runs the display
+                to the logic of the website, meticulously developed and rigorously tested, ensuring the best possible quality
+                for both the project leaders and the end users.</p>
+	    	</div>
+	    	<div class="col-md-4">
+	        	<img src="static/images/ukcschoolofcomputing.jpg" alt="UKC School of Computing Logo" class="img-responsive"/>
+	    	</div>
+		</div>
+
+        <div class="row">
+	    	<div class="col-md-12">
 	        	<h2>The Deeson Group</h2>
 	    	</div>
 		</div>
@@ -62,31 +87,6 @@
 	    	</div>
 	    	<div class="col-md-4">
 	        	<img src="static/images/tinkersoc.png" alt="Tinkersoc Logo" class="img-responsive"/>
-	    	</div>
-		</div>
-
-        <div class="row">
-	    	<div class="col-md-12">
-	        	<h2>UKC School of Computing</h2>
-	    	</div>
-		</div>
-
-		<div class="row">
-	    	<div class="col-md-8">
-                <p>Each year, the UKC School of Computing sets its final-year students the daunting task that is the
-                CO600 Project. The limits of this project depend only on the interests of the lecturers and students involved
-                with the module that year. The project is the final educational chance each student has of proving thier
-                worth to the industry.</p>
-                <p>The four UKC Computing students involved in this project; Richard Lancaster, Michael Wilson, Geoff Dodds
-                and Niklas Scholz, chose to participate in this particular project for a wide variety of reasons. It proved
-                an interesting challenge, both technically and educationally, with every one of them having to learn and
-                adapt in order to keep up with the huge amount of work needed to succeed.</p>
-                <p>Still, the result of their hard work has seen every piece of software, from the engine that runs the display
-                to the logic of the website, meticulously developed and rigorously tested, ensuring the best possible quality
-                for both the project leaders and the end users.</p>
-	    	</div>
-	    	<div class="col-md-4">
-	        	<img src="static/images/ukcschoolofcomputing.jpg" alt="UKC School of Computing Logo" class="img-responsive"/>
 	    	</div>
 		</div>
 	</div>
