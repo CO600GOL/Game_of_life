@@ -67,7 +67,7 @@ class TestAboutPage(object):
         assert content
 
 
-class TestPatternInputPage(object):
+class TestCreatePage(object):
     '''
     This class runs automated HTTP tests on the Pattern Input Page - this
     includes all views used on the page. 
@@ -116,6 +116,28 @@ class TestPatternInputPage(object):
         res_data = json.loads(content)
         assert res_data["turns"] == 53
         assert res_data["runtime"] == 26.5
+
+    def test_confirmation_receiver_JSON(self):
+        """
+        This method tests HTTP functionality on the confirmation
+        receiver JSON view.
+        """
+        url = "%sconfirm.json" % URL
+        headers = {"Content-Type": "application/json"}
+
+        request = urllib.Request(url, headers=headers)
+        # TODO: Make this test support cookies so that the try/catch can be removed
+        try:
+            response = urllib.urlopen(request)
+        except:
+            return
+        else:
+            raise Exception("Url did not return an exception due to lack of cookies")
+        content = response.read().decode("utf-8")
+
+        # Ensure we have a response
+        assert content
+
 
 class TestRulesPage(object):
     '''

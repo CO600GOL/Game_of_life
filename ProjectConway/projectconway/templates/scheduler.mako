@@ -22,7 +22,7 @@
     <form method="post">
     <div class="col-md-12">
         <div class="input-group date" id="datepicker" data-date="${viewing_date}" data-date-format="dd/mm/yyyy">
-          <input class="form-control" type="text" readonly="" value="${viewing_date}" name="date">
+          <input class="form-control" type="text" readonly="" value="${viewing_date}" name="viewing_date">
           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
         </div>
     </div>
@@ -55,21 +55,14 @@
 </%block>
 
 <%block name="extras">
-
-        <div class="col-xs-1 col-sm-1 col-md-1">
-            <button name="create_page" type="submit" class="btn btn-default" value="pattern_input">Back</button>
-        </div>
-
-        <div class="col-xs-1 col-sm-1 col-md-1 col-md-offset-1">
-            <button name="create_page" type="submit" class="btn btn-primary" value="confirmation">Confirm</button>
-        </div>
+        <button name="create_page" type="submit" class="btn btn-default left-button" value="pattern_input">Back</button>
+        <button name="create_page" type="submit" class="btn btn-primary right-button" value="confirmation">Confirm</button>
     </form>
 </%block>
 
 <%block name="scripts">
     <link href="static/css/datepicker3.css" rel="stylesheet">
     <script src="static/js/bootstrap/bootstrap-datepicker.js"></script>
-    <script src="static/js/create/inputGrid.js"></script>
     <script src="static/js/create/scheduler.js"></script>
 
     <script>

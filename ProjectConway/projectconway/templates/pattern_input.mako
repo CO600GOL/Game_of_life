@@ -2,6 +2,7 @@
 
 <%inherit file="template_pattern_creation.mako" />
 <%namespace name="rule_texts" file="rule_texts.mako" />
+
 <%block name="small_text">
     <div class="col-md-12">
         <h2>Give it a go!</h2>
@@ -24,12 +25,13 @@
 </%block>
 
 <%block name="extras">
-    <div class="col-xs-1 col-sm-1 col-md-1">
-        <button id="clear_button" type="button" class="btn btn-primary">Clear</button>
-    </div>
+    <button id="clear_button" type="button" class="btn btn-default left-button">Clear</button>
+    <button id="submit_button" type="button" class="btn btn-primary right-button" data-toggle="modal" data-target="#loading_popup">Submit</button>
 
-    <div class="col-xs-1 col-sm-1 col-md-1 col-md-offset-1">
-        <button id="submit_button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#loading_popup">Submit</button>
+    <div class="alert alert-danger alert-block in" id="error_alert">
+        <button type="button" class="close" id="closealert_button">x</button>
+        <h4>Opps! There has been an error:</h4>
+        <div id="error_content"></div>
     </div>
 
     <div class="modal fade" id="loading_popup" role="dialog" aria-hidden="true">
@@ -81,12 +83,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="alert alert-danger alert-block in" id="error_alert">
-        <button type="button" class="close" id="closealert_button">x</button>
-        <h4>Opps! There has been an error:</h4>
-        <div id="error_content"></div>
     </div>
 </%block>
 
