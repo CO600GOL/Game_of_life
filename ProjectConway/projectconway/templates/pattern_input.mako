@@ -25,8 +25,10 @@
 </%block>
 
 <%block name="extras">
-    <button id="clear_button" type="button" class="btn btn-default left-button">Clear</button>
-    <button id="submit_button" type="button" class="btn btn-primary right-button" data-toggle="modal" data-target="#loading_popup">Submit</button>
+    <div class="col-xs-11 col-md-10 col-md-offset-2">
+        <button id="clear_button" type="button" class="btn btn-default left-button">Clear</button>
+        <button id="submit_button" type="button" class="btn btn-primary right-button" data-toggle="modal" data-target="#loading_popup">Submit</button>
+    </div>
 
     <div class="alert alert-danger alert-block in" id="error_alert">
         <button type="button" class="close" id="closealert_button">x</button>
@@ -79,7 +81,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="clearconfirm_button" "data-dismiss="modal">Clear</button>
+                    <button type="button" class="btn btn-danger" id="clearconfirm_button" data-dismiss="modal">Clear</button>
                 </div>
             </div>
         </div>
