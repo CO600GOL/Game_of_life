@@ -41,11 +41,13 @@
 </%block>
 
 <%block name="extras">
-    <form method="post">
+    <div class="col-xs-11 col-md-10 col-md-offset-2">
+        <form method="post">
             <button name="create_page" type="submit" class="btn btn-default left-button" value="pattern_input">Edit Pattern</button>
             <button name="create_page" type="submit" class="btn btn-default center-button" value="scheduler">Edit Time</button>
             <button type="button" class="btn btn-primary right-button" id="confirm_button">Confirm</button>
-    </form>
+        </form>
+    </div>
 
     <div class="alert alert-danger alert-block in" id="error_alert">
         <button type="button" class="close" id="closealert_button">x</button>

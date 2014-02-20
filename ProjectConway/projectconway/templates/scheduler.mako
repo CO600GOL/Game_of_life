@@ -19,13 +19,14 @@
         <label class="control-label">Date of Viewing</label>
     </div>
 
-    <form method="post">
     <div class="col-md-12">
-        <div class="input-group date" id="datepicker" data-date="${viewing_date}" data-date-format="dd/mm/yyyy">
-          <input class="form-control" type="text" readonly="" value="${viewing_date}" name="viewing_date">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-        </div>
+        <form method="post">
+            <div class="input-group date" id="datepicker" data-date="${viewing_date}" data-date-format="dd/mm/yyyy">
+              <input class="form-control" type="text" readonly="" value="${viewing_date}" name="viewing_date">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            </div>
     </div>
+
 
     <div class="col-md-2">
         <label class="control-label" for="viewing_hour">Viewing Hour</label>
@@ -45,7 +46,7 @@
     </div>
 
     <div class="col-md-2 col-md-offset-1">
-        <label class="contol-label" for="viewing_slot">Viewing Slot</label>
+        <label class="control-label" for="viewing_slot">Viewing Slot</label>
     </div>
 
     <div class="col-md-3">
@@ -55,9 +56,11 @@
 </%block>
 
 <%block name="extras">
-        <button name="create_page" type="submit" class="btn btn-default left-button" value="pattern_input">Back</button>
-        <button name="create_page" type="submit" class="btn btn-primary right-button" value="confirmation">Confirm</button>
-    </form>
+    <div class="col-xs-11 col-md-10 col-md-offset-2">
+            <button name="create_page" type="submit" class="btn btn-default left-button" value="pattern_input">Back</button>
+            <button name="create_page" type="submit" class="btn btn-primary right-button" value="confirmation">Confirm</button>
+        </form>
+    </div>
 </%block>
 
 <%block name="scripts">
