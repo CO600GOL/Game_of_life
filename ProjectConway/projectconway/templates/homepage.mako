@@ -23,8 +23,7 @@
                 screen.</p>
             </div>
             <div class="col-md-4">
-                <p><iframe width="100%" height="100%" src="//www.youtube.com/embed/Iy71djXqf3E" frameborder="0"
-                           allowfullscreen></iframe>
+                <p><iframe width="100%" height="100%" src="//www.youtube.com/embed/C2vgICfQawE" frameborder="0" allowfullscreen></iframe>
                 </p>
             </div>
         </div>
