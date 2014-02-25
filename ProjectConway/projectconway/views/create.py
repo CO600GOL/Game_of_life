@@ -2,7 +2,7 @@ from datetime import datetime
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid.view import view_config
 from sqlalchemy.exc import ArgumentError
-from projectconway import display_location
+from projectconway import project_config
 from projectconway.lib.exceptions import RunSlotTakenError, RunSlotInvalidError
 from projectconway.models.run import Run
 from game_of_life import TIME_LIMIT, TIME_DELAY
@@ -116,7 +116,7 @@ def create_view(request):
         data["viewing_slot"] = viewing_slot
         request.session["viewing_slot"] = viewing_slot
 
-        data["display_address"] = display_location["address"]
+        data["display_address"] = project_config["display_address"]
 
     # pattern input page
     else:

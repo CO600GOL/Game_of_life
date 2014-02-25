@@ -36,21 +36,24 @@ def main(global_config, **settings):
 
     return config.make_wsgi_app()
 
-display_location = {
-    "name": "Beany House of Art and Knowledge",
-    "address": """Beany House of Art and Knowledge,
+project_config = {
+    # TODO: Change starting and ending hour to the correct time
+    # TODO: Add other configuration information
+
+    # Display Information
+    "display_name": "Beany House of Art and Knowledge",
+    "display_address": """Beany House of Art and Knowledge,
 18 High Street,
 Canterbury,
 Kent,
 CT1 2RA""",
-    "link": "www.canterbury.co.uk/Beaney",
-    "picture": "/static/images/#"
-}
+    "display_link": "www.canterbury.co.uk/Beaney",
+    "display_picture": "/static/images/#",
 
-project_config = {
+    # Time Information
     # Starting hour, difference from midnight
     "starting_hour": datetime.timedelta(hours=6),
-    # Closing hour, deifference from midnight
+    # Closing hour, difference from midnight
     "closing_hour": datetime.timedelta(hours=21),
     # Minimum date, should really be now
     "minimum_date": datetime.timedelta(),
