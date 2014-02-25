@@ -2,7 +2,7 @@
 
 <%block name="small_text">
     <div class="col-md-12">
-        <h2>Save your pattern!</h2>
+        <h2>Schedule your pattern!</h2>
         <p>Now that you've created a pattern, it's time to send it to the display!</p>
         <p>Just select a date and time in the section below and press submit.</p>
         <b>Note: To edit your work so far, just press the back button below the grid!</b>
@@ -11,8 +11,8 @@
 
 <%block name="large_text">
     <div class="col-md-12">
-        <h2>Scheduler</h2>
-        <p>Choose a date and time to go and see your pattern come to life!</p>
+        <h3>Pick a date!</h3>
+        <p>Choose a date to go and see your pattern come to life!</p>
     </div>
 
     <div class="col-md-12">
@@ -27,6 +27,10 @@
             </div>
     </div>
 
+    <div class="col-md-12">
+        <h3>Pick a time!</h3>
+        <p>Now choose a time on that date to go and watch the display!</p>
+    </div>
 
     <div class="col-md-2">
         <label class="control-label" for="viewing_hour">Viewing Hour</label>
