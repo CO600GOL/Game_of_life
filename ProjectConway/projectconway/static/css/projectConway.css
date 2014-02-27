@@ -34,6 +34,14 @@ body {
     margin-top: 20px;
 }
 
+#datepicker_form {
+    background-color: #ffffff;
+}
+
+#datepicker_pic {
+    background-color: #ffffff;
+}
+
 .loading_popup_txt {
     text-align: center;
     font-weight: bold;
