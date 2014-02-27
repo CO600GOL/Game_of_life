@@ -16,7 +16,7 @@
     </div>
 
     <div class="col-md-12">
-        <label class="control-label">Date of Viewing</label>
+        <label class="control-label">Viewing Date</label>
     </div>
 
     <div class="col-md-12">
@@ -37,7 +37,7 @@
     </div>
 
 
-    <div class="col-md-3">
+    <div class="col-md-2">
           <select class="form-control" name="viewing_hour" id="viewing_hour">
               <%
               import datetime
@@ -53,7 +53,7 @@
         <label class="control-label" for="viewing_slot">:</label>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
         <select class="form-control" name="viewing_slot" id="viewing_slot" disabled>
         </select>
     </div>
