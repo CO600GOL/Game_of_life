@@ -114,7 +114,7 @@ class GameOfLifeController(GameController):
 
     def to_string(self, grid):
         """
-        Translates a grid object into a single multiline string.
+        Translates a grid object into a string.
         """
         string = ""
         for row in range(0, len(grid.get_cells())):
