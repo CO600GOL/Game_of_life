@@ -10,6 +10,9 @@ before_install:
    - sudo apt-get install -qq tk8.5
    - sudo apt-get install -qq python3-tk
 
-install: "make setup"
+install:
+  - "cd ProjectConway"
+  - "make setup"
 
-script: "make test"
+script:
+  - "make test"
