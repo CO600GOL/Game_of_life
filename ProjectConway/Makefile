@@ -4,19 +4,16 @@
 # This code has been reconfigured for use in this project. These configurations will be made clear
 # by inline comments.
 
+env = . env/bin/activate
+
 help:
 	# Usage: make <target>, where target is
 	# setup         -- setup python egg & install dependencys/env if needed
 	# test          -- run all nosetests
-	# blank-db      -- create a blank database
 	# run           -- run the site in development mode
 	# run_production -- run in production mode
+	# shell         -- Runs the development shell
 	# clean         -- reset the folder to clean git checkout (removes virtual python env)
-
-env_activate:
-	source env/bin/activate
-env_deactivate:
-	deactivate
 
 env:
 	if dpkg -s python-virtualenv ; then \
@@ -33,25 +30,23 @@ env:
 	fi
 	# Reference - http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/install.html
 	virtualenv --no-site-packages -p python3 env
-	cd env;	bin/easy_install pyramid
+	$(env); easy_install pyramid
 
 setup: env
-	cd ProjectConway; ../env/bin/python setup.py develop
-	cd src; ../env/bin/python setup.py develop
-
-run:
-	#$(MAKE) env_activate
-	env/bin/pserve --reload ProjectConway/development.ini
-	#$(MAKE) env_deactivate
-
-run_production:
-	env/bin/pserve production.ini
-
-shell:
-	env/bin/pshell development.ini
+	$(env); python setup.py develop
+	$(env); cd ../GameEngine/; python setup.py develop
 
 test:
-	. env/bin/activate;	py.test -v src ProjectConway
+	$(env);	py.test -v ../GameEngine projectconway
+
+run:
+	$(env); pserve --reload development.ini
+
+run_production:
+	$(env); pserve production.ini
+
+shell:
+	$(env); pshell development.ini
 
 clean:
 	rm env -rf
