@@ -33,7 +33,7 @@
     </div>
 
     <div class="col-md-2">
-        <label class="control-label" for="viewing_hour">Viewing Hour</label>
+        <label class="control-label" for="viewing_hour">Viewing Time:</label>
     </div>
 
 
@@ -49,14 +49,15 @@
           </select>
     </div>
 
-    <div class="col-md-2 col-md-offset-1">
-        <label class="control-label" for="viewing_slot">Viewing Slot</label>
+    <div class="col-md-1">
+        <label class="control-label" for="viewing_slot">:</label>
     </div>
 
     <div class="col-md-3">
         <select class="form-control" name="viewing_slot" id="viewing_slot" disabled>
         </select>
     </div>
+
 </%block>
 
 <%block name="extras">
