@@ -1,5 +1,6 @@
 import datetime
 import transaction
+from projectconway import project_config
 from projectconway.lib.exceptions import RunSlotTakenError, RunSlotInvalidError
 from projectconway.models import Base, DBSession
 from sqlalchemy import Column, DateTime, Integer, Sequence, String, and_
@@ -63,6 +64,21 @@ class Run(Base):
         return slots
 
     @classmethod
+    def get_runs_for_day(cls, date):
+        """
+        Returns every run set to take place on a specified date.
+        """
+        pass
+
+    @classmethod
+    def get_time_slots_for_day(cls, date):
+        """
+        Returns all available time slots for the specified date as a
+        Date object.
+        """
+        pass
+
+    @classmethod
     def get_run_for_time_slot(cls, time_slot):
         """
         Returns a run if it exists for the given timeslot otherwise
@@ -91,9 +107,8 @@ class Run(Base):
     @classmethod
     def _validate_time_slot(cls, now, time_slot):
         # TODO: Use the values from the project conway init file
-        min_date = hourify(now)
-        max_date = datetime.datetime.now() + datetime.timedelta(weeks=12)
-        max_date = hourify(max_date)
+        min_date = hourify(now + project_config["minimum_date"])
+        max_date = hourify(now + project_config["maximum_date"])
 
         # Ensure time_slot meets conditions
         if time_slot < min_date:

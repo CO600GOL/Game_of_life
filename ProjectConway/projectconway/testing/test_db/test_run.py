@@ -3,6 +3,7 @@ import datetime
 import transaction
 from sqlalchemy  import create_engine
 from pyramid import testing
+from projectconway import project_config
 from projectconway.models import Base, DBSession
 from projectconway.models.run import Run
 
@@ -25,7 +26,7 @@ def create_input_pattern():
 *-*-*-*-*-"""     
 
 
-class TestRunTable():
+class TestRun():
     '''
     This class tests the Run table used in the web application database.
     '''
@@ -39,6 +40,7 @@ class TestRunTable():
         self.config = testing.setUp()
         engine = create_engine('sqlite:///testdb.sqlite')
         DBSession.configure(bind=engine)
+        Base.metadata.bind = engine
         Base.metadata.create_all(engine)
 
     def test_insert(self):
@@ -78,11 +80,54 @@ class TestRunTable():
         for run in runs:
             DBSession.delete(run)
             DBSession.commit()
-            
+
         # Ensure deletion
         runs = DBSession.query(Run).filter(Run.user_name==self._insert_name)
         assert not runs.all()
-    
+
+    def test_run_get_runs_for_day(self):
+        """
+        Tests the class method get_runs_for_day.
+        Expect the method call to result in an empty dictionary.
+        """
+        # Give the method a future date and receive correct no. of time-slots for that date
+        date = datetime.date.today() + datetime.timedelta(days=1)
+
+        dayRuns = Run.get_runs_for_day(date)
+        # Test that the method returns the right information
+        assert dayRuns == []
+
+    def test_run_get_runs_for_day_with_runs(self):
+        """
+        Tests the class method get_runs_for_day.
+        With runs added to the database, expect the method call to return the same number
+        of runs as added.
+        """
+        dt = datetime.datetime.now() + datetime.timedelta(days=1)
+        dt.replace(minute=0, second=0, microsecond=0)
+
+        runs = [
+            Run(create_input_pattern(), dt, self._insert_name),
+            Run(create_input_pattern(), dt + datetime.timedelta(minutes=5), self._insert_name)]
+        with transaction.manager:
+            DBSession.add_all(runs)
+            DBSession.commit
+
+        date = datetime.date.today() + datetime.timedelta(days=1)
+        dayRuns = Run.get_runs_for_day(date)
+        # Test the method returns the correct informatio
+        #assert something
+
+
+    def test_run_get_time_slots_for_day(self):
+        """
+        Tests the class method get_slots_for_day.
+        """
+        # Give the method a future date and receive correct no. of time-slots for that date
+        date = datetime.date.today() + datetime.timedelta(days=1)
+        # Calculate the no. of hours in a given day to test
+        noHours = (project_config["maximum_date"] - project_config["minimum_date"]) // 60 // 60
+
     def teardown_class(self):
         '''
         Closes database session once the class is redundant
