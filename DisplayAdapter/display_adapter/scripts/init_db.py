@@ -44,7 +44,7 @@ def init_db(db_name=db_name):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
+    if len(sys.argv) > 2:
         if sys.argv[1].lower() == "help":
             print(help_message)
         else:

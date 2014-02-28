@@ -10,9 +10,9 @@ class DatabaseHelper(object):
     away from the driver itself.
     """
 
-    def __init__(self):
+    def __init__(self, db_name):
         """
-        Ctor - constructs the database helper.
+        Ctor - constructs the database helper, linking to the database with the given name
         """
         pass
 
