@@ -29,11 +29,11 @@ class TestDatabaseHelper(object):
         Tests the initialisation of the DatabaseHelper
         """
         # Assert that initialisation works correctly
-        databaseHelper = DatabaseHelper(db_name=test_db_name)
-        assert databaseHelper
+        database_helper = DatabaseHelper(db_name=test_db_name)
+        assert database_helper
 
         # Assert the connection to the internal database has been made
-        assert databaseHelper.db_connection
+        assert database_helper._db_connection
 
     def test_get_run_for_time(self):
         """
@@ -42,28 +42,29 @@ class TestDatabaseHelper(object):
         # Set up a database helper for testing:
         #   - Put a run in the test database to be pulled out
         #   - Create a datetime object to be passed to the testing method
-        databaseHelper = DatabaseHelper(db_name=test_db_name)
-        cursor = databaseHelper.db_connection.cursor()
+        database_helper = DatabaseHelper(db_name=test_db_name)
+        con = database_helper._db_connection
         time = "2014-02-28 21:20:00.000000"
-        cursor.execute("INSERT INTO runs VALUES (0, '','%s','');" % time)
+        con.execute("INSERT INTO runs VALUES (0, 'TEST','%s','');" % time)
+        con.commit()
 
         # Run tests
-        assert databaseHelper.get_run_for_time(time)
-
-        #TODO: Test that database helper is collecting correct data from database
+        assert database_helper.get_run_for_time(time) == "TEST"
+        assert not con.execute("SELECT * FROM runs WHERE time_slot='%s'" % time).fetchone()
 
     def test_get_random_screensaver(self):
         """
         Tests the ability of the database helper to retrieve a random screen saver from the internal database.
         """
-        databaseHelper = DatabaseHelper(db_name=test_db_name)
-        cursor = databaseHelper.db_connection.cursor()
+        database_helper = DatabaseHelper(db_name=test_db_name)
+        con = database_helper._db_connection
 
-        cursor.execute("INSERT INTO screensavers VALUES ('TEST');")
-        cursor.execute("INSERT INTO screensavers VALUES ('TEST1');")
-        cursor.execute("INSERT INTO screensavers VALUES ('TEST2');")
+        con.execute("INSERT INTO screensavers VALUES ('TEST');")
+        con.execute("INSERT INTO screensavers VALUES ('TEST1');")
+        con.execute("INSERT INTO screensavers VALUES ('TEST2');")
+        con.commit()
 
-        assert databaseHelper.get_random_screensaver()
+        assert database_helper.get_random_screensaver()
 
     def teardown_class(self):
         """
