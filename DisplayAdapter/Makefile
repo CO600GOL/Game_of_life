@@ -4,6 +4,7 @@ env_name = display_env
 env = . $(env_name)/bin/activate
 screensavers_file = screensavers.txt
 script_local = display_adapter/scripts
+db_name = ./internal_db.sqlite
 
 help:
     # This makefile aids in the installation of the ProjectConway software on the Raspberry pi
@@ -38,10 +39,10 @@ test:
     $(env); py.test -v testing
 
 create_db:
-    $(env); python $(script_local)/init_db.py ./internaldb.sqlite
+    $(env); python $(script_local)/init_db.py $(db_name)
 
 update_screensavers:
-    $(env); python $(script_local)/update_screensavers.py ./internaldb.sqlite $(screensavers_file)
+    $(env); python $(script_local)/update_screensavers.py $(db_name) $(screensavers_file)
 
 clean:
     rm env -rf

@@ -1,3 +1,3 @@
 __author__ = 'richard'
 
-db_name = "db_internal.sqlite"
+db_name = "internal_db.sqlite"
