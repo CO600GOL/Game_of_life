@@ -7,20 +7,21 @@ script_local = display_adapter/scripts
 db_name = ./internal_db.sqlite
 
 help:
-    # This makefile aids in the installation of the ProjectConway software on the Raspberry pi
-    # Commands:
-    #     setup                  -- Creates a virtual environment in which the software is ran from
-    #     test                   -- Runs the automated tests in DisplayAdapter
-    #     create_db              -- Creates and initialises the internal database
-    #     update_screensavers    -- Search screensavers file and update the database
-    #     clean                  -- Delete persistant storage
+	# This makefile aids in the installation of the ProjectConway software on the Raspberry pi
+	# Commands:
+	#     setup                  -- Creates a virtual environment in which the software is ran from
+	#     test                   -- Runs the automated tests in DisplayAdapter
+	#     create_db              -- Creates and initialises the internal database
+	#     update_screensavers    -- Search screensavers file and update the database
+	#     clean                  -- Delete persistant storage
 
-setup: env create_db update_screensavers
-    $(env); python setup.py develop
-    $(env); cd ../GameEngine/; python setup.py develop
-
+setup: env
+	$(env); python setup.py develop
+	$(env); cd ../GameEngine/; python setup.py develop
+	$(MAKE) create_db
+	$(MAKE) update_screensavers
 env:
-    if dpkg -s python-virtualenv ; then \
+	if dpkg -s python-virtualenv ; then \
 	    echo virtualenv already installed; \
 	else \
 	    echo installing virtualenv; \
@@ -36,18 +37,15 @@ env:
 	virtualenv -p python3 $(env_name)
 
 test:
-    $(env); py.test -v testing
+	$(env); py.test -v testing
 
 create_db:
-    $(env); python $(script_local)/init_db.py $(db_name)
+	$(env); python $(script_local)/init_db.py $(db_name)
 
 update_screensavers:
-    $(env); python $(script_local)/update_screensavers.py $(db_name) $(screensavers_file)
+	$(env); python $(script_local)/update_screensavers.py $(db_name) $(screensavers_file)
 
 clean:
-    rm env -rf
+	rm $(env_name) -rf
 	rm *.egg-info -rf
-
-
-
 

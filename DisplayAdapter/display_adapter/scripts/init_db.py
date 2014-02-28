@@ -36,6 +36,7 @@ def init_db(db_name=db_name):
     con = sqlite3.connect(db_name)
     cur = con.cursor()
 
+    cur.execute("pragma journal_mode=wal")
     cur.execute(runs_table)
     cur.execute(screensavers_table)
 
@@ -44,7 +45,7 @@ def init_db(db_name=db_name):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
+    if len(sys.argv) > 2:
         if sys.argv[1].lower() == "help":
             print(help_message)
         else:
