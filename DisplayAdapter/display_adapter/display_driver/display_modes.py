@@ -23,7 +23,7 @@ class DisplayMode(object):
     This class represents a back-bone for all display modes, serving as a place for shared functionality.
     """
 
-    def __init__(self):
+    def __init__(self, pattern):
         """
         Ctor - initialises the Mode with the correct information. Main function
         is to set up the game engine used for the pattern.
@@ -41,7 +41,7 @@ class DisplayMode(object):
         """
         pass
 
-    def get_next_pattern(self):
+    def get_display_pattern(self):
         """
         This pattern returns the next pattern from the game engine as a string.
         """
