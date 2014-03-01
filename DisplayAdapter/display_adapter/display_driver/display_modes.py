@@ -48,7 +48,7 @@ class DisplayMode(object):
         return temp
 
 
-class ModeRun(DisplayMode):
+class RunMode(DisplayMode):
     """
     This class represents the mode in which the display runs when it is showing a user's input pattern.
     """
@@ -79,9 +79,8 @@ class ScreensaverMode(DisplayMode):
     """
     This class represents the mode in which the display runs when it is not showing a user's input pattern.
     """
-    pass
 
-    def __init__(self, pattern):
+    def __init__(self, pattern, previous_frame):
         """
         Ctor - initialises the Screensaver mode with the correct information. Main function is
         to set up the game engine used for the specified pattern.

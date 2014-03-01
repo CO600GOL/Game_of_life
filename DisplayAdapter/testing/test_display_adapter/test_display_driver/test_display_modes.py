@@ -3,7 +3,7 @@ This module tests the logic responsible for deciding what the display will do wi
 the display mode.
 """
 
-from display_adapter.display_driver.display_modes import DisplayMode
+from display_adapter.display_driver.display_modes import DisplayMode, RunMode, ScreensaverMode
 
 
 class TestDisplayMode(object):
@@ -95,19 +95,52 @@ class TestScreensaverMode(object):
         """
         Tests initialisation of the display's Run mode.
         """
-        pass
+        sm = ScreensaverMode("---\n---\n---", "---\n---\n---")
+
+        assert sm
+        assert sm._previous_pattern == "---\n---\n---"
 
     def test_is_active(self):
         """
         Ensuring that the run is still active, especially in it's clear state.
         """
-        pass
+        input = "-*-\n-*-\n-*-"
+        previous = "---\n---\n---"
+        sm = ScreensaverMode(input, previous)
+
+        # Testing the 3 frame pause
+        for _ in range(0, 3):
+            assert sm.is_active()
+            sm.get_display_pattern()
+
+        for i, _ in enumerate(previous.split("\n")):
+            assert sm.is_active()
+            sm.get_display_pattern()
+            assert sm.is_active()
+
+        sm.get_display_pattern()
+        assert sm.is_active()
 
     def test_is_active_fails(self):
         """
         Ensuring that the run is not active after the mode leaves it's clear state.
         """
-        pass
+        input = "---\n---\n---"
+        previous = "---\n---\n---"
+        sm = ScreensaverMode(input, previous)
+
+        # Testing the 3 frame pause
+        for _ in range(0, 3):
+            assert sm.is_active()
+            sm.get_display_pattern()
+
+        for i, _ in enumerate(previous.split("\n")):
+            assert sm.is_active()
+            sm.get_display_pattern()
+            assert sm.is_active()
+
+        sm.get_display_pattern()
+        assert not sm.is_active()
 
     def test_get_display_pattern(self):
         """
@@ -117,4 +150,15 @@ class TestScreensaverMode(object):
             - The correct number of clear frames when running in clear state.
             - Once clear state has finished, the correct frames for a screensaver pattern.
         """
-        pass
+        input = "-*-\n-*-\n-*-"
+        previous = "---\n---\n---"
+        sm = ScreensaverMode(input, previous)
+
+        # Testing the 3 frame pause
+        for _ in range(0, 3):
+            assert sm.get_display_pattern() == previous
+
+        for i, _ in enumerate(previous.split("\n")):
+            assert sm.get_display_pattern()
+
+        assert sm.get_display_pattern() == input
