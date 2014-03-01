@@ -22,7 +22,7 @@ class TestDisplayMode(object):
         assert dm
         # Assert the display mode's game engine has access to the right pattern?
         assert DisplayMode._game_engine
-        #assert DisplayMode._game_engine.get_current_generation(output=True) == "-*-\n-*-\n-*-"
+        assert DisplayMode._game_engine.get_current_generation(output=True) == "-*-\n-*-\n-*-"
 
     def test_is_active(self):
         """

@@ -30,22 +30,19 @@ class DisplayMode(object):
         """
         Ctor - initialises the Mode with the correct information. Main function
         is to set up the game engine used for the pattern.
-
-        :TODO - Think about having one static GameOfLifeController or a new controller built every time a new mode is
-                created
         """
-        # Fields
-        #   self._game_of_life = GameOfLifeController()
-        pass
+        DisplayMode._game_engine.set_up_game(pattern)
 
     def is_active(self):
         """
         This method returns whether or not it has any more patterns to pass back to the display driver.
         """
-        pass
+        return not DisplayMode._game_engine.get_game().is_game_forsaken()
 
     def get_display_pattern(self):
         """
         This pattern returns the next pattern from the game engine as a string.
         """
-        pass
+        temp = DisplayMode._game_engine.get_current_generation(output=True)
+        DisplayMode._game_engine.play_next_turn()
+        return temp
