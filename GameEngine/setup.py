@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='GameOfLife',
-    version='0.4',
+    version='1.0',
     packages=['game', 'game_of_life', 'output', 'testing', 'utilities'],
     license='MIT',
 )
