@@ -7,3 +7,6 @@ env/
 *.swo
 *.sqlite
 *.egg-info/
+.idea
+.settings
+*.egg-info*

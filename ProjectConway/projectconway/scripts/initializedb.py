@@ -5,9 +5,7 @@ import transaction
 from sqlalchemy import engine_from_config
 from pyramid.paster import get_appsettings, setup_logging
 from pyramid.scripts.common import parse_vars
-from ..models import Base, DBSession
-from ..models.run import Run
-
+from projectconway.models import Base, DBSession
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
