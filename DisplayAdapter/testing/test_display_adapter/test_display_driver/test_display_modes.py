@@ -120,7 +120,7 @@ class TestRunMode(object):
             for _ in range(0, runmode_config["pattern_frames"]):
                 rm.get_display_pattern() == input
 
-        assert rm.is_active() == input
+        assert rm.get_display_pattern() == input
 
 
 class TestScreensaverMode(object):

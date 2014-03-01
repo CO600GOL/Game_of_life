@@ -17,7 +17,7 @@ Run mode:
     - Then returns the next generation of this pattern when asked
 """
 
-from display_adapter import screensaver_config
+from display_adapter import screensaver_config, runmode_config
 from game.game_controllers.game_controllers import GameOfLifeController
 
 
@@ -59,13 +59,21 @@ class RunMode(DisplayMode):
         Ctor - initialises the Run mode with the correct information. Main function is
         to set up the game engine used for the specified pattern.
         """
-        pass
+        DisplayMode.__init__(self, pattern)
+        self._pattern = pattern
+
+        self._iterations = runmode_config["iterations"]
+        self._full_frames = runmode_config["full_frames"]
+        self._pattern_frames = runmode_config["pattern_frames"]
 
     def is_active(self):
         """
         This method returns whether or not it has any more patterns to pass back to the display driver.
         """
-        pass
+        if self._iterations > 0:
+            return True
+        else:
+            return not DisplayMode._game_engine.get_game().is_game_forsaken()
 
     def get_display_pattern(self):
         """
@@ -73,7 +81,22 @@ class RunMode(DisplayMode):
         from the game engine, but if on start up, it will enter a 'presentation state' to let the user know that
         their pattern is being run.
         """
-        pass
+        if self._iterations > 0:
+            if self._full_frames > 0:
+                self._full_frames -= 1
+                return self._pattern.replace("-", "*")
+
+            elif self._pattern_frames > 0:
+                self._pattern_frames -= 1
+
+                if self._full_frames == 0 and self._pattern_frames == 0:
+                    self._iterations -= 1
+                    self._full_frames = runmode_config["full_frames"]
+                    self._pattern_frames = runmode_config["pattern_frames"]
+
+                return self._pattern
+        else:
+            return DisplayMode.get_display_pattern(self)
 
 
 class ScreensaverMode(DisplayMode):
