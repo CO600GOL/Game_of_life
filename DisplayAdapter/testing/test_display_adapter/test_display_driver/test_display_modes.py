@@ -3,6 +3,7 @@ This module tests the logic responsible for deciding what the display will do wi
 the display mode.
 """
 
+from display_adapter import runmode_config
 from display_adapter.display_driver.display_modes import DisplayMode, RunMode, ScreensaverMode
 
 
@@ -61,19 +62,46 @@ class TestRunMode(object):
         """
         Tests initialisation of the display's Run mode.
         """
-        pass
+        rm = RunMode("---\n---\n---")
+
+        assert rm
+        assert hasattr(rm, "_pattern")
 
     def test_is_active(self):
         """
         Ensuring that the run is still active, especially in it's presentation state.
         """
-        pass
+        rm = RunMode("-*-\n-*-\n-*-")
+
+        for _ in range(0, runmode_config["iterations"]):
+            for _ in range(0, runmode_config["full_frames"]):
+                assert rm.is_active()
+                rm.get_display_pattern()
+
+            for _ in range(0, runmode_config["pattern_frames"]):
+                assert rm.is_active()
+                rm.get_display_pattern()
+
+        assert rm.is_active()
+        rm.get_display_pattern()
+        assert rm.is_active()
 
     def test_is_active_fails(self):
         """
         Ensuring that the run is not active after the mode leaves it's presentation state.
         """
-        pass
+        rm = RunMode("---\n---\n---")
+
+        for _ in range(0, runmode_config["iterations"]):
+            for _ in range(0, runmode_config["full_frames"]):
+                assert rm.is_active()
+                rm.get_display_pattern()
+
+            for _ in range(0, runmode_config["pattern_frames"]):
+                assert rm.is_active()
+                rm.get_display_pattern()
+
+        assert not rm.is_active()
 
     def test_get_display_pattern(self):
         """
@@ -82,7 +110,17 @@ class TestRunMode(object):
             - Two patterns during presentation state; all lights on and pattern lights on.
             - Once presentation state has finished, the player's pattern at the beginning of their cycle.
         """
-        pass
+        input = "-*-\n-*-\n-*-"
+        rm = RunMode(input)
+
+        for _ in range(0, runmode_config["iterations"]):
+            for _ in range(0, runmode_config["full_frames"]):
+                rm.get_display_pattern() == "***\n***\n***"
+
+            for _ in range(0, runmode_config["pattern_frames"]):
+                rm.get_display_pattern() == input
+
+        assert rm.is_active() == input
 
 
 class TestScreensaverMode(object):

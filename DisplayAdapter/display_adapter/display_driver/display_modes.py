@@ -111,7 +111,6 @@ class ScreensaverMode(DisplayMode):
             self._pause_frames -= 1
             return self._previous_pattern
         elif self._clear_frames > 0:
-            pattern = ""
             split = self._previous_pattern.split("\n")
             cols = len(split[0])
 
