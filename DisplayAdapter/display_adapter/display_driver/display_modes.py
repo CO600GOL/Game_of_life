@@ -17,11 +17,14 @@ Run mode:
     - Then returns the next generation of this pattern when asked
 """
 
+from game.game_controllers.game_controllers import GameOfLifeController
+
 
 class DisplayMode(object):
     """
     This class represents a back-bone for all display modes, serving as a place for shared functionality.
     """
+    _game_engine = GameOfLifeController()
 
     def __init__(self, pattern):
         """

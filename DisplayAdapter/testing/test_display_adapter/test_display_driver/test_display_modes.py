@@ -20,7 +20,9 @@ class TestDisplayMode(object):
         dm = DisplayMode("-*-\n-*-\n-*-")
 
         assert dm
-        assert hasattr(dm, "_game_of_life")
+        # Assert the display mode's game engine has access to the right pattern?
+        assert DisplayMode._game_engine
+        #assert DisplayMode._game_engine.get_current_generation(output=True) == "-*-\n-*-\n-*-"
 
     def test_is_active(self):
         """
