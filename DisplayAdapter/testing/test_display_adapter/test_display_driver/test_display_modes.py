@@ -137,9 +137,7 @@ class TestScreensaverMode(object):
         for i, _ in enumerate(previous.split("\n")):
             assert sm.is_active()
             sm.get_display_pattern()
-            assert sm.is_active()
 
-        sm.get_display_pattern()
         assert not sm.is_active()
 
     def test_get_display_pattern(self):

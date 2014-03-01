@@ -17,6 +17,7 @@ Run mode:
     - Then returns the next generation of this pattern when asked
 """
 
+from display_adapter import screensaver_config
 from game.game_controllers.game_controllers import GameOfLifeController
 
 
@@ -85,13 +86,20 @@ class ScreensaverMode(DisplayMode):
         Ctor - initialises the Screensaver mode with the correct information. Main function is
         to set up the game engine used for the specified pattern.
         """
-        pass
+        DisplayMode.__init__(self, pattern)
+        self._previous_pattern = previous_frame
+
+        self._pause_frames = screensaver_config["pause_frames"]
+        self._clear_frames = len(previous_frame.split("\n"))
 
     def is_active(self):
         """
         This method returns whether or not the mode has any more patterns to pass back to the display driver.
         """
-        pass
+        if self._pause_frames > 0 or self._clear_frames > 0:
+            return True
+        else:
+            return not DisplayMode._game_engine.get_game().is_game_forsaken()
 
     def get_display_pattern(self):
         """
@@ -99,4 +107,22 @@ class ScreensaverMode(DisplayMode):
         the game engine, but if on start up, it will enter a 'clear state' where it wipes whatever was on the display
         away to let the users know it is entering screensaver mode.
         """
-        pass
+        if self._pause_frames > 0:
+            self._pause_frames -= 1
+            return self._previous_pattern
+        elif self._clear_frames > 0:
+            pattern = ""
+            split = self._previous_pattern.split("\n")
+            cols = len(split[0])
+
+            #line 1: Build a string with the number of full rows
+            #line 2: If any of the original pattern is used, add a new line char
+            #line 3: If any of the original pattern is to be used, extract it and add to the first rows
+            pattern = "\n".join(("*" * cols) for _ in range(0, (cols + 1) - self._clear_frames)) + \
+                      ("\n" if (self._clear_frames-1 > 0) else "") + \
+                      ("\n".join(split[(self._clear_frames-1)*-1:]) if (self._clear_frames-1 > 0) else "")
+
+            self._clear_frames -= 1
+            return pattern
+        else:
+            return DisplayMode.get_display_pattern(self)
