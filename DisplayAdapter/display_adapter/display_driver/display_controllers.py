@@ -3,23 +3,25 @@ This module contains the logic for any display controllers; helper classes for t
 the serial communication with the display itself.
 """
 
+import serial
+
 
 class DisplayControllerInterface(object):
     """
     This class represents a back-bone for all display controllers, taking on all shared functionality.
     """
 
-    def __init__(self, serial_name):
+    def __init__(self, serial_name, baud_rate, timeout=1):
         """
         Ctor - Initialises the display controller with the correct serial communication data.
         """
-        pass
+        #self._connection =
 
     def output_pattern(self, pattern):
         """
         Outputs the specified pattern to the display.
         """
-        pass
+        raise NotImplementedError
 
     def __del__(self):
         """
@@ -32,12 +34,6 @@ class PrototypeController(DisplayControllerInterface):
     This class represents the display controller used for the CO600 Computing Project prototype display.
     """
 
-    def __init__(self, serial_name):
-        """
-        Ctor - Initialises the prototype display controller, ensuring the correct serial connectivity.
-        """
-        pass
-
     def output_pattern(self, pattern):
         """
         Outputs the specified pattern to the display.
@@ -46,17 +42,28 @@ class PrototypeController(DisplayControllerInterface):
         """
         pass
 
+    def _clear(self):
+        """
+        Just sends the clear command to the display
+        """
+        pass
+
+    def _set(self, x, y):
+        """
+        Just sends the set command to the display, giving coordinates
+        """
+        pass
+
+    def _draw(self):
+        """
+        Just sends the draw command to the display, so that it draws it's buffer to the display
+        """
+        pass
 
 class DisplayContoller(DisplayControllerInterface):
     """
     This class represents the display controller used for Project Conway
     """
-
-    def __init__(self):
-        """
-        Ctor - Initialises the display controller, ensuring the correct serial connectivity.
-        """
-        pass
 
     def output_pattern(self, pattern):
         """
