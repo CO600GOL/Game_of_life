@@ -15,7 +15,7 @@ class DisplayControllerInterface(object):
         """
         Ctor - Initialises the display controller with the correct serial communication data.
         """
-        #self._connection =
+        self._connection = serial.Serial(serial_name, baud_rate, timeout=timeout)
 
     def output_pattern(self, pattern):
         """
@@ -27,7 +27,7 @@ class DisplayControllerInterface(object):
         """
         Dtor - Closes the serial connection between the application and the display.
         """
-        pass
+        self._connection.close()
 
 class PrototypeController(DisplayControllerInterface):
     """
@@ -40,25 +40,30 @@ class PrototypeController(DisplayControllerInterface):
 
         N.B. Completely overrides the super method.
         """
-        pass
+        self._clear()
+        for i, line in enumerate(pattern.split("\n")):
+            for j, c in enumerate(line):
+                if c == "*":
+                    self._set(j, i)
+        self._draw()
 
     def _clear(self):
         """
         Just sends the clear command to the display
         """
-        pass
+        self._connection.write("clr\n")
 
     def _set(self, x, y):
         """
         Just sends the set command to the display, giving coordinates
         """
-        pass
+        self._connection.write("set %s %s\n" % (str(x), str(y)))
 
     def _draw(self):
         """
         Just sends the draw command to the display, so that it draws it's buffer to the display
         """
-        pass
+        self._connection.write("drw\n")
 
 class DisplayContoller(DisplayControllerInterface):
     """
