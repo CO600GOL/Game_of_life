@@ -5,6 +5,7 @@ this directly, instead handing the data off to another helper class.
 """
 
 import time
+import logging
 import datetime
 from display_adapter import db_name, serial_name, serial_baudrate, sleep_time
 from display_adapter.display_driver.database_helpers import DatabaseHelper
@@ -17,6 +18,7 @@ class DisplayDriver(object):
     level control over the data being sent to the display, but will do this mostly through the help of smaller utility
     classes.
     """
+    logger = logging.getLogger("display")
 
     def __init__(self):
         """
@@ -39,6 +41,7 @@ class DisplayDriver(object):
             min_current_time = minutify(current_time)
 
             if (current_time.minute % 5) == 0 and (min_current_time > last_check_time):
+
                 last_check_time = min_current_time
                 t_format = "%Y-%m-%d %H:%M:00.000000"
                 pattern = self._db_helper.get_run_for_time(current_time.strftime(t_format))
@@ -54,7 +57,9 @@ class DisplayDriver(object):
             self._display_controller.output_pattern(last_pattern)
 
             sleep_until_time = current_time + datetime.timedelta(seconds=sleep_time)
-            time.sleep((sleep_until_time - datetime.datetime.now()).microsecond)
+            time.sleep((sleep_until_time - datetime.datetime.now()).microseconds / 1000000)
+
+            self.logger.warn("Tried to find run at: %s" % current_time)
 
 def minutify(dt):
     """

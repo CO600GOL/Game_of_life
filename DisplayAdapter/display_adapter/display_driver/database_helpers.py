@@ -31,7 +31,7 @@ WHERE runs.time_slot = '%s'""" % time
 DELETE FROM runs
 WHERE id=%s"""
 
-        patern = ""
+        pattern = ""
         run = self._db_connection.execute(statement).fetchone()
         if run:
             (_id, pattern, _, _) = run
@@ -47,7 +47,7 @@ WHERE id=%s"""
 SELECT * FROM screensavers ORDER BY RANDOM() LIMIT 1;
         """
 
-        return self._db_connection.execute(statement).fetchone()
+        return self._db_connection.execute(statement).fetchone()[0]
 
     def __del__(self):
         """
