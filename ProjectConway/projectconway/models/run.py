@@ -2,7 +2,7 @@ import datetime
 import transaction
 from projectconway.lib.exceptions import RunSlotTakenError, RunSlotInvalidError
 from projectconway.models import Base, DBSession
-from sqlalchemy import Column, DateTime, Integer, Sequence, String, and_
+from sqlalchemy import Boolean, Column, DateTime, Integer, Sequence, String, and_
 
 
 class Run(Base):
@@ -85,7 +85,7 @@ class Run(Base):
             )).all()
 
             for run in unsent_runs:
-                run._sent = True
+                run.sent = True
 
             DBSession.commit()
 
@@ -123,6 +123,17 @@ class Run(Base):
             raise RunSlotInvalidError("Time is above the maximum")
         if time_slot.minute % 5 != 0:
             raise RunSlotInvalidError("Minute value is not a multiple of 5")
+
+    def json(self):
+        """
+        Returns a json dictionary representing this object.
+        """
+        return {
+            "id": self.id,
+            "input_pattern": self.input_pattern,
+            "time_slot": self.time_slot.isoformat(),
+            "sent": self.sent
+        }
 
 
 def hourify(t):
