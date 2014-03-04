@@ -96,7 +96,6 @@ class DisplayController(DisplayControllerInterface):
         self._connection.write("1")
         self._connection.write("%s" % y)
         self._connection.write("%s" % x)
-        #self._connection.write("1%s%s" % (x, y))
 
     def _draw(self):
         """
