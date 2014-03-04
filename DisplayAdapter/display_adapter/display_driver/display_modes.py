@@ -104,12 +104,14 @@ class ScreensaverMode(DisplayMode):
     This class represents the mode in which the display runs when it is not showing a user's input pattern.
     """
 
-    def __init__(self, pattern, previous_frame):
+    def __init__(self, pattern, previous_frame=None):
         """
         Ctor - initialises the Screensaver mode with the correct information. Main function is
         to set up the game engine used for the specified pattern.
         """
         DisplayMode.__init__(self, pattern)
+        if not previous_frame:
+            previous_frame = pattern.replace("*", "-")
         self._previous_pattern = previous_frame
 
         self._pause_frames = screensaver_config["pause_frames"]
