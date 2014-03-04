@@ -54,12 +54,13 @@ class DisplayDriver(object):
                 mode = ScreensaverMode(self._db_helper.get_random_screensaver(), last_pattern)
 
             last_pattern = mode.get_display_pattern()
+
             self._display_controller.output_pattern(last_pattern)
 
             sleep_until_time = current_time + datetime.timedelta(seconds=sleep_time)
             time.sleep((sleep_until_time - datetime.datetime.now()).microseconds / 1000000)
 
-            self.logger.warn("Tried to find run at: %s" % current_time)
+            self.logger.warn("Outputted pattern at: %s" % current_time)
 
 def minutify(dt):
     """
