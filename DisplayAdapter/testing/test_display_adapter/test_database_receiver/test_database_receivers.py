@@ -3,10 +3,12 @@ This modules tests the client-side logic of the raspberry pi's database receiver
 information from the web server and correctly write it to the internal database.
 """
 
+import os
 import json
 import sqlite3
 from mock import MagicMock, patch
 from display_adapter import test_db_name
+from display_adapter.scripts.init_db import init_db
 from display_adapter.database_receiver.database_receivers import DatabaseReceiver
 
 class TestDatabaseReceiver(object):
@@ -24,6 +26,14 @@ class TestDatabaseReceiver(object):
     }
 ]"""
 
+    def setup_class(self):
+        """
+        Sets up the class for testing.
+        """
+        try:
+            init_db(test_db_name)
+        except sqlite3.OperationalError:
+            pass
 
     @patch('urllib.request.urlopen')
     def test__pull(self, mock_urllib):
@@ -40,7 +50,7 @@ class TestDatabaseReceiver(object):
                 """
                 Mock the repsonse accessor
                 """
-                return self.runs
+                return TestDatabaseReceiver.runs
 
         mock_urllib.return_value = FakeResponse()
 
@@ -48,7 +58,7 @@ class TestDatabaseReceiver(object):
         runs = dr._pull_runs()
 
         assert runs
-        assert runs == self.runs
+        assert runs == json.loads(self.runs)
 
     def test__write_runs(self):
         """
@@ -58,7 +68,7 @@ class TestDatabaseReceiver(object):
         dr = DatabaseReceiver(db_name=test_db_name)
 
         runs = json.loads(self.runs)
-        assert dr._write_runs(runs)
+        dr._write_runs(runs)
 
         con = sqlite3.connect(test_db_name)
         try:
@@ -68,6 +78,11 @@ class TestDatabaseReceiver(object):
         finally:
             con.close()
 
+    def teardown_class(self):
+        """
+        Remove the internal database
+        """
+        os.system("rm %s" % test_db_name)
 
 
 
