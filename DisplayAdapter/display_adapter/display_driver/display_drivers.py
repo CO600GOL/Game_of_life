@@ -9,7 +9,7 @@ import logging
 import datetime
 from display_adapter import db_name, serial_name, serial_baudrate, sleep_time
 from display_adapter.display_driver.database_helpers import DatabaseHelper
-from display_adapter.display_driver.display_controllers import PrototypeController
+from display_adapter.display_driver.display_controllers import PrototypeController, DisplayController
 from display_adapter.display_driver.display_modes import RunMode, ScreensaverMode
 
 class DisplayDriver(object):
@@ -25,7 +25,7 @@ class DisplayDriver(object):
         Ctor - Initialises the display driver, setting up the database helper and display controller.
         """
         self._db_helper = DatabaseHelper(db_name)
-        self._display_controller = PrototypeController(serial_name, serial_baudrate)
+        self._display_controller = DisplayController(serial_name, serial_baudrate)
 
     def start(self):
         """

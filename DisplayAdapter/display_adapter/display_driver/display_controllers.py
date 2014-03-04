@@ -65,15 +65,41 @@ class PrototypeController(DisplayControllerInterface):
         """
         self._connection.write("drw\n")
 
-class DisplayContoller(DisplayControllerInterface):
+class DisplayController(DisplayControllerInterface):
     """
     This class represents the display controller used for Project Conway
     """
-
+ 
     def output_pattern(self, pattern):
         """
         Outputs the specified pattern to the display.
 
         N.B. Completely overrides the super method.
         """
-        pass
+        self._clear()
+        for i, line in enumerate(pattern.split("\n")):
+            for j, c in enumerate(line):
+                if c == "*":
+                    self._set(j, i)
+        self._draw()
+
+    def _clear(self):
+        """
+        Just sends the clear command to the display
+        """
+        self._connection.write("0")
+
+    def _set(self, x, y):
+        """
+        Just sends the set command to the display, giving coordinates
+        """
+        self._connection.write("1")
+        self._connection.write("%s" % y)
+        self._connection.write("%s" % x)
+        #self._connection.write("1%s%s" % (x, y))
+
+    def _draw(self):
+        """
+        Just sends the draw command to the display, so that it draws it's buffer to the display
+        """
+        self._connection.write("3") 
