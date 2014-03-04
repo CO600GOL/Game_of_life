@@ -7,7 +7,7 @@ import sqlite3
 from display_adapter import db_name
 
 if __name__ == "__main__":
-    with open("display_adapter/scripts/screensavers.txt", "r") as file:
+    with open("display_adapter/scripts/screensavers_proto.txt", "r") as file:
         screensavers = file.read()
         screensavers = screensavers.split("\n\n")
 

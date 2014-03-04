@@ -6,5 +6,5 @@ TIME_LIMIT = 300  # seconds
 
 # These values are specific to Project conway project and refer to the number
 # of cells in the physical display
-X_CELLS = 10
-Y_CELLS = 10
+X_CELLS = 5
+Y_CELLS = 5
