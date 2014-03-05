@@ -13,7 +13,7 @@ packages = [
 setup(
     name='DisplayAdapter',
     version='1.0',
-    packages=packages,
+    packages=packages + find_packages(),
     install_requires=requires,
     license='MIT',
 )
