@@ -54,7 +54,7 @@ class DatabaseReceiver(object):
         """
         This method allows the receiver to write information into the internal database.
         """
-        con = sqlite3.connect(self.db_name, timeout=5)
+        con = sqlite3.connect(self.db_name, timeout=30, check_same_thread=False)
 
         for run in runs:
             time = datetime.datetime.strptime(run["time_slot"], "%Y-%m-%dT%H:%M:%S")
