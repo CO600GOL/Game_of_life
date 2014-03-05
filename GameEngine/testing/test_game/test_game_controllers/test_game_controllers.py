@@ -173,3 +173,14 @@ class TestGameOfLifeController(object):
 
         current_gen = golc.get_current_generation()
         assert current_gen and isinstance(current_gen, GolGrid)
+
+    def test_get_current_generation_output(self):
+        """
+        Tests the game controller's ability to output the current
+        generation as a string.
+        """
+        golc = GameOfLifeController()
+        golc.set_up_game(create_initial_input())
+
+        current_gen = golc.get_current_generation(output=True)
+        assert current_gen and isinstance(current_gen, str)

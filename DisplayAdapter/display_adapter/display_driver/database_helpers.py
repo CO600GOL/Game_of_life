@@ -18,7 +18,7 @@ class DatabaseHelper(object):
         """
         Ctor - constructs the database helper, linking to the database with the given name
         """
-        self._db_connection = sqlite3.connect(db_name, timeout=5)
+        self._db_connection = sqlite3.connect(db_name, timeout=30, check_same_thread=False)
 
     def get_run_for_time(self, time):
         """
@@ -31,11 +31,13 @@ WHERE runs.time_slot = '%s'""" % time
 DELETE FROM runs
 WHERE id=%s"""
 
-        patern = ""
+        pattern = ""
         run = self._db_connection.execute(statement).fetchone()
         if run:
             (_id, pattern, _, _) = run
             self._db_connection.execute(delete_statement%_id)
+
+        self._db_connection.commit()
 
         return pattern
 
@@ -47,7 +49,7 @@ WHERE id=%s"""
 SELECT * FROM screensavers ORDER BY RANDOM() LIMIT 1;
         """
 
-        return self._db_connection.execute(statement).fetchone()
+        return self._db_connection.execute(statement).fetchone()[0]
 
     def __del__(self):
         """

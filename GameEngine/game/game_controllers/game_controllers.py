@@ -102,9 +102,29 @@ class GameOfLifeController(GameController):
         '''
         return self._game.get_turn_count()
 
-    def get_current_generation(self):
+    def get_current_generation(self, output=False):
         '''
         Returns the current generation of the game of life, in the form of a
         Grid object
         '''
-        return self._game.get_current_generation()
+        if not output:
+            return self._game.get_current_generation()
+        else:
+            return self.to_string(self._game.get_current_generation())
+
+    def to_string(self, grid):
+        """
+        Translates a grid object into a string.
+        """
+        string = ""
+        for row in range(0, len(grid.get_cells())):
+            for cell in grid.get_cells()[row]:
+                if cell.get_state() == Alive():
+                    string += '*'
+                else:
+                    string += '-'
+
+            if row != len(grid.get_cells()) - 1:
+                string += '\n'
+
+        return string

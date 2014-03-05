@@ -36,11 +36,13 @@ def init_db(db_name=db_name):
     con = sqlite3.connect(db_name)
     cur = con.cursor()
 
-    cur.execute("pragma journal_mode=wal")
-    cur.execute(runs_table)
-    cur.execute(screensavers_table)
-
-    con.commit()
+    try:
+        cur.execute("pragma journal_mode=wal")
+        cur.execute(runs_table)
+        cur.execute(screensavers_table)
+        con.commit()
+    except sqlite3.OperationalError:
+        pass # We don't care if the table already excists
     con.close()
 
 

@@ -1,14 +1,19 @@
 from setuptools import setup, find_packages
 
 requires = [
-    "display_adapter",
-    "pytest"
+    "pytest",
+    "pySerial",
+    "mock"
+]
+
+packages = [
+    "display_adapter"
 ]
 
 setup(
     name='DisplayAdapter',
-    version='0.1',
-    packages=find_packages(),
-    requires=requires,
+    version='1.0',
+    packages=packages + find_packages(),
+    install_requires=requires,
     license='MIT',
 )

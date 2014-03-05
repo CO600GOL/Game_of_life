@@ -13,6 +13,7 @@ help:
 	#     test                   -- Runs the automated tests in DisplayAdapter
 	#     create_db              -- Creates and initialises the internal database
 	#     update_screensavers    -- Search screensavers file and update the database
+	#     run		     -- Runs the display adapter
 	#     clean                  -- Delete persistant storage
 
 setup: env
@@ -44,6 +45,9 @@ create_db:
 
 update_screensavers:
 	$(env); python $(script_local)/update_screensavers.py $(db_name) $(screensavers_file)
+
+run:
+	$(env); python $(script_local)/start_adapter.py
 
 clean:
 	rm $(env_name) -rf
