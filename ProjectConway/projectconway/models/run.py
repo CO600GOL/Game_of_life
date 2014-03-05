@@ -1,3 +1,4 @@
+import json
 import datetime
 import transaction
 from projectconway.lib.exceptions import RunSlotTakenError, RunSlotInvalidError
@@ -130,7 +131,7 @@ class Run(Base):
         """
         return {
             "id": self.id,
-            "input_pattern": self.input_pattern,
+            "input_pattern": self.input_pattern.replace("\n", "\\n"),
             "time_slot": self.time_slot.isoformat(),
             "sent": self.sent
         }

@@ -7,7 +7,7 @@ from datetime import datetime
 from projectconway.models.run import Run
 from pyramid.view import view_config
 
-@view_config(route_name='run_transmitter', renderer='json')
+@view_config(route_name='run_transmitter', renderer='conway_json')
 def run_transmitter_view(request):
     """
     Executes the transmission of unsent server patterns to the display.
