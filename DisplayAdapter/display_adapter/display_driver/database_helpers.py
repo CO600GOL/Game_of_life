@@ -18,7 +18,7 @@ class DatabaseHelper(object):
         """
         Ctor - constructs the database helper, linking to the database with the given name
         """
-        self._db_connection = sqlite3.connect(db_name, timeout=5)
+        self._db_connection = sqlite3.connect(db_name, timeout=30, check_same_thread=False)
 
     def get_run_for_time(self, time):
         """
@@ -36,6 +36,8 @@ WHERE id=%s"""
         if run:
             (_id, pattern, _, _) = run
             self._db_connection.execute(delete_statement%_id)
+
+        self._db_connection.commit()
 
         return pattern
 
