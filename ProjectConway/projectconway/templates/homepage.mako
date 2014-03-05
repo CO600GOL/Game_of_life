@@ -46,11 +46,11 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-3 col-md-3">
+                    <div class="col-xs-2 col-md-2">
                         <img src="static/images/deeson-online.png" alt="Deeson Online logo" class="img-responsive" />
                     </div>
 
-                    <div class="col-xs-6 col-md-6">
+                    <div class="col-xs-7 col-md-7">
                         <img src="static/images/ukcschoolofcomputing.jpg" alt="UKC School of Computing logo" class="img-responsive" />
                     </div>
 
