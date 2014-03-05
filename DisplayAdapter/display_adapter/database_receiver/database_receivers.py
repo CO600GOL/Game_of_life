@@ -61,7 +61,7 @@ class DatabaseReceiver(object):
 
             statement = """
 INSERT INTO runs values (%s, "%s", "%s", "")
-""" % (run["id"], run["input_pattern"], time.strftime("%Y-%m-%d %H:%M:00.000000"))
+""" % (run["id"], run["input_pattern"].replace("\\n", "\n"), time.strftime("%Y-%m-%d %H:%M:00.000000"))
 
             con.execute(statement)
 
