@@ -30,6 +30,12 @@
                 <p>Project Conway allows you to experience the Game of Life in a fun way. You can create a pattern
                 on our web application, then pick a time and date to watch your pattern come to life on our unique,
                 one-of-a-kind display.</p>
+
+                <div class="row">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-xs-offset-4 col-sm-offset-5 col-md-offset-6">
+                        <a type="button" class="btn btn-primary" href="/create" id="start_button">Try it now!</a>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-5">
@@ -60,12 +66,6 @@
                 </div>
             </div>
         </div>
-
-        <!--<div class="row">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-xs-offset-4 col-sm-offset-5 col-md-offset-6">
-                <a type="button" class="btn btn-primary" href="/create" id="start_button">Try it now!</a>
-            </div>
-        </div>-->
 	</div>
 </%block>
 
