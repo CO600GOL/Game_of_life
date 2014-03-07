@@ -48,6 +48,7 @@ class DatabaseReceiver(object):
         data = data.encode('utf-8')
 
         res = request.urlopen(db_receiver_url, data)
+
         return json.loads(res.read().decode('utf-8'))
 
     def _write_runs(self, runs):

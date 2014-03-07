@@ -50,7 +50,7 @@ class TestDatabaseReceiver(object):
                 """
                 Mock the repsonse accessor
                 """
-                return TestDatabaseReceiver.runs
+                return bytes(TestDatabaseReceiver.runs, 'utf-8')
 
         mock_urllib.return_value = FakeResponse()
 
