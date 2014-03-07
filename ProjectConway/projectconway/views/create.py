@@ -1,5 +1,5 @@
 from datetime import datetime
-from pyramid.httpexceptions import HTTPBadRequest
+from pyramid.httpexceptions import HTTPBadRequest, HTTPFound
 from pyramid.view import view_config
 from sqlalchemy.exc import ArgumentError
 from projectconway import project_config
@@ -20,6 +20,11 @@ def create_view(request):
     that the user can go back and edit it at any point.
     
     '''
+
+    # If they have refreshed the confirmation page after submitting, redirect them to the pattern create page
+    if "viewing_date" in request.POST and "confirmed" in request.session:
+        request.session.invalidate()
+        return HTTPFound(request.route_url('create'))
 
     data = {}
     data["page"] = "patternpage"
@@ -207,6 +212,7 @@ def confirmation_receiver_JSON(request):
         raise HTTPBadRequest("Session Timeout")
     finally:
         request.session.invalidate()
+        request.session["confirmed"] = True
 
     time_slot = datetime.strptime(viewing_time, "%d/%m/%Y-%H-%M")
 

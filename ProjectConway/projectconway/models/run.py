@@ -1,9 +1,10 @@
+import json
 import datetime
 import transaction
 from projectconway import project_config
 from projectconway.lib.exceptions import RunSlotTakenError, RunSlotInvalidError
 from projectconway.models import Base, DBSession
-from sqlalchemy import Column, DateTime, Integer, Sequence, String, and_
+from sqlalchemy import Boolean, Column, DateTime, Integer, Sequence, String, and_
 
 
 class Run(Base):
@@ -18,6 +19,7 @@ class Run(Base):
     input_pattern = Column(String)
     time_slot = Column(DateTime)
     user_name = Column(String(50))
+    sent = Column(Boolean)
 
     def __init__(self, input_pattern, time_slot, user_name):
         '''
@@ -27,12 +29,13 @@ class Run(Base):
         self.input_pattern = input_pattern
         self.time_slot = time_slot
         self.user_name = user_name
+        self.sent = False
 
     def __repr__(self):
         '''
         Returns: a representation of the table object.
         '''
-        return ("Run<Pattern=%s, Time Slot=%s, User Name=%s>" % (self.input_pattern, self.time_slot, self.user_name))
+        return ("Run<Pattern=%s, Time Slot=%s, User Name=%s, Sent=%s>" % (self.input_pattern, self.time_slot, self.user_name, self.sent))
 
     @classmethod
     def get_time_slots_for_hour(cls, time_slot):
@@ -87,6 +90,25 @@ class Run(Base):
         return DBSession.query(Run).filter(Run.time_slot == time_slot).all()
 
     @classmethod
+    def get_unsent_runs(cls, min_time):
+        """
+        Retrieves all of the currently unsent patterns on the database that are
+        set to occur after the minimum time.
+        """
+        with transaction.manager:
+            unsent_runs = DBSession.query(Run).filter(and_(
+                Run.time_slot > min_time,
+                Run.sent == False
+            )).all()
+
+            for run in unsent_runs:
+                run.sent = True
+
+            DBSession.commit()
+
+        return unsent_runs
+
+    @classmethod
     def insert_run(cls, pattern, time_slot):
         """
         Ensures that the pattern and time_slot meet validation
@@ -117,6 +139,17 @@ class Run(Base):
             raise RunSlotInvalidError("Time is above the maximum")
         if time_slot.minute % 5 != 0:
             raise RunSlotInvalidError("Minute value is not a multiple of 5")
+
+    def json(self):
+        """
+        Returns a json dictionary representing this object.
+        """
+        return {
+            "id": self.id,
+            "input_pattern": self.input_pattern.replace("\n", "\\n"),
+            "time_slot": self.time_slot.isoformat(),
+            "sent": self.sent
+        }
 
 
 def hourify(t):
