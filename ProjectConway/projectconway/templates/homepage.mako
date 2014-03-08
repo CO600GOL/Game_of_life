@@ -16,7 +16,6 @@
                 <h2>Welcome to Project Conway</h2>
             </div>
         </div>
-<<<<<<< HEAD
 
         <div class="row">
             <div class="col-md-7">
