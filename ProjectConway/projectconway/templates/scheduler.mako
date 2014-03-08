@@ -33,11 +33,11 @@
     </div>
 
     <div class="col-md-2">
-        <label class="control-label" for="viewing_hour">Viewing Hour</label>
+        <label class="control-label" for="viewing_hour">Viewing Time</label>
     </div>
 
 
-    <div class="col-md-3">
+    <div class="col-md-2">
           <select class="form-control" name="viewing_hour" id="viewing_hour">
               <%
               import datetime
@@ -49,11 +49,11 @@
           </select>
     </div>
 
-    <div class="col-md-2 col-md-offset-1">
-        <label class="control-label" for="viewing_slot">Viewing Slot</label>
+    <div class="col-md-1" id="time_sep">
+        <label class="control-label" for="viewing_slot">:</label>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
         <select class="form-control" name="viewing_slot" id="viewing_slot" disabled>
         </select>
     </div>
