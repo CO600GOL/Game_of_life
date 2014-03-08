@@ -43,34 +43,6 @@
                 <div class="row">
                     <div class="col-md-12 hidden-xs">
                        <iframe src="//www.youtube.com/embed/CgOcEZinQ2I" frameborder="0" allowfullscreen></iframe>
-=======
-
-        <div class="row">
-            <div class="col-md-7">
-                <p>Project Conway is a fun and engaging way to discover John Conway's Game of Life!</p>
-                <br />
-                <p>The Game, developed by John Conway in 1970, demonstrates how a set of simple rules can
-                make something that become very complicated. Using a grid, players create an initial pattern by
-                specifying whether a cell is alive or dead; once the Game has begun, the life of the cell depends
-                on its eight neighbours. Playing the game could not be simpler; input a pattern and watch it run.
-                What makes the Game so unique and fun is that anything could happen.</p>
-                <br />
-                <p>Project Conway allows you to experience the Game of Life in a fun way. You can create a pattern
-                on our web application, then pick a time and date to watch your pattern come to life on our unique,
-                one-of-a-kind display.</p>
-
-                <div class="row">
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-xs-offset-4 col-sm-offset-5 col-md-offset-6">
-                        <a type="button" class="btn btn-primary" href="/create" id="start_button">Try it now!</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-5">
-                <div class="row">
-                    <div class="col-md-12">
-                        <iframe src="//www.youtube.com/embed/CgOcEZinQ2I" frameborder="0" allowfullscreen></iframe>
->>>>>>> c37cfd5d2a6be70e159424bc42f5f4656f315c81
                     </div>
                 </div>
 
