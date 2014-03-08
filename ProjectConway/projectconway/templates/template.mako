@@ -26,27 +26,24 @@
         				<span class="icon-bar"></span>
         				<span class="icon-bar"></span>
         			</button>
-        			
+
         			<a class="navbar-brand" href="/">Project Conway</a>
         		</div>
-        			
+
         		<div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <%
-                        homeactive, rulesactive, tutorialactive, patternactive, aboutactive = [""] * 5
+                        homeactive, rulesactive, patternactive, aboutactive = [""] * 4
                         if page == "homepage":
                             homeactive = "active"
                         elif page == "rulespage":
                         	rulesactive = "active"
-                        elif page == "tutorialpage":
-                            tutorialactive = "active"
                         elif page == "patternpage":
                             patternactive = "active"
                         elif page == "aboutpage":
                             aboutactive = "active"
                         %>
                         <li class="${rulesactive}"><a href="/rules">Rules</a></li>
-                        <li class="${tutorialactive}"><a href="#">Tutorial</a></li>
                         <li class="${patternactive}"><a href="/create">Create Pattern</a></li>
                         <li class="${aboutactive}"><a href="/about">About</a></li>
                     </ul>
@@ -58,7 +55,7 @@
         </header>
 
        	<%block name="content" />
-       	
+
        	<header class="navbar navbar-inverse navbar-fixed-bottom" role="banner">
        		<div class="container">
 				<div class="navbar-header">
@@ -66,7 +63,7 @@
          			import datetime
          			year = str(datetime.datetime.now().year)
                 	%>
-                	
+
                 	<ul class="nav navbar-nav">
              			<li><a>© Deeson Group ${year}</a></li>
                 	</ul>

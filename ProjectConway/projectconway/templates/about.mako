@@ -21,7 +21,7 @@
 	    	<div class="col-md-8">
                 <p>Each year, the UKC School of Computing sets its final-year students the daunting task that is the
                 CO600 Project. The limits of this project depend only on the interests of the lecturers and students involved
-                with the module that year. The project is the final educational chance each student has of proving thier
+                with the module that year. The project is the final educational chance each student has of proving their
                 worth to the industry.</p>
                 <p>The four UKC Computing students involved in this project; Richard Lancaster, Michael Wilson, Geoff Dodds
                 and Niklas Scholz, chose to participate in this particular project for a wide variety of reasons. It proved

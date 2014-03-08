@@ -96,30 +96,28 @@
                     </div>
                 </div>
             </div>
-	    
-             <div class="row">
-                <div class="col-md-6">
-                    <h2>Rule 4</h2>
-                    ${rule_texts.rule_four()}
 
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h2><img src="static/images/rule4_a.jpg" alt="Rule 4 current generation diagram"
+            <div class="col-md-6">
+                <h2>Rule 4</h2>
+                ${rule_texts.rule_four()}
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <h2><img src="static/images/rule4_a.jpg" alt="Rule 4 current generation diagram"
+                                    class="img-responsive"/></h2>
+                        <p><b>Current Generation</b></p>
+                    </div>
+                    <div class="col-md-6 hidden-xs rules_format">
+                        <p>The highlighted cell is born on the next turn as it has three neighbours. </p>
+                    </div>
+                    <div class="col-md-6 visible-xs">
+                        <p>The highlighted cell is born on the next turn as it has three neighbours. </p>
+                    </div>
+                    <div class="col-md-3">
+                        <h2><img src="static/images/rule4_b.jpg" alt="Rule 4 next generation diagram"
                                      class="img-responsive"/></h2>
-                            <p><b>Current Generation</b></p>
-                        </div>
-                        <div class="col-md-6 hidden-xs rules_format">
-                            <p>The highlighted cell is born on the next turn as it has three neighbours. </p>
-                        </div>
-                        <div class="col-md-6 visible-xs">
-                            <p>The highlighted cell is born on the next turn as it has three neighbours. </p>
-                        </div>
-                        <div class="col-md-3">
-                            <h2><img src="static/images/rule4_b.jpg" alt="Rule 4 next generation diagram"
-                                        class="img-responsive"/></h2>
-                            <p><b>Next Generation</b></p>
-                        </div>
-                     </div>
+                        <p><b>Next Generation</b></p>
+                    </div>
                 </div>
             </div>
          </div>
