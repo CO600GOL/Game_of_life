@@ -32,12 +32,12 @@
         <p>Now choose a time on that date to go and watch the display!</p>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-xs-2 col-md-2">
         <label class="control-label" for="viewing_hour">Viewing Time</label>
     </div>
 
 
-    <div class="col-md-2">
+    <div class="col-xs-2 col-md-2">
           <select class="form-control" name="viewing_hour" id="viewing_hour">
               <%
               import datetime
@@ -49,11 +49,11 @@
           </select>
     </div>
 
-    <div class="col-md-1" id="time_sep">
+    <div class="col-xs-1 col-md-1" id="time_sep">
         <label class="control-label" for="viewing_slot">:</label>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-xs-2 col-md-2">
         <select class="form-control" name="viewing_slot" id="viewing_slot" disabled>
         </select>
     </div>
