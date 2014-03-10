@@ -127,8 +127,6 @@ class Run(Base):
 
     @classmethod
     def _validate_time_slot(cls, now, time_slot):
-        # TODO: Use the values from the project conway init file
-
         if project_config["start_date"]:
             start = project_config["starting_date"]
         else:

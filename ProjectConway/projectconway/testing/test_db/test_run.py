@@ -118,15 +118,22 @@ class TestRun():
         # Test the method returns the correct information
         assert dayRuns == runs
 
-
     def test_run_get_time_slots_for_day(self):
         """
         Tests the class method get_slots_for_day.
         """
         # Give the method a future date and receive correct no. of time-slots for that date
         date = datetime.date.today() + datetime.timedelta(days=1)
+
+        min_time = project_config["starting_time"]
+        max_time = project_config["closing_time"]
         # Calculate the no. of hours in a given day to test
-        noHours = (project_config["date_range"] - project_config["date_range"]) // 60 // 60
+        no_hours = (max_time.hour*60 + max_time.minute) - (min_time.hour*60 + min_time.minute) // 60
+        no_time_slots = no_hours * 12
+
+        time_slots = Run.get_time_slots_for_day(date)
+
+        assert len(time_slots) == no_time_slots
 
     def teardown_class(self):
         '''
