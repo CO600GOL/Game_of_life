@@ -60,7 +60,7 @@ CT1 2RA""",
     "date_range": datetime.timedelta(weeks=3),
 
     # Starting hour,
-    "starting_time": datetime.time(hour=6),
+    "starting_time": datetime.time(hour=0, minute=0),
     # Closing hour,
-    "closing_time": datetime.time(hour=21)
+    "closing_time": datetime.time(hour=23, minute=59)
 }

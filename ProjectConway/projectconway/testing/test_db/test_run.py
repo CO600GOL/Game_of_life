@@ -1,4 +1,5 @@
 import time
+import math
 import datetime
 import transaction
 from sqlalchemy  import create_engine
@@ -104,7 +105,7 @@ class TestRun():
         of runs as added.
         """
         dt = datetime.datetime.now() + datetime.timedelta(days=1)
-        dt.replace(minute=0, second=0, microsecond=0)
+        dt = dt.replace(minute=0, second=0, microsecond=0)
 
         runs = [
             Run(create_input_pattern(), dt, self._insert_name),
@@ -123,17 +124,45 @@ class TestRun():
         Tests the class method get_slots_for_day.
         """
         # Give the method a future date and receive correct no. of time-slots for that date
-        date = datetime.date.today() + datetime.timedelta(days=1)
+        date = datetime.date.today() + datetime.timedelta(days=10)
 
         min_time = project_config["starting_time"]
         max_time = project_config["closing_time"]
         # Calculate the no. of hours in a given day to test
-        no_hours = (max_time.hour*60 + max_time.minute) - (min_time.hour*60 + min_time.minute) // 60
-        no_time_slots = no_hours * 12
+        no_mins = (max_time.hour*60 + max_time.minute) - (min_time.hour*60 + min_time.minute)
+        no_time_slots = math.ceil(no_mins / 5)
 
         time_slots = Run.get_time_slots_for_day(date)
 
-        assert len(time_slots) == no_time_slots
+        assert no_time_slots == len(time_slots)
+
+    def test_run_get_time_slots_for_day_with_runs(self):
+        """
+        Tests the class method get_time_slots_for_day
+        With runs added to the database, expect the method call to return the full number of
+        available time slots - the number of runs
+        """
+        # Give the method a future date and receive correct no. of time-slots for that date
+        date = datetime.date.today() + datetime.timedelta(days=2)
+
+        min_time = project_config["starting_time"]
+        max_time = project_config["closing_time"]
+        # Calculate the no. of hours in a given day to test
+        no_mins = (max_time.hour*60 + max_time.minute) - (min_time.hour*60 + min_time.minute)
+        no_time_slots = math.ceil(no_mins / 5)
+
+        date = datetime.datetime.combine(date, datetime.time(hour=12, minute=0, second=0, microsecond=0))
+
+        runs = [
+            Run(create_input_pattern(), date, self._insert_name),
+            Run(create_input_pattern(), date + datetime.timedelta(minutes=5), self._insert_name)]
+        with transaction.manager:
+            DBSession.add_all(runs)
+            DBSession.commit
+
+        time_slots = Run.get_time_slots_for_day(date)
+
+        assert no_time_slots - len(runs) == len(time_slots)
 
     def teardown_class(self):
         '''
