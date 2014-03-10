@@ -115,8 +115,8 @@ class TestRun():
 
         date = datetime.date.today() + datetime.timedelta(days=1)
         dayRuns = Run.get_runs_for_day(date)
-        # Test the method returns the correct informatio
-        #assert something
+        # Test the method returns the correct information
+        assert dayRuns == runs
 
 
     def test_run_get_time_slots_for_day(self):

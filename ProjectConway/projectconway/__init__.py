@@ -50,13 +50,17 @@ CT1 2RA""",
     "display_link": "www.canterbury.co.uk/Beaney",
     "display_picture": "/static/images/#",
 
-    # Time Information
-    # Starting hour, difference from midnight
-    "starting_hour": datetime.timedelta(hours=6),
-    # Closing hour, difference from midnight
-    "closing_hour": datetime.timedelta(hours=21),
-    # Minimum date, should really be now
-    "minimum_date": datetime.timedelta(),
+    # Minimum date
+    #   - This can either be None, representing now, or
+    #   - a datetime.date object representing a future date.
+    "start_date": None,
     # Maximum_date, the max date the user can book
-    "maximum_date": datetime.timedelta(weeks=3)
+    #   - This cane be None, representing no limit
+    #   - or a datetime.timedelta, representing the range from the start_date
+    "date_range": datetime.timedelta(weeks=3),
+
+    # Starting hour,
+    "starting_time": datetime.time(hour=6),
+    # Closing hour,
+    "closing_time": datetime.time(hour=21)
 }
