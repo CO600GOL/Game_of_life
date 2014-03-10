@@ -1,4 +1,3 @@
-import json
 import datetime
 import transaction
 from projectconway import project_config
@@ -129,14 +128,21 @@ class Run(Base):
     @classmethod
     def _validate_time_slot(cls, now, time_slot):
         # TODO: Use the values from the project conway init file
-        min_date = hourify(now + project_config["minimum_date"])
-        max_date = hourify(now + project_config["maximum_date"])
+
+        if project_config["start_date"]:
+            start = project_config["starting_date"]
+        else:
+            start = now
+
+        if project_config["date_range"]:
+            end = now + project_config["date_range"]
 
         # Ensure time_slot meets conditions
-        if time_slot < min_date:
+        if time_slot < start:
             raise RunSlotInvalidError("Time passed in is in the past")
-        elif time_slot > max_date:
-            raise RunSlotInvalidError("Time is above the maximum")
+        elif end:
+            if time_slot > end:
+                raise RunSlotInvalidError("Time is above the maximum")
         if time_slot.minute % 5 != 0:
             raise RunSlotInvalidError("Minute value is not a multiple of 5")
 

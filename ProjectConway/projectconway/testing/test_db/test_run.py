@@ -126,7 +126,7 @@ class TestRun():
         # Give the method a future date and receive correct no. of time-slots for that date
         date = datetime.date.today() + datetime.timedelta(days=1)
         # Calculate the no. of hours in a given day to test
-        noHours = (project_config["maximum_date"] - project_config["minimum_date"]) // 60 // 60
+        noHours = (project_config["date_range"] - project_config["date_range"]) // 60 // 60
 
     def teardown_class(self):
         '''
