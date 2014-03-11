@@ -16,7 +16,7 @@
     </div>
 
     <div class="col-md-12">
-        <label class="control-label">Date of Viewing</label>
+        <label class="control-label">Viewing Date</label>
     </div>
 
     <div class="col-md-12">
@@ -32,24 +32,25 @@
         <p>Now choose a time on that date to go and watch the display!</p>
     </div>
 
-    <div class="col-md-2">
-        <label class="control-label" for="viewing_hour">Viewing Hour</label>
+    <div class="col-xs-2 col-md-2">
+        <label class="control-label" for="viewing_hour">Viewing Time</label>
     </div>
 
 
-    <div class="col-md-3">
+    <div class="col-xs-2 col-md-2">
           <select class="form-control" name="viewing_hour" id="viewing_hour" disabled>
           </select>
     </div>
 
-    <div class="col-md-2 col-md-offset-1">
-        <label class="control-label" for="viewing_slot">Viewing Slot</label>
+    <div class="col-xs-1 col-md-1" id="time_sep">
+        <label class="control-label" for="viewing_slot">:</label>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-xs-2 col-md-2">
         <select class="form-control" name="viewing_slot" id="viewing_slot" disabled>
         </select>
     </div>
+
 </%block>
 
 <%block name="extras">
