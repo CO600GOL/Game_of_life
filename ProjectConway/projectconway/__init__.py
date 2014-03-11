@@ -62,5 +62,11 @@ CT1 2RA""",
     # Starting hour,
     "starting_time": datetime.time(hour=0, minute=0),
     # Closing hour,
-    "closing_time": datetime.time(hour=23, minute=59)
+    "closing_time": datetime.time(hour=23, minute=59),
+
+    # At this time, it is required that customers are not able to request a time slot
+    # within a 5 minute period of requesting the available time slots, this is to
+    # prevent them from attempting to request a slot that does not make it successfully to the raspberry pi's
+    # database
+    "scheduling_gap": datetime.timedelta(minutes=5)
 }

@@ -132,7 +132,7 @@ class TestRun():
         no_mins = (max_time.hour*60 + max_time.minute) - (min_time.hour*60 + min_time.minute)
         no_time_slots = math.ceil(no_mins / 5)
 
-        time_slots = Run.get_time_slots_for_day(date)
+        time_slots = Run.get_time_slots_for_day(date, datetime.datetime.now())
 
         assert no_time_slots == len(time_slots)
 
@@ -160,7 +160,7 @@ class TestRun():
             DBSession.add_all(runs)
             DBSession.commit
 
-        time_slots = Run.get_time_slots_for_day(date)
+        time_slots = Run.get_time_slots_for_day(date, datetime.datetime.now())
 
         assert no_time_slots - len(runs) == len(time_slots)
 

@@ -83,7 +83,7 @@ class Run(Base):
         return run_times
 
     @classmethod
-    def get_time_slots_for_day(cls, date):
+    def get_time_slots_for_day(cls, date, now):
         """
         Returns all available time slots for the specified date as a
         Date object.
@@ -108,7 +108,7 @@ class Run(Base):
 
             for slot in range(min_min, max_min, 5):
                 t_slot = datetime.datetime.combine(date, datetime.time(hour=h, minute=slot))
-                if t_slot not in run_times_for_date:
+                if t_slot not in run_times_for_date and t_slot > (now + project_config["scheduling_gap"]):
                     slots.append(t_slot)
 
         return slots
