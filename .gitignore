@@ -2,7 +2,7 @@
 *.pydevproject*
 *pycache*
 *.pyc
-env/
+*env/
 *.swp
 *.swo
 *.sqlite

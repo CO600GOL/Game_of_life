@@ -22,8 +22,8 @@
     <div class="col-md-12">
         <form method="post">
             <div class="input-group date" id="datepicker" data-date="${viewing_date}" data-date-format="dd/mm/yyyy">
-              <input class="form-control" type="text" readonly="" value="${viewing_date}" name="viewing_date">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              <input class="form-control" id="datepicker_form" type="text" readonly="" value="${viewing_date}" name="viewing_date">
+              <span class="input-group-addon" id="datepicker_pic"><i class="glyphicon glyphicon-calendar"></i></span>
             </div>
     </div>
 
@@ -32,12 +32,12 @@
         <p>Now choose a time on that date to go and watch the display!</p>
     </div>
 
-    <div class="col-md-2">
-        <label class="control-label" for="viewing_hour">Viewing Time:</label>
+    <div class="col-xs-2 col-md-2">
+        <label class="control-label" for="viewing_hour">Viewing Time</label>
     </div>
 
 
-    <div class="col-md-2">
+    <div class="col-xs-2 col-md-2">
           <select class="form-control" name="viewing_hour" id="viewing_hour">
               <%
               import datetime
@@ -49,11 +49,11 @@
           </select>
     </div>
 
-    <div class="col-md-1">
+    <div class="col-xs-1 col-md-1" id="time_sep">
         <label class="control-label" for="viewing_slot">:</label>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-xs-2 col-md-2">
         <select class="form-control" name="viewing_slot" id="viewing_slot" disabled>
         </select>
     </div>
