@@ -39,13 +39,6 @@
 
     <div class="col-md-3">
           <select class="form-control" name="viewing_hour" id="viewing_hour">
-              <%
-              import datetime
-              current_hour = datetime.datetime.now().hour
-              %>
-              % for i in range(current_hour, 24):
-                  <option value="${str(i)}" ${"selected" if (i == viewing_hour) else ""}>${format(i, "02d")}</option>
-              % endfor
           </select>
     </div>
 
@@ -78,6 +71,18 @@
                 import datetime
                 today = datetime.datetime.today()
                 enddate = today + datetime.timedelta(weeks=12)
+
+                from projectconway import project_config
+
+                if project_config["start_date"]:
+                    start_date = project_config["start_date"]
+                else:
+                    start_date = datetime.date.today()
+
+                if project_config["date_range"]:
+                    end_date = start_date + project_config["date_range"]
+                else:
+                    end_date = None
             %>
 
             // Set up some options for the datepicker including setting a start and end date and
@@ -85,13 +90,13 @@
             $("#datepicker").datepicker({
                 "autoclose": true,
                 "format": "dd/mm/yyyy",
-                "startDate": "${today.strftime("%d/%m/%Y")}",
-                "endDate": "${enddate.strftime("%d/%m/%Y")}"
+                "startDate": "${start_date.strftime("%d/%m/%Y")}",
+                ${'"endDate": "%s"' % end_date.strftime("%d/%m/%Y") if end_date else '' | n}
             });
 
             // Set up event handling for the datepicker
             var s = new Scheduler();
-            s.populateMinuteSlot();
+            //s.populateMinuteSlot();
             $("#datepicker").datepicker().on("changeDate", s.datepickerEventHandler);
             $("#viewing_hour").change(s.hourSelectEventHandler);
 

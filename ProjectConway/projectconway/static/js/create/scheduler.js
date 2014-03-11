@@ -12,7 +12,21 @@ function Scheduler() {
      * i.e. update the hour slot and the minute slot for a given day
      */
     this.render = function(date) {
+        requestTimeSlots(date);
 
+        if (timeSlots != null) {
+            if (timeSlots["hours"].length > 0) {
+                updateHourSlot(timeSlots["hours"]);
+
+                updateMinuteSlot(timeSlots["hours"][0]);
+            }
+            else {
+                throwError("Sorry, but this day has been very popular, and there are no available time slots left.")
+            }
+        }
+        else {
+            throwError("Sorry, but there seems to have been a connection issue. Please try again.")
+        }
     }
 
     /**
@@ -38,7 +52,16 @@ function Scheduler() {
      *  ... }
      */
     function requestTimeSlots(date) {
-
+        timeSlots = null;
+        $.ajax({
+            url: URL,
+            type: "POST",
+            data: "date=" + JSON.stringify(date.getTime()),
+            dataType: 'json',
+            success: function(data){
+                timeSlots = data;
+            }
+        });
     }
 
     /**
@@ -84,6 +107,17 @@ function Scheduler() {
             s = "0" + s;
         }
         return s;
+    }
+
+    function throwError(error) {
+        var hour_slot = $("#viewing_hour");
+            hour_slot.empty();
+            hour_slot.prop("disabled", true);
+            var minute_slot = $("#viewing_slot");
+            minute_slot.empty();
+            minute_slot.prop("disabled", true);
+            $.getScript('static/js/create/ajaxError.js', alertOpenHandler());
+            $("#error_content").html("<p>" + error + "</p>");
     }
 
 };
