@@ -161,10 +161,11 @@ class Run(Base):
     @classmethod
     def _validate_time_slot(cls, now, time_slot):
         if project_config["start_date"]:
-            start = project_config["starting_date"]
+            start = datetime.datetime.combine(project_config["start_date"], datetime.time())
         else:
             start = now
 
+        end = None
         if project_config["date_range"]:
             end = now + project_config["date_range"]
 

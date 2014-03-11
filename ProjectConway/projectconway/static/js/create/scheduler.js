@@ -5,40 +5,30 @@
 
 function Scheduler() {
     var URL = "/scheduler.json";
-    var timeSlots; // a days worth of time slots
+    var timeSlots = null;
 
     /**
-     * This renders the page for a given date.
-     * i.e. update the hour slot and the minute slot for a given day
-     */
-    this.render = function(date) {
-        requestTimeSlots(date);
-
-        if (timeSlots != null) {
-            if (timeSlots["hours"].length > 0) {
-                updateHourSlot(timeSlots["hours"]);
-
-                updateMinuteSlot(timeSlots["hours"][0]);
-            }
-            else {
-                throwError("Sorry, but this day has been very popular, and there are no available time slots left.")
-            }
-        }
-        else {
-            throwError("Sorry, but there seems to have been a connection issue. Please try again.")
-        }
-    }
-
-    /**
+     * Event listener for the datepicker object
      */
     this.datepickerEventHandler = function(event) {
-
+        var chosenDate = event.date;
+        render(chosenDate);
     }
 
     /**
      */
     this.hourSelectEventHandler = function(event) {
 
+    }
+
+    /**
+     * This renders the page for a given date.
+     * i.e. update the hour slot and the minute slot for a given day
+     */
+    function render(date) {
+        requestTimeSlots(date);
+        updateHourSlot(timeSlots["hours"]);
+        updateMinuteSlot(timeSlots["hours"][0]);
     }
 
     /**
@@ -55,6 +45,7 @@ function Scheduler() {
         timeSlots = null;
         $.ajax({
             url: URL,
+            async: false,
             type: "POST",
             data: "date=" + JSON.stringify(date.getTime()),
             dataType: 'json',
@@ -62,6 +53,7 @@ function Scheduler() {
                 timeSlots = data;
             }
         });
+
     }
 
     /**
@@ -73,7 +65,8 @@ function Scheduler() {
         hour_slot.prop("disabled", true);
 
         for (var hour in hours) {
-             hour_slot.append($("<option />").val(hour).text(sFormat(hour)));
+            hour = hours[hour];
+            hour_slot.append($("<option />").val(hour).text(sFormat(hour)));
         }
 
         hour_slot.prop("disabled", false);
@@ -83,12 +76,15 @@ function Scheduler() {
      * Update the minutes/timeslots dropdown for a given hour
      */
     function updateMinuteSlot(hour) {
+        console.log(hour)
         var minute_slot = $("#viewing_slot");
         minute_slot.empty();
         minute_slot.prop("disabled", true);
 
         var minutes = timeSlots[hour];
+        console.log(minutes)
         for (var minute in minutes) {
+            minute = minutes[minute];
             minute_slot.append($("<option />").val(minute).text(sFormat(minute)));
         }
 
@@ -111,13 +107,14 @@ function Scheduler() {
 
     function throwError(error) {
         var hour_slot = $("#viewing_hour");
-            hour_slot.empty();
-            hour_slot.prop("disabled", true);
-            var minute_slot = $("#viewing_slot");
-            minute_slot.empty();
-            minute_slot.prop("disabled", true);
-            $.getScript('static/js/create/ajaxError.js', alertOpenHandler());
-            $("#error_content").html("<p>" + error + "</p>");
+        hour_slot.empty();
+        hour_slot.prop("disabled", true);
+        var minute_slot = $("#viewing_slot");
+        minute_slot.empty();
+        minute_slot.prop("disabled", true);
+        //$.getScript('static/js/create/ajaxError.js');
+        //alertOpenHandler();
+        //$("#error_content").html("<p>" + error + "</p>");
     }
 
 };

@@ -22,7 +22,7 @@
     <div class="col-md-12">
         <form method="post">
             <div class="input-group date" id="datepicker" data-date="${viewing_date}" data-date-format="dd/mm/yyyy">
-              <input class="form-control" id="datepicker_form" type="text" readonly="" value="${viewing_date}" name="viewing_date">
+              <input class="form-control" id="datepicker_form" type="text" readonly="" name="viewing_date">
               <span class="input-group-addon" id="datepicker_pic"><i class="glyphicon glyphicon-calendar"></i></span>
             </div>
     </div>
@@ -38,7 +38,7 @@
 
 
     <div class="col-md-3">
-          <select class="form-control" name="viewing_hour" id="viewing_hour">
+          <select class="form-control" name="viewing_hour" id="viewing_hour" disabled>
           </select>
     </div>
 
@@ -93,6 +93,7 @@
                 "startDate": "${start_date.strftime("%d/%m/%Y")}",
                 ${'"endDate": "%s"' % end_date.strftime("%d/%m/%Y") if end_date else '' | n}
             });
+            $("#datepicker_form").val("${start_date.strftime("%d/%m/%Y")}");
 
             // Set up event handling for the datepicker
             var s = new Scheduler();
