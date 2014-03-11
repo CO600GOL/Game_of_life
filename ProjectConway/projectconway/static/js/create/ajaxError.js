@@ -1,3 +1,7 @@
+//TODO: FIX THIS!!!!
+// This just isn't really a suitable option
+// Ideally we have a globally defined object on all pages of the site that can be passed an error message
+// and an error appears
 this.alertOpenHandler = function() {
 	/**
 	 * Shows the error alert.

@@ -2,7 +2,7 @@ from datetime import datetime
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound
 from pyramid.view import view_config
 from sqlalchemy.exc import ArgumentError
-from projectconway import display_location
+from projectconway import project_config
 from projectconway.lib.exceptions import RunSlotTakenError, RunSlotInvalidError
 from projectconway.models.run import Run
 from game_of_life import TIME_LIMIT, TIME_DELAY
@@ -22,7 +22,7 @@ def create_view(request):
     '''
 
     # If they have refreshed the confirmation page after submitting, redirect them to the pattern create page
-    if "viewing_date" in request.POST and "confirmed" in request.session:
+    if "confirmed" in request.session.keys():
         request.session.invalidate()
         return HTTPFound(request.route_url('create'))
 
@@ -121,7 +121,7 @@ def create_view(request):
         data["viewing_slot"] = viewing_slot
         request.session["viewing_slot"] = viewing_slot
 
-        data["display_address"] = display_location["address"]
+        data["display_address"] = project_config["display_address"]
 
     # pattern input page
     else:
@@ -176,18 +176,39 @@ def time_slot_reciever_JSON(request):
     This view receives the user's time slot choice, checks that it is viable,
     and adds it to the user's session if so.
     """
-    time_format = '%Y-%m-%dT%H:%M:%S.000Z'
+    # Get possible time slots for a given day
+    request_time = request.POST["date"]
     try:
-        time_slot = datetime.strptime(request.json_body, time_format)
+        request_time = float(request_time[:10])
+        time_slot = datetime.fromtimestamp(request_time).date()
     except:
         raise HTTPBadRequest("Timestring was not formatted correctly!")
 
     try:
-        aval_slots = Run.get_time_slots_for_hour(time_slot)
+        aval_slots = Run.get_time_slots_for_day(time_slot, datetime.now())
     except RunSlotInvalidError as e:
         raise HTTPBadRequest("Failed to get available slots: %s" % e)
 
-    return {"time_slots": aval_slots}
+    # Render the possible runs times in json
+    # in the format:
+    # {"hours": [2, 3, 4, 5, 6],
+    #  2: [0, 5, 15, 25],
+    #  3: [5, 25, 45]
+    #  ... }
+    response_dict = {}
+    hours = set()
+
+    for slot in aval_slots:
+        hour = slot.hour
+        hours.add(hour)
+
+        if hour not in response_dict:
+            response_dict[hour] = []
+        response_dict[hour] = response_dict[hour] + [slot.minute]
+
+    response_dict["hours"] = list(hours)
+
+    return response_dict
 
 
 @view_config(route_name="confirmation_receiver", renderer='conway_json')

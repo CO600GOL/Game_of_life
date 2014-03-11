@@ -274,7 +274,7 @@ class TestConfirmation(object):
         # create a pattern to be saved to the database
         request.session["pattern"] = create_input_pattern()
         # create a time and date to be saved for the pattern on the database
-        time = datetime.datetime.now().replace(minute=0, second=0, microsecond=0)
+        time = datetime.datetime.now().replace(minute=0, second=0, microsecond=0) + datetime.timedelta(days=1)
         request.session["viewing_date"] = time.strftime("%d/%m/%Y")
         request.session["viewing_hour"] = time.strftime("%H")
         request.session["viewing_slot"] = time.strftime("%M")
@@ -302,7 +302,7 @@ class TestConfirmation(object):
         to be added again.
         """
         # Add pattern and time to database
-        time = datetime.datetime.now().replace(minute=5, second=0, microsecond=0)
+        time = datetime.datetime.now().replace(minute=5, second=0, microsecond=0) + datetime.timedelta(days=1)
         with transaction.manager:
             DBSession.add(Run(create_input_pattern(), time, ""))
             DBSession.commit

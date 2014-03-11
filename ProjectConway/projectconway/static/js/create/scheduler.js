@@ -5,98 +5,122 @@
 
 function Scheduler() {
     var URL = "/scheduler.json";
+    var timeSlots = null;
 
+    /**
+     * Init function that updatese the viewing hour and time_slot on startup
+     */
+    this.init = function(date) {
+        render(date);
+    }
+
+    /**
+     * Event listener for the datepicker object
+     */
     this.datepickerEventHandler = function(event) {
-       /**
-        * An event-handling function that is fired when a date is
-        * picked from the datepicker, requesting the five minute
-        * time slots that are still available for the combination of
-        * the date and the hour.
-        */
-        // Collect the date and hour for use in the AJAX call.
-        populateHourSlot(event.date);
-        var hour = $("#viewing_hour").val();
-        populateMinuteSlotDate(event.date, hour);
+        var chosenDate = event.date;
+        render(chosenDate);
     }
 
+    /**
+     */
     this.hourSelectEventHandler = function(event) {
-        /**
-         * This function deals with changes to the "viewing hour"
-         * select element.
-         * It will fire a request for the available five minute slots,
-         * for the combination the date and the hour and changes the minute
-         * select accordingly.
-         */
         var hour = $("#viewing_hour").val();
-        var date = $("#datepicker").datepicker("getDate");
-
-        populateMinuteSlotDate(date, hour);
+        updateMinuteSlot(parseInt(hour));
     }
 
-    function populateHourSlot(date) {
-        /**
-         * Populates the hour slot selection with hours that are viable.
-         */
+    /**
+     * This renders the page for a given date.
+     * i.e. update the hour slot and the minute slot for a given day
+     */
+    function render(date) {
+        requestTimeSlots(date);
+        updateHourSlot(timeSlots["hours"]);
+        updateMinuteSlot(timeSlots["hours"][0]);
+    }
+
+    /**
+     * This function does a request to scheduler.json for a given day.
+     * This should receive a dictionary of the available time slots in the
+     * format below, this then gets assigned to the timeSlots variable.
+     *
+     * {"hours": [2, 3, 4, 5, 6],
+     *  2: [0, 5, 15, 25],
+     *  3: [5, 25, 45]
+     *  ... }
+     */
+    function requestTimeSlots(date) {
+        timeSlots = null;
+        $.ajax({
+            url: URL,
+            async: false,
+            type: "POST",
+            data: "date=" + JSON.stringify(date.getTime()),
+            dataType: 'json',
+            success: function(data){
+                timeSlots = data;
+            }
+        });
+
+    }
+
+    /**
+     * Update the hour dropdown with for a given list of hours
+     */
+    function updateHourSlot(hours) {
         var hour_slot = $("#viewing_hour");
         hour_slot.empty();
         hour_slot.prop("disabled", true);
 
-        var stringify = function(hour){
-            var h = hour.toString();
-            if (h.length < 2) {
-                h = "0" + h;
-            }
-            return h;
+        for (var hour in hours) {
+            hour = hours[hour];
+            hour_slot.append($("<option />").val(hour).text(sFormat(hour)));
         }
 
-        var now = new Date();
-        for (var i=0; i<24; i++){
-            if (date > now){
-                hour_slot.append($("<option />").val(stringify(i)).text(stringify(i)));
-            }
-            else {
-                if (i >= now.getHours()){
-                    hour_slot.append($("<option />").val(stringify(i)).text(stringify(i)));
-                }
-            }
-        }
         hour_slot.prop("disabled", false);
     }
 
-    this.populateMinuteSlot = function() {
-        /**
-         * Populates the minute slot selection with minutes that are viable.
-         */
-        var d = new Date();
-        d.setMinutes(0);
-        d.setSeconds(0);
-        d.setMilliseconds(0);
-        populateMinuteSlotDate(d, d.getHours());
-    }
-
-    function populateMinuteSlotDate(date, hour) {
-        /**
-         * Populates the minute slot selection with the correct available slots.
-         */
-        var timestring = JSON.stringify(date).replace("T00", "T" + hour);
+    /**
+     * Update the minutes/timeslots dropdown for a given hour
+     */
+    function updateMinuteSlot(hour) {
         var minute_slot = $("#viewing_slot");
-
         minute_slot.empty();
         minute_slot.prop("disabled", true);
 
-        $.ajax({
-            url: URL,
-            type: "POST",
-            data: timestring,
-            dataType: 'json',
-            success: function(data){
-                $.each(data["time_slots"], function() {
-                    minute_slot.append($("<option />").val(this).text(this));
-                })
+        var minutes = timeSlots[hour];
+        for (var minute in minutes) {
+            minute = minutes[minute];
+            minute_slot.append($("<option />").val(minute).text(sFormat(minute)));
+        }
 
-                minute_slot.prop("disabled", false);
-            }
-        });
+        minute_slot.prop("disabled", false);
+    }
+
+
+    /**
+     * Function that takes an int and returns a string. If the int results in 1 digit, it adds a leading zero
+     * @param s
+     * @returns {string|*}
+     */
+    function sFormat(s){
+        var s = s.toString();
+        if (s.length < 2) {
+            s = "0" + s;
+        }
+        return s;
+    }
+
+    function throwError(error) {
+        var hour_slot = $("#viewing_hour");
+        hour_slot.empty();
+        hour_slot.prop("disabled", true);
+        var minute_slot = $("#viewing_slot");
+        minute_slot.empty();
+        minute_slot.prop("disabled", true);
+        //$.getScript('static/js/create/ajaxError.js');
+        //alertOpenHandler();
+        //$("#error_content").html("<p>" + error + "</p>");
     }
 
 };
