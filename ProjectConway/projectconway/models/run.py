@@ -167,7 +167,7 @@ class Run(Base):
 
         end = None
         if project_config["date_range"]:
-            end = now + project_config["date_range"]
+            end = start + project_config["date_range"]
 
         # Ensure time_slot meets conditions
         if time_slot < start:

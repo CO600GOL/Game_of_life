@@ -21,8 +21,11 @@ def create_view(request):
     
     '''
 
+    print("session", request.session)
+    print("keyes", request.session.keys())
+
     # If they have refreshed the confirmation page after submitting, redirect them to the pattern create page
-    if "viewing_date" in request.POST and "confirmed" in request.session:
+    if "confirmed" in request.session.keys():
         request.session.invalidate()
         return HTTPFound(request.route_url('create'))
 

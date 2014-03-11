@@ -18,7 +18,8 @@ function Scheduler() {
     /**
      */
     this.hourSelectEventHandler = function(event) {
-
+        var hour = $("#viewing_hour").val();
+        updateMinuteSlot(parseInt(hour));
     }
 
     /**
@@ -76,13 +77,11 @@ function Scheduler() {
      * Update the minutes/timeslots dropdown for a given hour
      */
     function updateMinuteSlot(hour) {
-        console.log(hour)
         var minute_slot = $("#viewing_slot");
         minute_slot.empty();
         minute_slot.prop("disabled", true);
 
         var minutes = timeSlots[hour];
-        console.log(minutes)
         for (var minute in minutes) {
             minute = minutes[minute];
             minute_slot.append($("<option />").val(minute).text(sFormat(minute)));
