@@ -53,7 +53,7 @@ CT1 2RA""",
     # Minimum date
     #   - This can either be None, representing now, or
     #   - a datetime.date object representing a future date.
-    "start_date": datetime.date(year=2014, month=7, day=7),
+    "start_date": None,#datetime.date(year=2014, month=7, day=7),
     # Maximum_date, the max date the user can book
     #   - This cane be None, representing no limit
     #   - or a datetime.timedelta, representing the range from the start_date

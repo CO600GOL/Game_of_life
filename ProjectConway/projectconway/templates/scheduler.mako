@@ -87,19 +87,21 @@
 
             // Set up some options for the datepicker including setting a start and end date and
             // automatically closing the calender when a date is picked.
-            $("#datepicker").datepicker({
+            var d = $("#datepicker").datepicker({
                 "autoclose": true,
                 "format": "dd/mm/yyyy",
                 "startDate": "${start_date.strftime("%d/%m/%Y")}",
                 ${'"endDate": "%s"' % end_date.strftime("%d/%m/%Y") if end_date else '' | n}
             });
             $("#datepicker_form").val("${start_date.strftime("%d/%m/%Y")}");
+            $("#datepicker").datepicker("setDate",  "${start_date.strftime("%d/%m/%Y")}")
 
             // Set up event handling for the datepicker
             var s = new Scheduler();
             //s.populateMinuteSlot();
             $("#datepicker").datepicker().on("changeDate", s.datepickerEventHandler);
             $("#viewing_hour").change(s.hourSelectEventHandler);
+            s.init($("#datepicker").datepicker("getDate"));
 
             // Lock the grid so that it cannot be edited
             g.lockGrid();

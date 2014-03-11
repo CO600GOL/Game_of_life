@@ -8,6 +8,13 @@ function Scheduler() {
     var timeSlots = null;
 
     /**
+     * Init function that updatese the viewing hour and time_slot on startup
+     */
+    this.init = function(date) {
+        render(date);
+    }
+
+    /**
      * Event listener for the datepicker object
      */
     this.datepickerEventHandler = function(event) {
