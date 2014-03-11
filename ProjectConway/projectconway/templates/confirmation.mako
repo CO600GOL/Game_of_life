@@ -23,7 +23,7 @@
     </div>
 
     <div class="col-md-12 centered_text">
-        <h4>${viewing_hour}:${viewing_slot}</h4>
+        <h4>${"%02d" % int(viewing_hour)}:${"%02d" % int(viewing_slot)}</h4>
     </div>
 
     <div class="col-md-12 centered_text">
