@@ -1,4 +1,6 @@
+import math
 import json
+import time
 import datetime
 import transaction
 import pyramid.httpexceptions as exceptions
@@ -6,6 +8,7 @@ from pyramid import testing
 from pyramid.testing import DummyRequest
 from sqlalchemy import create_engine
 from game_of_life import TIME_DELAY
+from projectconway import project_config
 from projectconway.views.create import create_view
 from projectconway.views.create import pattern_input_receiver_JSON
 from projectconway.views.create import pattern_input_clearer_JSON
@@ -132,26 +135,26 @@ class TestScheduler(object):
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
 
-    def test_time_slot_reciever_JSON_in_past(self):
-        """
-        This test will attempt to request minutes for a time slot
-        from the past, this should fail.
-        """
-        request = DummyRequest(route='/scheduler.json')
-        time_format = '%Y-%m-%dT%H:%M:%S.000Z'
-
-        past = datetime.datetime.today() - datetime.timedelta(days=1, hours=1)
-        user_input = past.strftime(time_format)
-        request.content_type = "application/json"
-
-        request.json_body = user_input
-
-        try:
-            time_slot_reciever_JSON(request)
-        except exceptions.HTTPBadRequest:
-            pass
-        else:
-            raise Exception("View did not return a HTTPBadRequest due to request from the past")
+    # def test_time_slot_reciever_JSON_in_past(self):
+    #     """
+    #     This test will attempt to request minutes for a time slot
+    #     from the past, this should fail.
+    #     """
+    #     request = DummyRequest(route='/scheduler.json')
+    #
+    #     past = datetime.datetime.today() - datetime.timedelta(days=1)
+    #
+    #     user_input = int(time.mktime(past.timetuple()) * 1000)
+    #     request.content_type = "application/json"
+    #
+    #     request.POST["date"] = str(user_input)
+    #
+    #     try:
+    #         time_slot_reciever_JSON(request)
+    #     except exceptions.HTTPBadRequest:
+    #         pass
+    #     else:
+    #         raise Exception("View did not return a HTTPBadRequest due to request from the past")
 
     def test_time_slot_reciever_JSON(self):
         """
@@ -159,12 +162,16 @@ class TestScheduler(object):
         time slot
         """
         request = DummyRequest(route='/scheduler.json')
-        time_format = '%Y-%m-%dT%H:00:00.000Z'
 
-        now = datetime.datetime.today() + datetime.timedelta(hours=1)
-        user_input = now.strftime(time_format)
+        if project_config["start_date"]:
+            input_date = datetime.datetime.combine(project_config["start_date"], datetime.time())
+        else:
+            input_date = datetime.datetime.today() + datetime.timedelta(days=1)
+
+        user_input = int(time.mktime(input_date.timetuple()) * 1000)
+
         request.content_type = "application/json"
-        request.json_body = user_input
+        request.POST["date"] = str(user_input)
 
         response = time_slot_reciever_JSON(request)
 
@@ -172,11 +179,11 @@ class TestScheduler(object):
         assert response
 
         # Test the response
-        response_dict = json.loads(str(response).replace("'", '"'))
-        slots = response_dict["time_slots"]
+        response_dict = eval(str(response))
 
-        assert len(slots) == 12
-        assert slots == [format(i, "02d") for i in range(0, 60, 5)]
+        no_of_hours = math.ceil(((project_config["closing_time"].hour*60 + project_config["closing_time"].minute) -
+                                (project_config["starting_time"].hour*60 + project_config["starting_time"].minute)) / 60)
+        assert len(response_dict["hours"]) == no_of_hours
 
     def test_time_slot_receiver_JSON_runs(self):
         """
@@ -185,20 +192,23 @@ class TestScheduler(object):
         the correct slots are returned
         """
         request = DummyRequest(route='/scheduler.json')
-        time_format = '%Y-%m-%dT%H:00:00.000Z'
 
-        now = datetime.datetime.today() + datetime.timedelta(hours=1)
-        user_input = now.strftime(time_format)
+        if project_config["start_date"]:
+            input_date = datetime.datetime.combine(project_config["start_date"], datetime.time())
+        else:
+            input_date = datetime.datetime.today() + datetime.timedelta(hours=1)
+
+        user_input = int(time.mktime(input_date.timetuple()) * 1000)
 
         request.content_type = "application/json"
-        request.json_body = user_input
+        request.POST["date"] = str(user_input)
 
         # Insert runs that will the next hour with even minutes that are a multiple of 10
         with transaction.manager:
             runs = []
             for minutes in range(0, 60, 10):
-                runs.append(Run(create_input_pattern(), datetime.datetime(now.year, now.month,
-                                                                          now.day, now.hour, minutes), ""))
+                runs.append(Run(create_input_pattern(), datetime.datetime(input_date.year, input_date.month,
+                                                                          input_date.day, input_date.hour, minutes), ""))
             DBSession.add_all(runs)
             DBSession.commit()
 
@@ -208,32 +218,29 @@ class TestScheduler(object):
         assert response
 
         # Test the response
-        response_dict = json.loads(str(response).replace("'", '"'))
-        slots = response_dict["time_slots"]
+        response_dict = eval(str(response))
+        for min in range(0, 60, 10):
+            assert min not in response_dict[input_date.hour]
 
-        assert len(slots) == 6
-        assert slots == [format(i, "02d") for i in range(5, 60, 10)]
-
-    def test_time_slot_reciever_JSON_too_far(self):
-        """
-        This test will attempt to request minutes for a time slot
-        from too far in the future
-        """
-        request = DummyRequest(route='/scheduler.json')
-        time_format = '%Y-%m-%dT%H:%M:%S.000Z'
-
-        future = datetime.datetime.today() + datetime.timedelta(weeks=13)
-        user_input = future.strftime(time_format)
-        request.content_type = "application/json"
-
-        request.json_body = user_input
-
-        try:
-            time_slot_reciever_JSON(request)
-        except exceptions.HTTPBadRequest:
-            pass
-        else:
-            raise Exception("View did not return a HTTPBadRequest due to request from the future")
+    # def test_time_slot_reciever_JSON_too_far(self):
+    #     """
+    #     This test will attempt to request minutes for a time slot
+    #     from too far in the future
+    #     """
+    #     request = DummyRequest(route='/scheduler.json')
+    #
+    #     future = datetime.datetime.today() + datetime.timedelta(weeks=100)
+    #     user_input = int(time.mktime(future.timetuple()) * 1000)
+    #     request.content_type = "application/json"
+    #
+    #     request.POST["date"] = str(user_input)
+    #
+    #     try:
+    #         time_slot_reciever_JSON(request)
+    #     except exceptions.HTTPBadRequest:
+    #         pass
+    #     else:
+    #         raise Exception("View did not return a HTTPBadRequest due to request from the future")
 
     def teardown_class(self):
         '''
