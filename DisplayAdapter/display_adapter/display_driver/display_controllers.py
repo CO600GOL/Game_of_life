@@ -94,8 +94,8 @@ class DisplayController(DisplayControllerInterface):
         Just sends the set command to the display, giving coordinates
         """
         self._connection.write("1")
-        self._connection.write("%s" % y)
         self._connection.write("%s" % x)
+        self._connection.write("%s" % y)
 
     def _draw(self):
         """
