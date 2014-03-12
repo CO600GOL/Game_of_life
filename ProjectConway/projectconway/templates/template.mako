@@ -45,6 +45,7 @@
                         <li class="${aboutactive}"><a href="/about">About</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://github.com/CO600GOL/Game_of_life">Github</a></li>
                         <li><a href="http://deeson-online.co.uk/" target="_blank">Deeson Online</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
