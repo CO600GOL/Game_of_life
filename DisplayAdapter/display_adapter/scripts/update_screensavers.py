@@ -7,7 +7,7 @@ import json
 import sqlite3
 from display_adapter import db_name
 
-current_file = "display_adapter/scripts/screensavers_proto.txt"
+current_file = "display_adapter/scripts/screensavers.txt"
 
 if __name__ == "__main__":
     with open(current_file, "r") as file:
