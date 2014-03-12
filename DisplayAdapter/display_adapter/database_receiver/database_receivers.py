@@ -8,7 +8,7 @@ import json
 import sqlite3
 import datetime
 import logging
-from urllib import request
+from urllib import error, request
 from display_adapter import db_receiver_url, db_name, db_receiver_polling_period
 
 class DatabaseReceiver(object):
@@ -32,13 +32,16 @@ class DatabaseReceiver(object):
         while True:
             current_time = datetime.datetime.now()
 
-            runs = self._pull_runs()
-            self._write_runs(runs)
+            try:
+                runs = self._pull_runs()
+            except (error.URLError, error.HTTPError) as e:
+                self.logger.error("Failed to gather runs: %s" % e)
+            else:
+                self._write_runs(runs)
+                self.logger.warn("Added runs to internal database")
 
             sleep_until_time = current_time + datetime.timedelta(minutes=db_receiver_polling_period)
             time.sleep((sleep_until_time - datetime.datetime.now()).seconds)
-
-            self.logger.warn("Attempted to pull runs from server")
 
     def _pull_runs(self):
         """
