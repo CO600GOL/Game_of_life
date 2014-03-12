@@ -37,7 +37,7 @@
     </div>
 
 
-    <div class="col-xs-3 col-md-3">
+    <div class="col-xs-4 col-md-3">
           <select class="form-control" name="viewing_hour" id="viewing_hour" disabled>
           </select>
     </div>
@@ -46,7 +46,7 @@
         <label class="control-label" for="viewing_slot">:</label>
     </div>
 
-    <div class="col-xs-3 col-md-3">
+    <div class="col-xs-4 col-md-3">
         <select class="form-control" name="viewing_slot" id="viewing_slot" disabled>
         </select>
     </div>
