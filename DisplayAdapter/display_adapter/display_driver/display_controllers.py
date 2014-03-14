@@ -1,3 +1,5 @@
+#TODO - Write documentation for this module
+
 """
 This module contains the logic for any display controllers; helper classes for the display driver that take on
 the serial communication with the display itself.
