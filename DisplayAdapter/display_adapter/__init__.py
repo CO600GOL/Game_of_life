@@ -12,7 +12,7 @@ sleep_time = 0.5 # Amount of time the display sleeps between generations
 # Information that is specific to the run mode animation
 runmode_config = {
     "iterations": 3, # Number of iterations of "full" and "pattern" frames in the animation
-    "full_frames": 1, # Number of "full" frames per animation interation
+    "full_frames": 1, # Number of "full" frames per animation iteration
     "pattern_frames": 2 # Number of "pattern" frames per animation iteration
 }
 
