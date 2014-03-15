@@ -1,10 +1,14 @@
-__author__ = 'richard'
+"""
+This __init__ file holds some centralised information for the display_adapter library.
+"""
 
+# Database information
 db_name = "internal_db.sqlite"
 test_db_name = "test_internal_db.sqlite"
 db_receiver_url = "http://127.0.0.1:6543/run_transmitter.json"
 db_receiver_polling_period = 1 # minutes
 
+# Serial information
 serial_name = "/dev/ttyACM0"
 serial_baudrate = 9600
 sleep_time = 0.5 # Amount of time the display sleeps between generations
