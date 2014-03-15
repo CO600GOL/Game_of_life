@@ -77,3 +77,20 @@ body {
 .right-button {
     float: right;
 }
+
+.tutorial_box {
+    background-color: #0E7805;
+    color: #FFFFFF;
+}
+#tutorial_title {
+    text-align: center;
+}
+#image_spacing {
+    margin-left: 10%;
+}
+#button_left {
+    text-align: left;
+}
+#button_right {
+    text-align: right;
+}

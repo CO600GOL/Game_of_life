@@ -31,7 +31,7 @@ def main(global_config, **settings):
     config.add_route('confirmation_receiver', '/confirm.json')
     config.add_route('run_transmitter', '/run_transmitter.json')
     config.add_route('about', '/about')
-    config.add_route('rules', '/rules')
+    config.add_route('tutorial1', '/tutorial-1')
     config.scan()
 
     return config.make_wsgi_app()
