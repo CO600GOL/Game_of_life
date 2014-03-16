@@ -1,15 +1,18 @@
 from setuptools import setup, find_packages
 
+# The requires for the DisplayAdapter setup
 requires = [
     "pytest",
     "pySerial",
     "mock"
 ]
 
+# The packages required for the DisplayAdapter setup
 packages = [
     "display_adapter"
 ]
 
+# The information to add on setup of the application
 setup(
     name='DisplayAdapter',
     version='1.0',

@@ -1,5 +1,8 @@
-# Makefile for the DisplayAdapter application, ie the programs that run on the pi for ProjectConway
+# This is the Makefile for the DisplayAdapter application - the programs that run on ProjectConway's Raspberry Pi.
+# It is responsible for all setup, running and testing of the application, so that it should never be done from the
+# command line.
 
+# Some of the centralised information for the makefile.
 env_name = display_env
 env = . $(env_name)/bin/activate
 screensavers_file = screensavers.txt
