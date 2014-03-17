@@ -1,10 +1,4 @@
 """
-Created on 20 Oct 2013
-
-@author: Richard & Michael
-
-Test module for test module
-
 This module contains logic to test the data structure representing the Game of Life cell states. These tests must
 evaluate that the states can be correctly initialised and that they can function correctly.
 """
