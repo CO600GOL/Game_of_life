@@ -12,7 +12,7 @@ class TestTutorial1(object)
         '''
         # Setup
         request = DummyRequest(route='tutorial1')
-        response = tutorial-1_view(request)
+        response = tutorial1_view(request)
 
         # Test that a response has been given.
         assert response

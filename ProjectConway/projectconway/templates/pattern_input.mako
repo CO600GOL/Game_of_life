@@ -8,6 +8,7 @@
         <h2>Give it a go!</h2>
         <p>This is where you create your pattern!</p>
         <p>Click a cell to begin!</p>
+         <p><a href="/tutorial-1" class="btn btn-primary btn-large">Tutorial</a></p>
     </div>
 </%block>
 

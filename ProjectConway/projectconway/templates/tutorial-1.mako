@@ -38,10 +38,10 @@
             be a good idea to take into account the rules - which we will teach you!</p>
     </div>
     <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12" id="button_right">
+        <div class="col-xs-12 col-sm-12 col-md-12" id="button_right">
                         <p><a href="/tutorial-2" class="btn btn-primary btn-large">Start Here!</a></p>
-                    </div>
-                </div>
+        </div>
+    </div>
 </%block>
 
 <%block name="demonstration">

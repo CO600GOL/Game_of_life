@@ -32,6 +32,10 @@ def main(global_config, **settings):
     config.add_route('run_transmitter', '/run_transmitter.json')
     config.add_route('about', '/about')
     config.add_route('tutorial1', '/tutorial-1')
+    config.add_route('tutorial2', '/tutorial-2')
+    config.add_route('tutorial3', '/tutorial-3')
+    config.add_route('tutorial4', '/tutorial-4')
+    config.add_route('tutorial5', '/tutorial-5')
     config.scan()
 
     return config.make_wsgi_app()
