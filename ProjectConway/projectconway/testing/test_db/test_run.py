@@ -1,3 +1,8 @@
+"""
+This module contains logic for testing the server-side database. These tests should evaluate whether the database
+can be initialised correctly and can function correctly.
+"""
+
 import time
 import math
 import datetime
@@ -10,10 +15,11 @@ from projectconway.models.run import Run
 
 
 def create_input_pattern():
-    '''
-    Create an initial input to represent the data being saved
-    to the database.
-    '''
+    """
+    This function creates an initial input to represent the data being stored in the database.
+
+    @return An initial input, formatted as a string.
+    """
     return """\
 -*-*-*-*-*
 *-*-*-*-*-
@@ -28,14 +34,14 @@ def create_input_pattern():
 
 
 class TestRun():
-    '''
-    This class tests the Run table used in the web application database.
-    '''
+    """
+    This class tests the functionality of the runs table and rows.
+    """
      
     def setup_class(self):
-        '''
-        Setup data that will be needed throughout the class and setup database
-        '''
+        """
+        This method sets up the testing class, initialising shared data that will be needed during testing.
+        """
         self._insert_name = str(time.time())
         
         self.config = testing.setUp()
@@ -45,18 +51,20 @@ class TestRun():
         Base.metadata.create_all(engine)
 
     def test_insert(self):
-        '''
-        Test insertion of data into the runs table
-        '''
+        """
+        This method tests the ability of the runs table to insert a new row. The expected result of this test is for
+        a row to be inserted into the table correctly.
+        """
         with transaction.manager:
             run = Run(create_input_pattern(), datetime.datetime.now(), self._insert_name)
             DBSession.add(run)
             DBSession.commit()
          
     def test_query(self):
-        '''
-        Test querying of data from the runs table
-        '''
+        """
+        This method tests the ability of the runs table to retrieve data from the runs table. The expected result of
+        this is for a row to be retrieved from the table correctly.
+        """
         # Test logic works
         assert DBSession.query(Run).filter(Run.user_name==self._insert_name).all()
         
@@ -65,31 +73,36 @@ class TestRun():
             returned_pattern = row.input_pattern.split('\n')
             test_pattern = create_input_pattern().split('\n')
             for x, row in enumerate(test_pattern):
+                # For each row of the pattern
                 for y, col in enumerate(row):
                     if test_pattern[x][y] == '*':
+                        # Assert that the retrieved pattern and the test pattern match at these 'coordinates'.
                         assert returned_pattern[x][y] == '*'
                     else:
+                        # Assert that the retrieved pattern and the test pattern match at these 'coordinates'.
                         assert returned_pattern[x][y] == '-'           
          
     def test_delete(self):
-        '''
-        Test run deletion
-        '''
+        """
+        This method tests the ability of the runs table to delete data from it. The expected result of this is for the
+        data to be correctly deleted from the table.
+        """
         # Delete the run inserted by this test
         runs = DBSession.query(Run).filter(Run.user_name==self._insert_name)
+        # Assert that the runs have been retrieved
         assert runs.all()
         for run in runs:
             DBSession.delete(run)
             DBSession.commit()
 
-        # Ensure deletion
         runs = DBSession.query(Run).filter(Run.user_name==self._insert_name)
+        # Assert that the selected runs have been deleted.
         assert not runs.all()
 
     def test_run_get_runs_for_day(self):
         """
-        Tests the class method get_runs_for_day.
-        Expect the method call to result in an empty dictionary.
+        This method tests the ability of the runs table to retrieve every run set to be played on a given day. The
+        expected result should be for a the call to result an empty dictionary.
         """
         # Give the method a future date and receive correct no. of time-slots for that date
         date = datetime.date.today() + datetime.timedelta(days=1)
@@ -100,9 +113,8 @@ class TestRun():
 
     def test_run_get_runs_for_day_with_runs(self):
         """
-        Tests the class method get_runs_for_day.
-        With runs added to the database, expect the method call to return the same number
-        of runs as added.
+        This method tests the ability of the runs table to retrieve every run set to be played on a given day. The
+        expected result should be for the call to result in the same number of runs as previously added.
         """
         dt = datetime.datetime.now() + datetime.timedelta(days=1)
         dt = dt.replace(minute=0, second=0, microsecond=0)
@@ -116,12 +128,14 @@ class TestRun():
 
         date = datetime.date.today() + datetime.timedelta(days=1)
         dayRuns = Run.get_runs_for_day(date)
-        # Test the method returns the correct information
+        # Assert that the correct number of runs have been retrieved
         assert dayRuns == runs
 
     def test_run_get_time_slots_for_day(self):
         """
-        Tests the class method get_slots_for_day.
+        This method tests the ability of the runs table to retrieve the available time slots in a given day. The
+        expected result of this test is for the number of retrieved time slots to be equal to the number of five minute
+        time slots in a day.
         """
         # Give the method a future date and receive correct no. of time-slots for that date
         date = datetime.date.today() + datetime.timedelta(days=10)
@@ -134,13 +148,14 @@ class TestRun():
 
         time_slots = Run.get_time_slots_for_day(date, datetime.datetime.now())
 
+        # Assert that the correct number of available time slots have been retrieved.
         assert no_time_slots == len(time_slots)
 
     def test_run_get_time_slots_for_day_with_runs(self):
         """
-        Tests the class method get_time_slots_for_day
-        With runs added to the database, expect the method call to return the full number of
-        available time slots - the number of runs
+        This method tests the ability of the runs table to retrieve the available time slots in a given day. The
+        expected result of this test is for the number of retrieved time slots to be equal to the number of five
+        minute time slots in a day minus two (for two runs).
         """
         # Give the method a future date and receive correct no. of time-slots for that date
         date = datetime.date.today() + datetime.timedelta(days=2)
@@ -162,11 +177,12 @@ class TestRun():
 
         time_slots = Run.get_time_slots_for_day(date, datetime.datetime.now())
 
+        # Assert that the correct number of available time slots have been retrieved.
         assert no_time_slots - len(runs) == len(time_slots)
 
     def teardown_class(self):
-        '''
-        Closes database session once the class is redundant
-        '''
+        """
+        This method tears down the testing class, closing the database session once the class is redundant.
+        """
         DBSession.remove()
         testing.tearDown()

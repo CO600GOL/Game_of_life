@@ -1,22 +1,27 @@
+"""
+This module contains logic that tests the view linking the about page to the Pyramid application.
+"""
+
 from pyramid.testing import DummyRequest
 from projectconway.views.about import about_view
 
 
 class TestAbout(object):
     """
-    Tests all the views related to the About page.
+    This class tests the functionality of the About view.
     """
 
     def test_about_view(self):
         """
-        Tests the about view to ensure that it works correctly.
+        This method tests the functionality of the About view.
         """
         # Setup
         request = DummyRequest(route='/about')
 
         response = about_view(request)
 
-        # Test that a response has been given.
+        # Assert that a response has been given.
         assert response
+        # Assert that the response data is correct.
         assert response["page"] == "aboutpage"
         assert response["title"] == "About"
