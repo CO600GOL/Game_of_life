@@ -3,6 +3,7 @@ This module contains the testing framework for the display driver functionality,
 the pi can correctly and sufficiently connect to the display.
 """
 
+from mock import patch
 from display_adapter.display_driver.display_drivers import DisplayDriver
 
 class TestDisplayDriver(object):
@@ -11,7 +12,8 @@ class TestDisplayDriver(object):
     pi to the display.
     """
 
-    def test_init(self):
+    @patch("serial.Serial")
+    def test_init(self, dc_mock):
         """
         This method tests initialisation of the display driver, ensuring it has correctly set up the database helper
         and the display controller.
