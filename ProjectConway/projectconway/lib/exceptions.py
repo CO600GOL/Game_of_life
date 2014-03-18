@@ -1,17 +1,17 @@
 """
-This module contains a list of useful exceptions for the ProjectConway website
+This module contains some newly defined exceptions used to represent errors in the Project Conway web application.
 """
 
 
 class RunSlotTakenError(Exception):
     """
-    This exception signifies that run slot is already populated
+    This exception signifies that a run slot has already been populated.
     """
     pass
 
 
 class RunSlotInvalidError(Exception):
     """
-    This exception signifies the run slot is invalid
+    This exception signifies that a run slot is for some reason invalid.
     """
     pass
