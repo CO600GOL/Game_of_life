@@ -1,0 +1,3 @@
+This code is used under the PSF licence and is has only one line of modification from us to fix a bug.
+
+Copyright (C) 2001-2013 Chris Liechti <cliechti(at)gmx.net>; All Rights Reserved.

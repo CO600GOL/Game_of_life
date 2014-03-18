@@ -2,12 +2,12 @@ from setuptools import setup, find_packages
 
 requires = [
     "pytest",
-    "pySerial",
     "mock"
 ]
 
 packages = [
-    "display_adapter"
+    "display_adapter",
+    "serial"
 ]
 
 setup(
