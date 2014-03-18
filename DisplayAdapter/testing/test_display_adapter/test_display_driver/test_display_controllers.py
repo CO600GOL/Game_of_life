@@ -4,7 +4,10 @@ can properly communicate with the display.
 """
 
 from mock import MagicMock, call, patch
-from display_adapter.display_driver.display_controllers import DisplayControllerInterface, PrototypeController
+from display_adapter.display_driver.display_controllers import (
+    DisplayControllerInterface,
+    PrototypeController,
+    DisplayController)
 
 @patch("serial.Serial")
 class TestDisplayControllerInterface(object):
@@ -107,14 +110,76 @@ class TestPrototypeController(object):
         serial.write.assert_called_once_with("drw\n")
 
 
+@patch("serial.Serial")
 class TestDisplayController(object):
     """
     This class tests the functionality of the display controller used on the Project Conway display, ensuring the
     raspberry pi can connect to the device properly and correctly.
     """
 
-    def test_output_pattern(self):
+    def test_output_pattern(self, serial_mock):
         """
-        This method ensures the display controller can correctly output a pattern to the prototype display.
+        This method ensures the prototype display controller can correctly output a pattern to the DisplayController.
         """
-        pass
+        dc = DisplayController(0, 9600)
+        dc._connection = MagicMock()
+
+        dc._clear = MagicMock()
+        dc._set = MagicMock()
+        dc._draw = MagicMock()
+
+        dc.output_pattern("-*-\n-*-\n-*-")
+
+        # Ensure clear and draw were called once
+        dc._clear.assert_called_once_with()
+        dc._draw.assert_called_once_with()
+
+        # Test the set calls
+        dc._set.assert_has_calls([
+            call(1, 0),
+            call(1, 1),
+            call(1, 2)
+        ])
+
+    def test__clear(self, serial_mock):
+        """
+        Test the private clear function of DisplayController
+        """
+        serial = MagicMock()
+        serial.write = MagicMock()
+
+        dc = DisplayController(0, 9600)
+        dc._connection = serial
+
+        dc._clear()
+        serial.write.assert_called_once_with('0')
+
+    def test__set(self, serial_mock):
+        """
+        Test the private set function of DisplayController
+        """
+        serial = MagicMock()
+        serial.write = MagicMock()
+
+        dc = DisplayController(0, 9600)
+        dc._connection = serial
+
+        dc._set(0, 0)
+        serial.write.assert_has_calls([
+            call('1'),
+            call('0'),
+            call('0')
+        ])
+
+    def test__draw(self, serial_mock):
+        """
+        Test the private set function of DisplayController
+        """
+        serial = MagicMock()
+        serial.write = MagicMock()
+
+        dc = DisplayController(0, 9600)
+        dc._connection = serial
+
+        dc._draw()
+        serial.write.assert_called_once_with('3')
