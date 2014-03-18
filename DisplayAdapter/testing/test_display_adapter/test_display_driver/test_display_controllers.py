@@ -3,16 +3,17 @@ This module tests the functionality of the display controllers, making sure the 
 can properly communicate with the display.
 """
 
-from mock import MagicMock, call
+from mock import MagicMock, call, patch
 from display_adapter.display_driver.display_controllers import DisplayControllerInterface, PrototypeController
 
+@patch("serial.Serial")
 class TestDisplayControllerInterface(object):
     """
     This class tests the functionality of the super DisplayController class, making sure all
     shared functionality of the controllers works correctly.
     """
 
-    def test_init(self):
+    def test_init(self, serial_mock):
         """
         Tests initialisation of the display controller. Main function is to test proper and correct serial
         communication with the display.
@@ -22,7 +23,7 @@ class TestDisplayControllerInterface(object):
         assert dc
         assert hasattr(dc, "_connection")
 
-    def test_output_pattern(self):
+    def test_output_pattern(self, serial_mock):
         """
         Tests the display controller's ability to correctly output a pattern to the display.
         """
@@ -36,12 +37,13 @@ class TestDisplayControllerInterface(object):
         raise Exception("output_pattern did not return NotImplementedError")
 
 
+@patch("serial.Serial")
 class TestPrototypeController(object):
     """
     This class tests the functionality of the prototype display controller.
     """
 
-    def test_output_pattern(self):
+    def test_output_pattern(self, serial_mock):
         """
         This method ensures the prototype display controller can correctly output a pattern to the prototype display.
         """
@@ -65,7 +67,7 @@ class TestPrototypeController(object):
             call(1, 2)
         ])
 
-    def test__clear(self):
+    def test__clear(self, serial_mock):
         """
         Test the private clear function of ProrotypeController
         """
@@ -78,7 +80,7 @@ class TestPrototypeController(object):
         pc._clear()
         serial.write.assert_called_once_with("clr\n")
 
-    def test__set(self):
+    def test__set(self, serial_mock):
         """
         Test the private set function of ProrotypeController
         """
@@ -91,7 +93,7 @@ class TestPrototypeController(object):
         pc._set(0, 0)
         serial.write.assert_called_once_with("set 0 0\n")
 
-    def test__draw(self):
+    def test__draw(self, serial_mock):
         """
         Test the private set function of ProrotypeController
         """
