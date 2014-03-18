@@ -2,7 +2,6 @@ from setuptools import setup, find_packages
 
 requires = [
     "pytest",
-#    "pySerial",
     "mock"
 ]
 
