@@ -11,9 +11,10 @@ help:
 	# Commands:
 	#     setup                  -- Creates a virtual environment in which the software is ran from
 	#     test                   -- Runs the automated tests in DisplayAdapter
+	#     test_coverage			 -- Create html document for test coverage report, folder name: htmlcov
 	#     create_db              -- Creates and initialises the internal database
 	#     update_screensavers    -- Search screensavers file and update the database
-	#     run		     -- Runs the display adapter
+	#     run		     		 -- Runs the display adapter
 	#     clean                  -- Delete persistant storage
 
 setup: env
@@ -39,6 +40,9 @@ env:
 
 test:
 	$(env); py.test -v testing
+
+test_coverage:
+	$(env); py.test --cov-config .coveragerc --cov display_adapter testing --cov-report html
 
 create_db:
 	$(env); python $(script_local)/init_db.py $(db_name)
