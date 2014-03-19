@@ -37,15 +37,13 @@
             the game will run on a display. When designing a pattern, it might
             be a good idea to take into account the rules - which we will teach you!</p>
     </div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12" id="button_right">
-                        <p><a href="/tutorial-2" class="btn btn-primary btn-large">Start Here!</a></p>
-        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12" id="button_right">
+        <p><a href="/tutorial-2" class="btn btn-primary btn-large">Start Here!</a></p>
     </div>
 </%block>
 
 <%block name="demonstration">
     <div class="col-md-12 col-md-offset-2">
-       <h1> <img src="static/images/Tumbler.png" alt="Tumbler Pattern" class="img-responsive"/> </h1>
+       <h1> <img src="static/images/octagon.gif" alt="Octagon based pattern" class="img-responsive"/> </h1>
     </div>
 </%block>

@@ -27,13 +27,11 @@
         <h4>Tip:</h4>
         <p>Spread out your cells, try not to have too may cells too close together!</p>
     </div>
-    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" id="button_left">
-            <p><a href="/tutorial-2" class="btn btn-primary btn-large">Back</a></p>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-6" id="button_right">
-            <p><a href="/tutorial-4" class="btn btn-primary btn-large">Next</a></p>
-        </div>
+    <div class="col-xs-6 col-sm-6 col-md-6" id="button_left">
+        <p><a href="/tutorial-2" class="btn btn-primary btn-large">Back</a></p>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6" id="button_right">
+        <p><a href="/tutorial-4" class="btn btn-primary btn-large">Next</a></p>
     </div>
 </%block>
 

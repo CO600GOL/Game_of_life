@@ -27,13 +27,11 @@
         <p>Don't put four cells too close together, you might create a 'still life'; this means the cells will forever
         be alive, resulting in a boring pattern. </p>
     </div>
-    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" id="button_left">
-            <p><a href="/tutorial-3" class="btn btn-primary btn-large">Back</a></p>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-6" id="button_right">
-            <p><a href="/tutorial-5" class="btn btn-primary btn-large">Next</a></p>
-        </div>
+    <div class="col-xs-6 col-sm-6 col-md-6" id="button_left">
+        <p><a href="/tutorial-3" class="btn btn-primary btn-large">Back</a></p>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6" id="button_right">
+        <p><a href="/tutorial-5" class="btn btn-primary btn-large">Next</a></p>
     </div>
 </%block>
 

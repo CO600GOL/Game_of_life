@@ -36,6 +36,9 @@ def main(global_config, **settings):
     config.add_route('tutorial3', '/tutorial-3')
     config.add_route('tutorial4', '/tutorial-4')
     config.add_route('tutorial5', '/tutorial-5')
+    config.add_route('tutorial6', '/tutorial-6')
+    config.add_route('tutorial7', '/tutorial-7')
+    config.add_route('tutorial8', '/tutorial-8')
     config.scan()
 
     return config.make_wsgi_app()
