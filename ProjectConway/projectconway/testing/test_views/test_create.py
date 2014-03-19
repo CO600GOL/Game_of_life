@@ -1,3 +1,10 @@
+"""
+This module contains logic for testing the pattern creation process, which is made up of three things; the input
+pattern page, the scheduling page and the confirmation page. These tests must evaluate that a user's data can be
+transferred across the three pages, and that it is sent to the server-side database when the user confirms the data
+is correct.
+"""
+
 import math
 import json
 import time
@@ -18,10 +25,11 @@ from projectconway.models import Base, DBSession
 from projectconway.models.run import Run
 
 def create_input_pattern():
-    '''
-    Create an initial input to represent the data being saved
-    to the database.
-    '''
+    """
+    This function creates a string-formatted pattern for the Game of Life that can act as a user's initial input.
+
+    @return A GoL pattern to use as a user's initial input.
+    """
     return """\
 -*-*-*-*-*
 *-*-*-*-*-
@@ -36,52 +44,54 @@ def create_input_pattern():
 
 
 class TestPatternInput(object):
-    '''
-    Tests all of the views linked to the Pattern Input web page.
-    '''
+    """
+    This class tests the functionality of the input pattern page, testing that a pattern can be input, cleared and
+    stored.
+    """
 
     def test_create(self):
-        '''
-        Tests the pattern input view, emulating when the user is visiting
-        the page for the first time and there is currently no pattern
-        waiting in the session.
-        '''
+        """
+        This method tests the pattern input view, emulating a user visiting the create pattern page for the first time.
+        At this point, there is no pattern waiting in the session. The expected result of this test is for the user's
+        pattern and page information to be correctly stored.
+        """
         request = DummyRequest(route='/create')
 
         response = create_view(request)
 
-        # Test there was a response
+        # Assert that a response was received.
         assert response
 
-        # Test the correct presentational values are returned
+        # Assert that the response contains the correct data for this point of the process.
         assert response["page"] == "patternpage"
         assert response["title"] == "Create Pattern"
         assert "pattern" not in response.keys()
 
     def test_pattern_input_view_pattern(self):
-        '''
-        Tests the pattern input view, emulating when the user is re-visiting
-        the page and a pattern they have already created is waiting for them
-        in the session.
-        '''
+        """
+        This method the pattern input view, emulating when a user is revisiting the create pattern page and a pattern
+        they have already created is waiting for them in the session. The expected result of this test is for the
+        changes the user makes on this page to be correctly stored.
+        """
         request = DummyRequest(route='/create')
         input = create_input_pattern()
         request.session["pattern"] = input
 
         response = create_view(request)
 
-        # Test there was a response
+        # Assert that a response has been received.
         assert response
 
-        # Test the correct presentational values are returned
+        # Assert that the response contains the correct data for this point in the process.
         assert response["page"] == "patternpage"
         assert response["title"] == "Create Pattern"
         assert response["pattern"] == input.replace('\n', "\\n")
 
     def test_pattern_input_receiver_JSON(self):
-        '''
-        Tests the JSON receiver view linked to the Pattern Input web page.
-        '''
+        """
+        This method tests the JSON receiver view linked to the pattern input page. The expected result of this test
+        is for the correct JSON response to be retrieved.
+        """
         # Setup
         request = DummyRequest(route='/pattern_receiver.json')
         input = create_input_pattern()
@@ -92,20 +102,21 @@ class TestPatternInput(object):
 
         response = pattern_input_receiver_JSON(request)
 
-        # Test correct input has been given to session
+        # Assert that there is a pattern in the session.
         assert request.session["pattern"] == input
 
         responseDict = response
-        # Test correct number of turns has passed
+        # Assert that the correct number of turns has been calculated and stored.
         assert responseDict["turns"] == 53
 
-        # Test correct time has been calculated
+        # Assert that the correct run time has been calculated and stored.
         assert responseDict["runtime"] == TIME_DELAY * 53
     
     def test_pattern_clearer_JSON(self):
-        '''
-        Tests the JSON clearer view linked to the Pattern Input web page.
-        '''
+        """
+        This method tests the JSON clearer view linked to the pattern input page. The expected result of this test
+        is for the correct JSON response to be retrieved.
+        """
         # Setup
         request = DummyRequest(route='/pattern_clearer.json')
         input = create_input_pattern()
@@ -114,22 +125,21 @@ class TestPatternInput(object):
         
         request.json_body = input
         request.session["pattern"] = input
-        
-        # Test input has been removed from session
+
         response = pattern_input_clearer_JSON(request)
+        # Assert that the pattern has been removed from the session
         assert "pattern" not in response.keys()
 
 
 class TestScheduler(object):
     """
-    This object contains a group of unit tests that test
-    pyramid views that associated with the time_slot views
+    This class tests the functionality of the scheduler page, testing that a time slot can be input, changed and stored.
     """
 
     def setup_class(self):
-        '''
-        Setup data that will be needed throughout the class and setup database
-        '''
+        """
+        This method sets up the testing logic, storing shared data that will be used for mulitple tests.
+        """
         self.config = testing.setUp()
         engine = create_engine('sqlite:///testdb.sqlite')
         DBSession.configure(bind=engine)
@@ -158,8 +168,8 @@ class TestScheduler(object):
 
     def test_time_slot_reciever_JSON(self):
         """
-        This test will attempt to request minutes for a successful
-        time slot
+        This method will test the time slot receiver JSON view of the scheduling page. The expected result of this test
+        is for the correct JSON response to be retrieved.
         """
         request = DummyRequest(route='/scheduler.json')
 
@@ -175,21 +185,20 @@ class TestScheduler(object):
 
         response = time_slot_reciever_JSON(request)
 
-        # ensure a response is given
+        # Assert that a response has been retrieved.
         assert response
 
-        # Test the response
         response_dict = eval(str(response))
 
         no_of_hours = math.ceil(((project_config["closing_time"].hour*60 + project_config["closing_time"].minute) -
                                 (project_config["starting_time"].hour*60 + project_config["starting_time"].minute)) / 60)
+        # Assert the response holds the correct data.
         assert len(response_dict["hours"]) == no_of_hours
 
     def test_time_slot_receiver_JSON_runs(self):
         """
-        This test will attempt to request minutes for a successful
-        time slot. This tests ensures that there are runs in the database and ensures
-        the correct slots are returned
+        This method tests the time slot receiver JSON view when there are runs in the server-side database. The
+        expected result of this pattern is for the correct JSON response to be retrieved.
         """
         request = DummyRequest(route='/scheduler.json')
 
@@ -214,12 +223,12 @@ class TestScheduler(object):
 
         response = time_slot_reciever_JSON(request)
 
-        # ensure a response is given
+        # Assert that a response has been received.
         assert response
 
-        # Test the response
         response_dict = eval(str(response))
         for min in range(0, 60, 10):
+            # Assert that the given slot is not in the response (means there is a run at this point)
             assert min not in response_dict[input_date.hour]
 
     # def test_time_slot_reciever_JSON_too_far(self):
@@ -243,29 +252,31 @@ class TestScheduler(object):
     #         raise Exception("View did not return a HTTPBadRequest due to request from the future")
 
     def teardown_class(self):
-        '''
-        Closes database session once the class is redundant
-        '''
+        """
+        This method tears down the testing logic to ensure that no data remains after testing that shouldn't. In this
+        case, it closes the database session.
+        """
         with transaction.manager:
             for run in DBSession.query(Run).all():
+                # Delete every run in the session.
                 DBSession.delete(run)
             DBSession.commit()
 
+        # Close the session.
         DBSession.remove()
         testing.tearDown()
 
 
 class TestConfirmation(object):
     """
-    This object contains a group of unit tests that test
-    pyramid views associated with confirming the user's information
-    in the database
+    This class tests the functionality of the confirmation page, testing that a user's data can be persistently stored
+    to the server-side database.
     """
 
     def setup_class(self):
-        '''
-        Setup data that will be needed throughout the class and setup database
-        '''
+        """
+        This method sets up the class for testing, storing shared that data that will be used in multiple tests.
+        """
         self.config = testing.setUp()
         engine = create_engine('sqlite:///testdb.sqlite')
         DBSession.configure(bind=engine)
@@ -273,14 +284,14 @@ class TestConfirmation(object):
 
     def test_confirmation_receiver_JSON(self):
         """
-        This tests that the content of a session can successfully
-        be added to the database.
+        This method tests the confirmation receiver JSON view of the confirmation page. The expected result of this
+        test is for the content of a session to be successfully added to the server-side database.
         """
         request = DummyRequest(route='/confirm.json')
 
-        # create a pattern to be saved to the database
+        # Create a pattern to be saved to the database
         request.session["pattern"] = create_input_pattern()
-        # create a time and date to be saved for the pattern on the database
+        # Create a time and date to be saved for the pattern on the database
         time = datetime.datetime.now().replace(minute=0, second=0, microsecond=0) + datetime.timedelta(days=1)
         request.session["viewing_date"] = time.strftime("%d/%m/%Y")
         request.session["viewing_hour"] = time.strftime("%H")
@@ -288,25 +299,24 @@ class TestConfirmation(object):
 
         response_dict = confirmation_receiver_JSON(request)
 
-        # Test response has arrived
+        # Assert that a response has been retrieved.
         assert response_dict
+        # Assert the data has been successfully stored to the database.
         assert response_dict["success"]
 
-        # Test session has been saved to database
+        # Assert that the data is inside the database.
         assert Run.get_run_for_time_slot(time)
 
-        # Test session has been emptied
+        # Assert that the session has been emptied.
         assert not "pattern" in request.session
-
         assert not "viewing_date" in request.session
         assert not "viewing_hour" in request.session
         assert not "viewing_slot" in request.session
 
     def test_confirmation_receiver_JSON_failure(self):
         """
-        This tests that the confirmation logic recognises when a
-        session has already been added to the database and fails
-        to be added again.
+        This method tests the confirmation receiver JSON view of the confirmation page. The expected result of this
+        test is for the session to have already been added to the database and to fail to be added again.
         """
         # Add pattern and time to database
         time = datetime.datetime.now().replace(minute=5, second=0, microsecond=0) + datetime.timedelta(days=1)
@@ -325,23 +335,28 @@ class TestConfirmation(object):
 
         # Test response has arrived
         assert response_dict
+        # Assert that the data was not successfully stored.
         assert not response_dict["success"]
+        # Assert that the response has been given a failure message.
         assert response_dict["failure_message"]
 
-        # Test session still exists
+        # Assert that the session still exists.
         assert not "pattern" in request.session
         assert not "viewing_date" in request.session
         assert not "viewing_hour" in request.session
         assert not "viewing_slot" in request.session
 
     def teardown_class(self):
-        '''
-        Closes database session once the class is redundant
-        '''
+        """
+        This method tears down the class after testing has been completed, in order to ensure no data exists after
+        testing that shouldn't. In this case, closes down the database session.
+        """
         with transaction.manager:
             for run in DBSession.query(Run).all():
+                # Delete all runs in the database.
                 DBSession.delete(run)
             DBSession.commit()
 
+        # Close the database session.
         DBSession.remove()
         testing.tearDown()
