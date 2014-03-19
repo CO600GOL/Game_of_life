@@ -1,10 +1,8 @@
-# Makefile for the DisplayAdapter application, ie the programs that run on the pi for ProjectConway
+# Makefile for the GameEngine package, this is not intended to be run seperately.
+# It is intended to be imported and used in other projects.
 
-env_name = display_env
+env_name = game_env
 env = . $(env_name)/bin/activate
-screensavers_file = screensavers.txt
-script_local = display_adapter/scripts
-db_name = ./internal_db.sqlite
 
 help:
 	# This makefile aids in the installation of the ProjectConway software on the Raspberry pi
@@ -12,16 +10,10 @@ help:
 	#     setup                  -- Creates a virtual environment in which the software is ran from
 	#     test                   -- Runs the automated tests in DisplayAdapter
 	#     test_coverage			 -- Create html document for test coverage report, folder name: htmlcov
-	#     create_db              -- Creates and initialises the internal database
-	#     update_screensavers    -- Search screensavers file and update the database
-	#     run		     		 -- Runs the display adapter
 	#     clean                  -- Delete persistant storage
 
 setup: env
 	$(env); python setup.py develop
-	$(env); cd ../GameEngine/; python setup.py develop
-	$(MAKE) create_db
-	$(MAKE) update_screensavers
 env:
 	if dpkg -s python-virtualenv ; then \
 	    echo virtualenv already installed; \
@@ -42,18 +34,8 @@ test:
 	$(env); py.test -v testing
 
 test_coverage:
-	$(env); py.test --cov-config .coveragerc --cov display_adapter testing --cov-report html
-
-create_db:
-	$(env); python $(script_local)/init_db.py $(db_name)
-
-update_screensavers:
-	$(env); python $(script_local)/update_screensavers.py $(db_name) $(screensavers_file)
-
-run:
-	$(env); python $(script_local)/start_adapter.py
+	$(env); py.test --cov-config .coveragerc --cov game testing --cov game_of_life testing --cov-report html
 
 clean:
 	rm $(env_name) -rf
 	rm *.egg-info -rf
-

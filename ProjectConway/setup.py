@@ -19,6 +19,7 @@ requires = [
     'zope.sqlalchemy',
     'waitress',
     'pytest',
+    'pytest-cov',
     'pexpect'
     ]
 

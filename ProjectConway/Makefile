@@ -10,6 +10,7 @@ help:
 	# Usage: make <target>, where target is
 	# setup         -- setup python egg & install dependencys/env if needed
 	# test          -- run all nosetests
+	# test_coverage -- compile a document of the test coverage
 	# run           -- run the site in development mode
 	# run_production -- run in production mode
 	# shell         -- Runs the development shell
@@ -37,7 +38,10 @@ setup: env
 	$(env); cd ../GameEngine/; python setup.py develop
 
 test:
-	$(env);	py.test -v ../GameEngine projectconway
+	$(env);	py.test -v projectconway
+
+test_coverage:
+	$(env); py.test --cov-config .coveragerc --cov projectconway projectconway/testing --cov-report html
 
 run:
 	$(env); pserve --reload development.ini
