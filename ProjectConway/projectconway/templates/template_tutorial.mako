@@ -24,7 +24,7 @@
                         </div>
                 </%block>
             </div>
-		</div>
+        </div>
 	</div>
 </%block>
 
