@@ -145,26 +145,6 @@ class TestScheduler(object):
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
 
-    # def test_time_slot_reciever_JSON_in_past(self):
-    #     """
-    #     This test will attempt to request minutes for a time slot
-    #     from the past, this should fail.
-    #     """
-    #     request = DummyRequest(route='/scheduler.json')
-    #
-    #     past = datetime.datetime.today() - datetime.timedelta(days=1)
-    #
-    #     user_input = int(time.mktime(past.timetuple()) * 1000)
-    #     request.content_type = "application/json"
-    #
-    #     request.POST["date"] = str(user_input)
-    #
-    #     try:
-    #         time_slot_reciever_JSON(request)
-    #     except exceptions.HTTPBadRequest:
-    #         pass
-    #     else:
-    #         raise Exception("View did not return a HTTPBadRequest due to request from the past")
 
     def test_time_slot_reciever_JSON(self):
         """
@@ -230,26 +210,6 @@ class TestScheduler(object):
         for min in range(0, 60, 10):
             # Assert that the given slot is not in the response (means there is a run at this point)
             assert min not in response_dict[input_date.hour]
-
-    # def test_time_slot_reciever_JSON_too_far(self):
-    #     """
-    #     This test will attempt to request minutes for a time slot
-    #     from too far in the future
-    #     """
-    #     request = DummyRequest(route='/scheduler.json')
-    #
-    #     future = datetime.datetime.today() + datetime.timedelta(weeks=100)
-    #     user_input = int(time.mktime(future.timetuple()) * 1000)
-    #     request.content_type = "application/json"
-    #
-    #     request.POST["date"] = str(user_input)
-    #
-    #     try:
-    #         time_slot_reciever_JSON(request)
-    #     except exceptions.HTTPBadRequest:
-    #         pass
-    #     else:
-    #         raise Exception("View did not return a HTTPBadRequest due to request from the future")
 
     def teardown_class(self):
         """
