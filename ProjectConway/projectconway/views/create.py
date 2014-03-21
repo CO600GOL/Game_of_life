@@ -1,3 +1,9 @@
+"""
+This module contains logic for the pattern creation process, in which the user creates a pattern, schedules a date and
+time at which to go and see the pattern run on the display and then confirms the information to the server-side
+database.
+"""
+
 from datetime import datetime
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound
 from pyramid.view import view_config
@@ -11,15 +17,13 @@ from game.game_controllers.game_controllers import GameOfLifeController
 
 @view_config(route_name='create', renderer="pattern_input.mako")
 def create_view(request):
-    '''
-    Executes the logic for the Pattern Input web page, allowing the user
-    to input a pattern to the website - the application must then input
-    that pattern to a session for persistance across pages.
+    """
+    This function executes the logic for the pattern creation process, making sure that the user is always on the
+    correct page for the process. This means if the user visits a different page, when they return, none of their
+    information will be lost.
 
-    The method also checks for a pattern already existing in the session, so
-    that the user can go back and edit it at any point.
-    
-    '''
+    @param request The request sent to this page of the web application.
+    """
 
     # If they have refreshed the confirmation page after submitting, redirect them to the pattern create page
     if "confirmed" in request.session.keys():
@@ -137,12 +141,12 @@ def create_view(request):
 
 @view_config(route_name="pattern_input_receiver", renderer='json')
 def pattern_input_receiver_JSON(request):
-    '''
-    This view receives a customers pattern input in the form of a JSON 
-    string. We then run a gameoflife for that pattern and return the number 
-    of seconds and turns it will run for, taking into consideration the 5 minute
-    run time and delays. 
-    '''
+    """
+     This function executes the logic for calculating how many generations a user's pattern will survive for and, while
+     taking into consideration the delay set to each generation, for how many seconds it will run.
+
+     @param request The request sent to this page of the web application.
+    """
     # Retrieve pattern from request
     pattern = request.json_body
     request.session["pattern"] = pattern
@@ -173,8 +177,10 @@ def pattern_input_clearer_JSON(request):
 @view_config(route_name="time_slot_receiver", renderer='json')
 def time_slot_reciever_JSON(request):
     """
-    This view receives the user's time slot choice, checks that it is viable,
-    and adds it to the user's session if so.
+    This function executes the logic for validating a person's chosen time slot and adding it to the web session
+    should it be.
+
+    @param request The request sent to this page of the web application.
     """
     # Get possible time slots for a given day
     request_time = request.POST["date"]
@@ -214,8 +220,11 @@ def time_slot_reciever_JSON(request):
 @view_config(route_name="confirmation_receiver", renderer='conway_json')
 def confirmation_receiver_JSON(request):
     """
-    This view takes the user's information from the session and
-    puts it in the database, then removes it from the session.
+    This function executes the logic for sending the user's information to the server-side database, clearing the
+    session if successful. If it is not successful, it will tell the user what the issue was and give them a possible
+    way to get around it.
+
+    @param request The request sent to this page of the web application.
     """
     # Response dict
     data = {
