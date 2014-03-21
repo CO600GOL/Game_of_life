@@ -1,28 +1,35 @@
-## The overarching template file with headers and more
-
 <%inherit file="template_pattern_creation.mako" />
-<%namespace name="rule_texts" file="rule_texts.mako" />
 
 <%block name="small_text">
-    <div class="col-md-12">
-        <h2>Give it a go!</h2>
-        <p>This is where you create your pattern!</p>
-        <p>Click a cell to begin!</p>
-         <p><a href="/tutorial-1" class="btn btn-primary btn-large">Tutorial</a></p>
+<div class="col-md-12">
+        <h2>Now it's your turn!</h2>
+        <p>You know the rules, now you can make your own pattern - and send it to our display! Still stuck? We have some ideas
+            for some good patterns for you!</p>
+        <p>To make a cell come alive, just click it. To make it dead, just click the cell again!</p>
     </div>
 </%block>
 
 <%block name="large_text">
     <div class="col-md-12">
-        <h3>Rules</h3>
-        <p>Here is a quick reminder of the rules:</p>
-        <ol>
-            <li>${rule_texts.rule_one()}</li>
-            <li>${rule_texts.rule_two()}</li>
-            <li>${rule_texts.rule_three()}</li>
-            <li>${rule_texts.rule_four()}</li>
-        </ol>
+     <div class="row">
+        <div class="col-md-6">
+            <img src="static/images/Spaceship.png" alt="A spaceship pattern" class="img-responsive" width="75%" height="75%"/>
+        </div>
+        <div class="col-md-6">
+            <img src="static/images/Tumbler.png" alt="Tumbler pattern" class="img-responsive" width="75%" height="75%"/>
+        </div>
     </div>
+         <br/>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="static/images/R-pentomino.png" alt="R-Pentomino pattern" class="img-responsive" width="75%" height="75%"/>
+        </div>
+        <div class="col-md-6">
+            <img src="static/images/Glider.png" alt="Glider pattern" class="img-responsive" width="75%" height="75%"/>
+        </div>
+    </div>
+    </div>
+
 </%block>
 
 <%block name="extras">
@@ -60,7 +67,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <form method="post">
+                    <form method="post" action="/create">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <button name="create_page" type="submit" class="btn btn-primary" value="scheduler">Next</button>
                     </form>
