@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <h2>Too many cells!</h2>
         <p>Cells die when they have more than three living neighbours this is because
-            there are too many cells close to it.</p>
+            there are too many cells close to it, the cell suffers the effect of over-crowing.</p>
     </div>
 </%block>
 

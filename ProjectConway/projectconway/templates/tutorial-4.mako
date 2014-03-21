@@ -25,7 +25,7 @@
         <br/>
         <h4>Tip:</h4>
         <p>Don't put four cells too close together, you might create a 'still life'; this means the cells will forever
-        be alive, resulting in a boring pattern. </p>
+        be alive, resulting in a boring pattern that will not change from generation to generation. </p>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6" id="button_left">
         <p><a href="/tutorial-3" class="btn btn-primary btn-large">Back</a></p>

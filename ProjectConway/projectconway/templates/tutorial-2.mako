@@ -25,8 +25,8 @@
     <div class="col-md-12">
         <br/>
         <h4>Tip:</h4>
-        <p>Why not put three living cells together? Your pattern will last longer, and can create some interesting
-        results.</p>
+        <p>Why not put three living cells together? Your pattern will last longer and you could create some very
+            interesting results.</p>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6" id="button_left">
         <p><a href="/tutorial-1" class="btn btn-primary btn-large">Back</a></p>
