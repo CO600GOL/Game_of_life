@@ -1,12 +1,12 @@
 from pyramid.testing import DummyRequest
 from projectconway.views.tutorial6 import tutorial6_view
 
-class TestTutorial6(object)
+class TestTutorial6(object):
     '''
     Tests all the views releated to the sixth tutorial page.
     '''
 
-    def test_tutorial6_view(self)
+    def test_tutorial6_view(self):
         '''
         Tests the tutorial-6 view to ensure it functions correctly.
         '''
