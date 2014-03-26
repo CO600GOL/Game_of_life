@@ -145,8 +145,29 @@ class TestRun():
         no_mins = (max_time.hour*60 + max_time.minute) - (min_time.hour*60 + min_time.minute)
         no_time_slots = math.ceil(no_mins / 5)
 
-        time_slots = Run.get_time_slots_for_day(date, datetime.datetime.now())
+        time_slots = Run.get_time_slots_for_day(date, datetime.datetime.now(), min_time, max_time)
 
+        assert no_time_slots == len(time_slots)
+
+    def test_run_get_time_slots_for_day_non_hour(self):
+        """
+        This method tests the ability of the runs table to retrieve the number of available of time slots in a day. The
+        expected result of this this test is that the correct number of available time slots for an hour is retrieved
+        when there are no runs to be played in the given hour and the day does not end 'on the hour'.
+        """
+        # Give the method a future date
+        date = datetime.date.today() + datetime.timedelta(days=11)
+
+        min_time = datetime.time(hour=9, minute=0)
+        max_time = datetime.time(hour=17, minute=30)
+
+        # Calculate the no. of time slots in a given day
+        no_mins = (max_time.hour*60 + max_time.minute) - (min_time.hour*60 + min_time.minute)
+        no_time_slots = math.ceil(no_mins / 5)
+
+        time_slots = Run.get_time_slots_for_day(date, datetime.datetime.now(), min_time, max_time)
+
+        # Assert that the correct number of time slots has been retrieved
         assert no_time_slots == len(time_slots)
 
     def test_run_get_time_slots_for_day_with_runs(self):

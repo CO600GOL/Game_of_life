@@ -55,7 +55,8 @@ class Run(Base):
         return run_times
 
     @classmethod
-    def get_time_slots_for_day(cls, date, now):
+    def get_time_slots_for_day(cls, date, now,
+                               min_time=project_config["starting_time"], max_time=project_config["closing_time"]):
         """
         Returns all available time slots for the specified date as a
         Date object.
@@ -64,8 +65,6 @@ class Run(Base):
         run_times_for_date = Run.get_runs_for_day(date)
         run_times_for_date = [run.time_slot for run in run_times_for_date]
         slots = []
-        min_time = project_config["starting_time"]
-        max_time = project_config["closing_time"]
 
         for h in range(min_time.hour, max_time.hour + 1):
             if h == max_time.hour and max_time.minute == 0:
