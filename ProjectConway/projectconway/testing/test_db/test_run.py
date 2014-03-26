@@ -159,7 +159,7 @@ class TestRun():
         date = datetime.date.today() + datetime.timedelta(days=11)
 
         min_time = datetime.time(hour=9, minute=0)
-        max_time = datetime.time(hour=17, minute=30)
+        max_time = datetime.time(hour=17, minute=0)
 
         # Calculate the no. of time slots in a given day
         no_mins = (max_time.hour*60 + max_time.minute) - (min_time.hour*60 + min_time.minute)
