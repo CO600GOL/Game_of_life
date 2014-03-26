@@ -87,7 +87,7 @@ class Run(Base):
     @classmethod
     def get_run_for_time_slot(cls, time_slot):
         """
-        Returns a run if it exists for the given timeslot otherwise
+        Returns a run if it exists for the given time slot otherwise
         return None
         """
         return DBSession.query(Run).filter(Run.time_slot == time_slot).all()

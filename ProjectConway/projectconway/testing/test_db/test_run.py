@@ -198,6 +198,52 @@ class TestRun():
 
         assert no_time_slots - len(runs) == len(time_slots)
 
+    def test_run_get_unsent_runs(self):
+        """
+        This method tests the ability of the runs table to retrieve the runs than have not yet been sent to the
+        raspberry pi. The expected result of this test is that the unsent runs can be correctly retrieved.
+        """
+
+        time_slot = datetime.datetime.now() + datetime.timedelta(days=35)
+
+        # Create some runs to go into the table
+        runs = [
+            Run(create_input_pattern(), time_slot, self._insert_name),
+            Run(create_input_pattern(), time_slot + datetime.timedelta(minutes=5), self._insert_name),
+            Run(create_input_pattern(), time_slot + datetime.timedelta(minutes=10), self._insert_name)
+        ]
+
+        # Add runs to table
+        with transaction.manager:
+            DBSession.add_all(runs)
+            DBSession.commit()
+
+        new_sent_runs = Run.get_unsent_runs(time_slot - datetime.timedelta(minutes=5))
+
+        # Assert that the collected runs have been retrieved
+        assert new_sent_runs
+        # Assert that the list of sent runs contains the correct number of runs
+        assert len(new_sent_runs) == 3
+
+        # Create some more runs to go into the table
+        new_runs = [
+            Run(create_input_pattern(), time_slot + datetime.timedelta(minutes=15), self._insert_name),
+            Run(create_input_pattern(), time_slot + datetime.timedelta(minutes=20), self._insert_name),
+            Run(create_input_pattern(), time_slot + datetime.timedelta(minutes=25), self._insert_name)
+        ]
+
+        # Add these runs to the table
+        with transaction.manager:
+            DBSession.add_all(new_runs)
+            DBSession.commit()
+
+        new_sent_runs = Run.get_unsent_runs(time_slot - datetime.timedelta(minutes=5))
+
+        # Assert that the collected runs have been retrieved
+        assert new_sent_runs
+        # Assert that the list of sent runs still contains the correct number of runs
+        assert len(new_sent_runs) == 3
+
     def teardown_class(self):
         '''
         Closes database session once the class is redundant
