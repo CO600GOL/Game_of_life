@@ -37,34 +37,6 @@ class Run(Base):
         return ("Run<Pattern=%s, Time Slot=%s, User Name=%s, Sent=%s>" % (self.input_pattern, self.time_slot, self.user_name, self.sent))
 
     @classmethod
-    def get_time_slots_for_hour(cls, time_slot):
-        """
-        Returns the times slots for the same year, month, day, hour as a
-        given datetime object
-        """
-        min_hour = hourify(time_slot)
-        max_hour = hourify(time_slot) + datetime.timedelta(hours=1)
-        now = datetime.datetime.now()
-
-        cls._validate_time_slot(now, time_slot)
-
-        # Query the runs that are happening at this hour
-        run_times = DBSession.query(Run.time_slot).filter(and_(
-            Run.time_slot < max_hour,
-            Run.time_slot >= min_hour,
-        )).all()
-        # Sqlalchemy returns a weird list of tuples
-        run_times = [time[0] for time in run_times]
-
-        slots = []
-        for slot in range(0, 60, 5):
-            t_slot = time_slot.replace(minute=slot, second=0, microsecond=0)
-            if now < t_slot and (t_slot not in run_times):
-                slots.append(format(slot, "02d"))
-
-        return slots
-
-    @classmethod
     def get_runs_for_day(cls, date):
         """
         Returns every run set to take place on a specified date.
