@@ -1,3 +1,4 @@
+import os
 import json
 import urllib.request as urllib
 import pexpect
@@ -22,10 +23,7 @@ def teardown_module(module):
     Sets up everything required to shut down each class after testing has been
     completed.
     '''
-    module.p.kill(15)  # Same as sending SIGTERM
-    # Using SIGTERM instead of kill() as it does not close all pyramid threads
-    module.p.wait()
-
+    os.system("killall pserve")
 
 class TestHomePage(object):
     '''

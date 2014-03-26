@@ -5,15 +5,17 @@
 # by inline comments.
 
 env = . env/bin/activate
+deamon_name = projectconway
 
 help:
 	# Usage: make <target>, where target is
 	# setup         -- setup python egg & install dependencys/env if needed
 	# test          -- run all nosetests
 	# test_coverage -- compile a document of the test coverage
-	# run           -- run the site in development mode
-	# run_production -- run in production mode
-	# shell         -- Runs the development shell
+	# run           -- run in production mode
+	# run_develop   -- run the site in development mode
+	# daemon		-- install daemon mode and start the daemon 
+	# shell         -- runs the development shell
 	# clean         -- reset the folder to clean git checkout (removes virtual python env)
 
 env:
@@ -44,11 +46,23 @@ test_coverage:
 	$(env); py.test --cov-config .coveragerc --cov projectconway projectconway/testing --cov-report html
 
 run:
-	$(env); pserve --reload development.ini
-
-run_production:
 	$(env); pserve production.ini
 
+run_develop:
+	$(env); pserve --reload development.ini
+
+daemon:
+	# Setup variables in for /etc/default/projectconway
+	sudo sh -c 'echo "PROJECTCONWAY_ENV=$(PWD)" | sudo cat > /etc/default/$(deamon_name)'
+	sudo sh -c 'echo "PROJECTCONWAY_ARGS=\"$(PWD)/production.ini\"" | sudo cat >> /etc/default/$(deamon_name)'
+	sudo sh -c 'echo "PROJECTCONWAY_LOG=\"/var/log/projectconway.log\"" | sudo cat >> /etc/default/$(deamon_name)'
+	# Move the init script to /etc/init.d/ and setup priviledges
+	sudo cp ./.projectconway_init.d /etc/init.d/$(deamon_name)
+	sudo chmod 555 /etc/init.d/$(deamon_name)
+	# Update the services program and start the daemon
+	sudo update-rc.d $(deamon_name) defaults
+	sudo service $(deamon_name) start
+	
 shell:
 	$(env); pshell development.ini
 
