@@ -5,6 +5,7 @@ import transaction
 from sqlalchemy  import create_engine
 from pyramid import testing
 from projectconway import project_config
+from projectconway.lib.exceptions import RunSlotInvalidError
 from projectconway.models import Base, DBSession
 from projectconway.models.run import Run
 
@@ -243,6 +244,94 @@ class TestRun():
         assert new_sent_runs
         # Assert that the list of sent runs still contains the correct number of runs
         assert len(new_sent_runs) == 3
+
+    def test_run__validate_time_slot(self):
+        """
+        This method tests the ability of the runs table to validate a time slot, making sure it is viable for using
+        on the table and throwing the appropriate exception if not. The expected result of this test is for the
+        given time slot to be validated as correct.
+        """
+        # Set a time slot to be tested
+        time_slot = datetime.datetime.now().replace(minute=5) + datetime.timedelta(hours=1)
+
+        # Assert that the validation does not call an exception, and so the time slot is correct
+        try:
+            Run._validate_time_slot(datetime.datetime.now(), time_slot)
+        except RunSlotInvalidError:
+            raise Exception("test_run__validate_time_slot has failed")
+
+    def test_run__validate_time_slot_past(self):
+        """
+        This method tests the ability of the runs table to validate a time slot, making sure it is viable for using
+        on the table and throwing the appropriate exception if not. The expected result of this test is for the
+        given time slot to be validated as too far in the past.
+        """
+        # Set a time slot to be tested
+        time_slot = datetime.datetime.now().replace(minute=5) - datetime.timedelta(days=1)
+
+        # Assert that the validation calls an exception because the time slot is in the past
+        try:
+            Run._validate_time_slot(datetime.datetime.now(), time_slot)
+        except RunSlotInvalidError as e:
+            # Assert that the correct error has been thrown
+            assert e
+            # Assert that it has been thrown for the right reason
+            assert e.args[0] == "Time passed in is in the past"
+
+    def test_run__validate_time_slot_future(self):
+        """
+        This method tests the ability of the runs table to validate a time slot, making sure it is viable for using
+        on the table and throwing the appropriate exception if not. The expected result of this test is for the
+        given time slot to be validated as too far in the future.
+        """
+        # Set a time slot to be tested
+        time_slot = datetime.datetime.now().replace(minute=5) + datetime.timedelta(weeks=4)
+
+        # Assert that the validation calls an exception because the time slot is in the future
+        try:
+            Run._validate_time_slot(datetime.datetime.now(), time_slot)
+        except RunSlotInvalidError as e:
+            # Assert that the correct error has been thrown
+            assert e
+            # Assert that it has been thrown for the right reason
+            assert e.args[0] == "Time is above the maximum"
+
+    def test_run__validate_time_slot_not_five(self):
+        """
+        This method tests the ability of the runs table to validate a time slot, making sure it is viable for using
+        on the table and throwing the appropriate exception if not. The expected result of this test is for the
+        given time slot to be validated as not a multiple of five.
+        """
+        # Set a time slot to be tested
+        time_slot = datetime.datetime.now().replace(minute=6) + datetime.timedelta(days=1)
+
+        # Assert that the validation calls an exception because the time slot is not a multiple of five
+        try:
+            Run._validate_time_slot(datetime.datetime.now(), time_slot)
+        except RunSlotInvalidError as e:
+            # Assert that the correct error has been thrown
+            assert e
+            # Assert that it has been thrown for the right reason
+            assert e.args[0] == "Minute value is not a multiple of 5"
+
+    def test_run__validate_time_slot_with_start(self):
+        """
+        This method tests the ability of the runs table to validate a time slot, making sure it is viable for using
+        on the table and throwing the appropriate exception if not. The expected result of this test is for the
+        given time slot to be validated as correct.
+        """
+        project_config["start_date"] = datetime.date(year=2014, month=7, day=7)
+
+        # Set a time slot to be tested
+        time_slot = datetime.datetime.now().replace(year=2014, month=7, day=14, minute=5)
+
+        # Assert that the validation does not call an exception, and so the time slot is correct
+        try:
+            Run._validate_time_slot(datetime.datetime.now(), time_slot)
+        except RunSlotInvalidError:
+            raise Exception("test_run__validate_time_slot_with_start has failed")
+
+        project_config["start_date"] = None
 
     def teardown_class(self):
         '''
