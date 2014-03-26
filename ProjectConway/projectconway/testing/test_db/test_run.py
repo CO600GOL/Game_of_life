@@ -7,7 +7,7 @@ from pyramid import testing
 from projectconway import project_config
 from projectconway.lib.exceptions import RunSlotInvalidError
 from projectconway.models import Base, DBSession
-from projectconway.models.run import Run
+from projectconway.models.run import Run, hourify
 
 
 def create_input_pattern():
@@ -348,6 +348,20 @@ class TestRun():
         assert run_json.__contains__("input_pattern")
         assert run_json.__contains__("time_slot")
         assert run_json.__contains__("sent")
+
+    def test_hourify(self):
+        """
+        This method tests the hourify function that the Run class uses to make a time slot accurate to the hour. The
+        expected result of this test is that a given time slot is correctly made accurate to an hour.
+        """
+        # Set a time slot to test
+        time_slot = datetime.datetime.now()
+
+        hourified_time_slot = hourify(time_slot)
+        # Assert the time slot has been correctly hourified
+        assert hourified_time_slot.minute == 0
+        assert hourified_time_slot.second == 0
+        assert hourified_time_slot.microsecond == 0
 
     def teardown_class(self):
         '''
