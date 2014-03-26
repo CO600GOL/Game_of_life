@@ -44,6 +44,19 @@ class TestRun():
         Base.metadata.bind = engine
         Base.metadata.create_all(engine)
 
+    def test__repr__(self):
+        """
+        This method tests the string representation of a Run row from the runs table. The expected result of this
+        test is for the representation of the runs table to be returned correctly.
+        """
+        run = Run(create_input_pattern(), datetime.datetime.now(), self._insert_name)
+        run_repr = run.__repr__()
+
+        # Assert that the run's representation has been returned
+        assert run_repr
+        # Assert that the representation is a string object
+        assert isinstance(run_repr, str)
+
     def test_insert(self):
         '''
         Test insertion of data into the runs table
@@ -69,7 +82,7 @@ class TestRun():
                     if test_pattern[x][y] == '*':
                         assert returned_pattern[x][y] == '*'
                     else:
-                        assert returned_pattern[x][y] == '-'           
+                        assert returned_pattern[x][y] == '-'
          
     def test_delete(self):
         '''
