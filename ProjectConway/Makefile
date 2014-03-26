@@ -5,14 +5,15 @@
 # by inline comments.
 
 env = . env/bin/activate
+deamon_name = projectconway
 
 help:
 	# Usage: make <target>, where target is
 	# setup         -- setup python egg & install dependencys/env if needed
 	# test          -- run all nosetests
 	# test_coverage -- compile a document of the test coverage
-	# run           -- run the site in development mode
-	# run_production -- run in production mode
+	# run           -- run in production mode
+	# run_develop   -- run the site in development mode
 	# shell         -- Runs the development shell
 	# clean         -- reset the folder to clean git checkout (removes virtual python env)
 
@@ -44,10 +45,15 @@ test_coverage:
 	$(env); py.test --cov-config .coveragerc --cov projectconway projectconway/testing --cov-report html
 
 run:
+	$(env); pserve production.ini
+
+run_develop:
 	$(env); pserve --reload development.ini
 
-run_production:
-	$(env); pserve production.ini
+daemon:
+	sudo sh -c 'echo "PROJECTCONWAY_ENV=$(PWD)" | sudo cat > /etc/default/$(deamon_name)'
+	sudo sh -c 'echo "PROJECTCONWAY_ARGS=\"$(PWD)/production.ini\"" | sudo cat >> /etc/default/$(deamon_name)'
+	sudo sh -c 'echo "PROJECTCONWAY_LOG=\"/var/log/projectconway.log\"" | sudo cat >> /etc/default/$(deamon_name)'
 
 shell:
 	$(env); pshell development.ini
