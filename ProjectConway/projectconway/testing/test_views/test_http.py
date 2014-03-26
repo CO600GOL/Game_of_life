@@ -139,20 +139,3 @@ class TestCreatePage(object):
         assert content
 
 
-class TestRulesPage(object):
-    '''
-    This class runs automated HTTP tests on the Rules page - this
-    includes all views on this page
-    '''
-    
-    def test_rules_page(self):
-        '''
-        This method ensures that
-        '''
-        url = "%srules" % URL
-        request = urllib.Request(url)
-        response = urllib.urlopen(request)
-        content = response.read().decode("utf-8")
-        
-        #Ensure we have a response
-        assert content
