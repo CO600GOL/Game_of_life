@@ -333,6 +333,22 @@ class TestRun():
 
         project_config["start_date"] = None
 
+    def test_json(self):
+        """
+        This method tests the JSON representation method of the run class. The expected result of this method is that
+        a json dictionary of the run object in question is retrieved.
+        """
+        run = Run(create_input_pattern(), datetime.datetime.now(), self._insert_name)
+
+        run_json = run.json()
+        # Assert that a representation has been retrieved.
+        assert run_json
+        # Assert that the representation is a json dictionary with the correct information within.
+        assert run_json.__contains__("id")
+        assert run_json.__contains__("input_pattern")
+        assert run_json.__contains__("time_slot")
+        assert run_json.__contains__("sent")
+
     def teardown_class(self):
         '''
         Closes database session once the class is redundant
