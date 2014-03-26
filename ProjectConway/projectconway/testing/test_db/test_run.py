@@ -132,6 +132,25 @@ class TestRun():
         # Test the method returns the correct information
         assert dayRuns == runs
 
+    def test_run_get_time_slots_for_hour(self):
+        """
+        This method tests the ability of the runs table to retrieve the available time slots for the same hour in which
+        a given time slot is to run. The expected result of this test is for the correct number of available timeslots
+        to be retrieved when there are no runs to be played in a given hour.
+        """
+        # Give the method a future date
+        time_slot = datetime.datetime.now() + datetime.timedelta(days=20)
+        time_slot = time_slot.replace(minute=5)
+
+        # No of possible time slots in an hour is 60 (no. minutes in an hour) / 5 (maximum length of each timeslot) = 12
+        no_time_slots = 12
+
+        # Retrieve the time slots for the specified time slot
+        time_slots = Run.get_time_slots_for_hour(time_slot)
+
+        # Assert that the correct number of time slots has been recovered (12)
+        assert no_time_slots == len(time_slots)
+
     def test_run_get_time_slots_for_day(self):
         """
         Tests the class method get_slots_for_day.
