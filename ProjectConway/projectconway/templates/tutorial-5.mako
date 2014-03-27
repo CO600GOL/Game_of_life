@@ -26,10 +26,10 @@
         <h4>Tip:</h4>
         <p>Why not start by bringing a cell to live? Just give a cell three neighbours!</p>
     </div>
-    <div class="col-xs-6 col-sm-6 col-md-6" id="button_left">
+    <div class="col-xs-6 col-sm-6 col-md-6 hidden-sm hidden-xs" id="button_left">
         <p><a href="/tutorial-4" class="btn btn-primary btn-large">Back</a></p>
     </div>
-    <div class="col-xs-6 col-sm-6 col-md-6" id="button_right">
+    <div class="col-xs-6 col-sm-6 col-md-6 hidden-sm hidden-xs" id="button_right">
         <p><a href="/tutorial-6" class="btn btn-primary btn-large">Next</a></p>
     </div>
 </%block>
@@ -37,5 +37,13 @@
 <%block name="demonstration">
     <div class="col-md-12 col-md-offset-2">
        <h1> <img src="static/images/Rule4.gif" alt="Rule Four demonstration" class="img-responsive"/> </h1>
+       <div class="row visible-xs visible-sm">
+            <div class="col-xs-6 col-sm-6 col-md-6" id="button_left">
+                <p><a href="/tutorial-4" class="btn btn-primary btn-large">Back</a></p>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6" id="button_right">
+                <p><a href="/tutorial-6" class="btn btn-primary btn-large">Next</a></p>
+            </div>
+       </div>
     </div>
 </%block>

@@ -42,7 +42,7 @@
 </%block>
 
 <%block name="demonstration">
-    <div class="col-md-12 col-md-offset-2">
+    <div class="col-md-12 col-md-offset-2 hidden-xs hidden-sm">
        <h1> <img src="static/images/octagon.gif" alt="Octagon based pattern" class="img-responsive"/> </h1>
     </div>
 </%block>

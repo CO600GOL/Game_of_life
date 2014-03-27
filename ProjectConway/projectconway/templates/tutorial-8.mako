@@ -1,16 +1,21 @@
 <%inherit file="template_pattern_creation.mako" />
 
 <%block name="small_text">
-<div class="col-md-12">
+    <div class="col-md-12 hidden-sm hidden-xs">
         <h2>Now it's your turn!</h2>
         <p>You know the rules, now you can make your own pattern - and send it to our display! Still stuck? We have some ideas
             for some good patterns for you!</p>
         <p>To make a cell come alive, just click it. To make it dead, just click the cell again!</p>
     </div>
+    <div class="col-md-12 visible-sm visible-xs">
+        <h2>Now it's your turn!</h2>
+        <p>You know the rules, now you can make your own pattern - and send it to our display!</p>
+        <p>To make a cell come alive, just click it. To make it dead, just click the cell again!</p>
+    </div>
 </%block>
 
 <%block name="large_text">
-    <div class="col-md-12">
+    <div class="col-md-12 hidden-sm hidden-xs">
      <div class="row">
         <div class="col-md-6">
             <img src="static/images/Spaceship.png" alt="A spaceship pattern" class="img-responsive" width="75%" height="75%"/>

@@ -28,10 +28,10 @@
         <p>Why not put three living cells together? Your pattern will last longer and you could create some very
             interesting results.</p>
     </div>
-    <div class="col-xs-6 col-sm-6 col-md-6" id="button_left">
+    <div class="col-xs-6 col-sm-6 col-md-6 hidden-xs hidden-sm" id="button_left">
         <p><a href="/tutorial-1" class="btn btn-primary btn-large">Back</a></p>
     </div>
-    <div class="col-xs-6 col-sm-6 col-md-6" id="button_right">
+    <div class="col-xs-6 col-sm-6 col-md-6 hidden-xs hidden-sm" id="button_right">
         <p><a href="/tutorial-3" class="btn btn-primary btn-large">Next</a></p>
     </div>
 </%block>
@@ -39,5 +39,13 @@
 <%block name="demonstration">
     <div class="col-md-12 col-md-offset-2">
        <h1> <img src="static/images/Rule1.gif" alt="Rule One demonstration" class="img-responsive"/> </h1>
+        <div class="row visible-xs visible-sm">
+            <div class="col-xs-6 col-sm-6 col-md-6" id="button_left">
+                <p><a href="/tutorial-1" class="btn btn-primary btn-large">Back</a></p>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6" id="button_right">
+                <p><a href="/tutorial-3" class="btn btn-primary btn-large">Next</a></p>
+            </div>
+        </div>
     </div>
 </%block>
