@@ -106,7 +106,7 @@ class TestPatternInput(object):
         assert isinstance(post_response["viewing_hour"], int)
         assert isinstance(post_response["viewing_slot"], int)
 
-    def test_session_data_for_scheduling(self):
+    def test_session_page_data_for_scheduling(self):
         """
         This method will test the ability of the create view to access the correct page data from the session. The
         expected result of this test is for the correct page data to be available for the 'scheduling' page.
@@ -126,6 +126,50 @@ class TestPatternInput(object):
         assert isinstance(session_response["viewing_date"], str)
         assert isinstance(session_response["viewing_hour"], int)
         assert isinstance(session_response["viewing_slot"], int)
+
+    def test_POST_page_data_for_confirmation(self):
+        """
+        This method twill test the ability of the create view to access the correct page data from POST. The
+        expected result of this test is for the correct page data to be available for the 'confirmation' page.
+        """
+        # Set up the request for testing the 'confirmation' page on POST
+        post_request = DummyRequest(route='/create')
+        post_request.POST["create_page"] = "confirmation"
+        post_request.POST["viewing_date"] = datetime.datetime.today().strftime("%d/%m/%Y")
+        post_request.POST["viewing_hour"] = datetime.datetime.now().hour
+        post_request.POST["viewing_slot"] = 25 # hard-coded because it must be a multiple of 5
+
+        post_response = create_view(post_request)
+
+        # Assert that the response contains the correct page data
+        assert post_response["title"] == "Confirmation"
+        assert post_response["page"] == "patternpage"
+        assert isinstance(post_response["viewing_date"], str)
+        assert isinstance(post_response["viewing_hour"], int)
+        assert isinstance(post_response["viewing_slot"], int)
+        assert isinstance(post_response["display_address"], str)
+
+    def test_session_page_data_for_confirmation(self):
+        """
+        This method twill test the ability of the create view to access the correct page data from the session. The
+        expected result of this test is for the correct page data to be available for the 'confirmation' page.
+        """
+        # Set up the request for testing the 'confirmation' page on session
+        session_request = DummyRequest(route='/create')
+        session_request.session["create_page"] = "confirmation"
+        session_request.session["viewing_date"] = datetime.datetime.today().strftime("%d/%m/%Y")
+        session_request.session["viewing_hour"] = datetime.datetime.now().hour
+        session_request.session["viewing_slot"] = 25 # hard-coded because it must be a multiple of 5
+
+        session_response = create_view(session_request)
+
+        # Assert that the response contains the correct page data
+        assert session_response["title"] == "Confirmation"
+        assert session_response["page"] == "patternpage"
+        assert isinstance(session_response["viewing_date"], str)
+        assert isinstance(session_response["viewing_hour"], int)
+        assert isinstance(session_response["viewing_slot"], int)
+        assert isinstance(session_response["display_address"], str)
 
     def test_pattern_input_view_pattern(self):
         '''
