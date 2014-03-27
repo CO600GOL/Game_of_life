@@ -16,5 +16,5 @@ class TestTutorial3(object):
 
         # Test that a response has been given.
         assert response
-        assert response["page"] == "tutorial3page
+        assert response["page"] == "tutorial3page"
         assert response["title"] == "Tutorial3"
