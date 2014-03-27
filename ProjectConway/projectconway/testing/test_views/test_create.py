@@ -135,27 +135,6 @@ class TestScheduler(object):
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
 
-    # def test_time_slot_reciever_JSON_in_past(self):
-    #     """
-    #     This test will attempt to request minutes for a time slot
-    #     from the past, this should fail.
-    #     """
-    #     request = DummyRequest(route='/scheduler.json')
-    #
-    #     past = datetime.datetime.today() - datetime.timedelta(days=1)
-    #
-    #     user_input = int(time.mktime(past.timetuple()) * 1000)
-    #     request.content_type = "application/json"
-    #
-    #     request.POST["date"] = str(user_input)
-    #
-    #     try:
-    #         time_slot_reciever_JSON(request)
-    #     except exceptions.HTTPBadRequest:
-    #         pass
-    #     else:
-    #         raise Exception("View did not return a HTTPBadRequest due to request from the past")
-
     def test_time_slot_reciever_JSON(self):
         """
         This test will attempt to request minutes for a successful
@@ -184,6 +163,21 @@ class TestScheduler(object):
         no_of_hours = math.ceil(((project_config["closing_time"].hour*60 + project_config["closing_time"].minute) -
                                 (project_config["starting_time"].hour*60 + project_config["starting_time"].minute)) / 60)
         assert len(response_dict["hours"]) == no_of_hours
+
+    def test_time_slot_receiver_JSON_timestring_failure(self):
+        """
+        This method will test the functionality of the time_slot_receiver_JSON view. The expected result of this test
+        is for the view to catch an error because the timestring for which the time_slot should be retrieved is in the
+        wrong format.
+        """
+        pass
+
+    def test_time_slot_receiver_JSON_HTTP_failure(self):
+        """
+        This method will test the functionality of the time_slot_receiver_JSON view. The expected result of this test
+        is for the view to catch an error because of a bad HTTP request.
+        """
+        pass
 
     def test_time_slot_receiver_JSON_runs(self):
         """
@@ -221,26 +215,6 @@ class TestScheduler(object):
         response_dict = eval(str(response))
         for min in range(0, 60, 10):
             assert min not in response_dict[input_date.hour]
-
-    # def test_time_slot_reciever_JSON_too_far(self):
-    #     """
-    #     This test will attempt to request minutes for a time slot
-    #     from too far in the future
-    #     """
-    #     request = DummyRequest(route='/scheduler.json')
-    #
-    #     future = datetime.datetime.today() + datetime.timedelta(weeks=100)
-    #     user_input = int(time.mktime(future.timetuple()) * 1000)
-    #     request.content_type = "application/json"
-    #
-    #     request.POST["date"] = str(user_input)
-    #
-    #     try:
-    #         time_slot_reciever_JSON(request)
-    #     except exceptions.HTTPBadRequest:
-    #         pass
-    #     else:
-    #         raise Exception("View did not return a HTTPBadRequest due to request from the future")
 
     def teardown_class(self):
         '''
