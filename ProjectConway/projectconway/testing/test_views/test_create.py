@@ -58,6 +58,31 @@ class TestPatternInput(object):
         assert response["title"] == "Create Pattern"
         assert "pattern" not in response.keys()
 
+    def test_POST_and_session_page_data_for_pattern_input(self):
+        """
+        This method will test the ability of the create view to access the correct page data from the session and/or
+        POST. The expected result of this test is for the correct page data to be available for the correct page.
+        """
+        # Set up the request for testing the 'create pattern' page on POST
+        post_request = DummyRequest(route='/create')
+        post_request.POST["create_page"] = "pattern_input"
+
+        post_response = create_view(post_request)
+
+        # Assert that the response contains the correct page data
+        assert post_response["title"] == "Create Pattern"
+        assert post_response["page"] == "patternpage"
+
+        # Set up the request for testing the 'create pattern' page on session
+        session_request = DummyRequest(route='/create')
+        session_request.session["create_page"] = "pattern_input"
+
+        session_response = create_view(session_request)
+
+        # Assert that the response contains the correct page data
+        assert session_response["title"] == "Create Pattern"
+        assert session_response["page"] == "patternpage"
+
     def test_pattern_input_view_pattern(self):
         '''
         Tests the pattern input view, emulating when the user is re-visiting
