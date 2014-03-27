@@ -7,6 +7,7 @@ import pyramid.httpexceptions as exceptions
 from pyramid import testing
 from pyramid.testing import DummyRequest
 from sqlalchemy import create_engine
+from sqlalchemy.exc import ArgumentError
 from game_of_life import TIME_DELAY
 from projectconway import project_config
 from projectconway.views.create import create_view
@@ -129,7 +130,7 @@ class TestPatternInput(object):
 
     def test_POST_page_data_for_confirmation(self):
         """
-        This method twill test the ability of the create view to access the correct page data from POST. The
+        This method will test the ability of the create view to access the correct page data from POST. The
         expected result of this test is for the correct page data to be available for the 'confirmation' page.
         """
         # Set up the request for testing the 'confirmation' page on POST
@@ -151,7 +152,7 @@ class TestPatternInput(object):
 
     def test_session_page_data_for_confirmation(self):
         """
-        This method twill test the ability of the create view to access the correct page data from the session. The
+        This method will test the ability of the create view to access the correct page data from the session. The
         expected result of this test is for the correct page data to be available for the 'confirmation' page.
         """
         # Set up the request for testing the 'confirmation' page on session
@@ -170,6 +171,57 @@ class TestPatternInput(object):
         assert isinstance(session_response["viewing_hour"], int)
         assert isinstance(session_response["viewing_slot"], int)
         assert isinstance(session_response["display_address"], str)
+
+    def test_confirmation_page_data_not_in_POST_or_session(self):
+        """
+        This method will test the ability of the create view to access the correct page data from the session and/or
+        POST. The expected result of this test is for the create view to raise an exception because the viewing
+        information has not been passed to the confirmation page.
+        """
+        # Set up the request for testing the 'confirmation' page without viewing date
+        request = DummyRequest(route='/create')
+        request.POST["create_page"] = "confirmation"
+
+        # Assert that an exception is thrown because a viewing date has not been stored in session or POST
+        try:
+            response = create_view(request)
+        except ArgumentError as e:
+            assert e.args[0] == "Viewing date was not submitted"
+
+        # Set up the request for testing the 'confirmation' page without viewing hour
+        request.POST["viewing_date"] = datetime.datetime(2014, 7, 21, 12, 30, 3).strftime("%d/%m/%Y")
+
+        # Assert that an exception is thrown because a viewing hour has not been stored in session or POST
+        try:
+            response = create_view(request)
+        except ArgumentError as e:
+            assert e.args[0] == "Viewing hour was not submitted"
+
+        # Set up the request for testing the 'confirmation' page without viewing slot
+        request.POST["viewing_hour"] = datetime.datetime.now().hour
+
+        # Assert that an exception is thrown because a viewing slot has not been stored in session or POST
+        try:
+            response = create_view(request)
+        except ArgumentError as e:
+            assert e.args[0] == "Viewing slot was not submitted"
+
+    def test_confirmation_viewing_date_formatting_failure(self):
+        """
+        This method will test the ability of the create view to access the correct page data fro the session or
+        POST. The expected result of this test is for the create view to raise an exception because the viewing date
+        is the wrong format.
+        """
+        # Set up the request for testing the 'confirmation' page with a wrongly formatted viewing date
+        request = DummyRequest(route='/create')
+        request.POST["create_page"] = "confirmation"
+        request.POST["viewing_date"] = datetime.datetime.today()
+
+        # Assert that an exception is thrown because the viewing date is of the wrong format
+        try:
+            response = create_view(request)
+        except ArgumentError as e:
+            assert e.args[0] == "Viewing date incorrectly formatted"
 
     def test_pattern_input_view_pattern(self):
         '''
