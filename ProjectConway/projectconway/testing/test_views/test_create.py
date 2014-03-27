@@ -58,10 +58,10 @@ class TestPatternInput(object):
         assert response["title"] == "Create Pattern"
         assert "pattern" not in response.keys()
 
-    def test_POST_and_session_page_data_for_pattern_input(self):
+    def test_POST_page_data_for_pattern_input(self):
         """
-        This method will test the ability of the create view to access the correct page data from the session and/or
-        POST. The expected result of this test is for the correct page data to be available for the correct page.
+        This method will test the ability of the create view to access the correct page data from the POST. The
+        expected result of this test is for the correct page data to be available for the 'pattern input' page.
         """
         # Set up the request for testing the 'create pattern' page on POST
         post_request = DummyRequest(route='/create')
@@ -73,6 +73,11 @@ class TestPatternInput(object):
         assert post_response["title"] == "Create Pattern"
         assert post_response["page"] == "patternpage"
 
+    def test_session_data_for_pattern_input(self):
+        """
+        This method will test the ability of the create view to access the correct page data from the session. The
+        expected result of this test is for the correct page data to be available for the 'pattern input' page.
+        """
         # Set up the request for testing the 'create pattern' page on session
         session_request = DummyRequest(route='/create')
         session_request.session["create_page"] = "pattern_input"
@@ -82,6 +87,45 @@ class TestPatternInput(object):
         # Assert that the response contains the correct page data
         assert session_response["title"] == "Create Pattern"
         assert session_response["page"] == "patternpage"
+
+    def test_POST_page_data_for_scheduling(self):
+        """
+        This method will test the ability of the create view to access the correct page data from the POST. The
+        expected result of this test is for the correct page data to be available for the 'scheduling' page.
+        """
+        # Set up the request for testing the 'scheduling' page on POST
+        post_request = DummyRequest(route='/create')
+        post_request.POST["create_page"] = "scheduler"
+
+        post_response = create_view(post_request)
+
+        # Assert that the response contains the correct page data
+        assert post_response["title"] == "Scheduler"
+        assert post_response["page"] == "patternpage"
+        assert isinstance(post_response["viewing_date"], str)
+        assert isinstance(post_response["viewing_hour"], int)
+        assert isinstance(post_response["viewing_slot"], int)
+
+    def test_session_data_for_scheduling(self):
+        """
+        This method will test the ability of the create view to access the correct page data from the session. The
+        expected result of this test is for the correct page data to be available for the 'scheduling' page.
+        """
+        # Set up the request for testing the 'scheduling' page on session
+        session_request = DummyRequest(route='/create')
+        session_request.session["create_page"] = "scheduler"
+        session_request.session["viewing_date"] = datetime.datetime.today().strftime("%d/%m/%Y")
+        session_request.session["viewing_hour"] = datetime.datetime.now().hour
+        session_request.session["viewing_slot"] = 25 # hard-coded because it must be a multiple of 5
+
+        session_response = create_view(session_request)
+
+        # Assert that the response contains the correct page data
+        assert session_response["title"] == "Scheduler"
+        assert session_response["page"] == "patternpage"
+        assert isinstance(session_response["viewing_date"], str)
+        assert isinstance(session_response["viewing_hour"], int)
+        assert isinstance(session_response["viewing_slot"], int)
 
     def test_pattern_input_view_pattern(self):
         '''
