@@ -184,10 +184,7 @@ def time_slot_reciever_JSON(request):
     except:
         raise HTTPBadRequest("Timestring was not formatted correctly!")
 
-    try:
-        aval_slots = Run.get_time_slots_for_day(time_slot, datetime.now())
-    except RunSlotInvalidError as e:
-        raise HTTPBadRequest("Failed to get available slots: %s" % e)
+    aval_slots = Run.get_time_slots_for_day(time_slot, datetime.now())
 
     # Render the possible runs times in json
     # in the format:
