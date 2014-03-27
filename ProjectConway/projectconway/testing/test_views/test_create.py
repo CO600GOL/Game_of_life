@@ -6,6 +6,7 @@ import transaction
 import pyramid.httpexceptions as exceptions
 from pyramid import testing
 from pyramid.testing import DummyRequest
+from pyramid.httpexceptions import HTTPBadRequest
 from sqlalchemy import create_engine
 from game_of_life import TIME_DELAY
 from projectconway import project_config
@@ -170,14 +171,15 @@ class TestScheduler(object):
         is for the view to catch an error because the timestring for which the time_slot should be retrieved is in the
         wrong format.
         """
-        pass
+        # Set up a dummy request for testing poor formatting of the timestring
+        request = DummyRequest(route='/sheduler.json')
+        request.POST["date"] = datetime.datetime.now()
 
-    def test_time_slot_receiver_JSON_HTTP_failure(self):
-        """
-        This method will test the functionality of the time_slot_receiver_JSON view. The expected result of this test
-        is for the view to catch an error because of a bad HTTP request.
-        """
-        pass
+        # Assert that an exception is thrown due to the timestring not being formatted correctly
+        try:
+            response = time_slot_reciever_JSON(request)
+        except HTTPBadRequest as e:
+            assert e.args[0] == "Timestring was not formatted correctly!"
 
     def test_time_slot_receiver_JSON_runs(self):
         """
