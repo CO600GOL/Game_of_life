@@ -475,6 +475,20 @@ class TestConfirmation(object):
         assert not "viewing_hour" in request.session
         assert not "viewing_slot" in request.session
 
+    def test_confirmation_receiver_HTTP_failure(self):
+        """
+        This method tests the functionality of the confirmation receiver view. The expected result of this test is for
+        the view to throw an exception because there has been a HTTP failure.
+        """
+        # Set up a request to test the HTTP failure logic
+        request = DummyRequest(route='/confirmation_receiver.json')
+
+        # Assert an exception has been raised because the session 'has timed out'
+        try:
+            response = confirmation_receiver_JSON(request)
+        except HTTPBadRequest as e:
+            assert e.args[0] == "Session Timeout"
+
     def teardown_class(self):
         '''
         Closes database session once the class is redundant
