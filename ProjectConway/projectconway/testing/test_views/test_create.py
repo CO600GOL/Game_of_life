@@ -3,10 +3,9 @@ import json
 import time
 import datetime
 import transaction
-import pyramid.httpexceptions as exceptions
 from pyramid import testing
 from pyramid.testing import DummyRequest
-from pyramid.httpexceptions import HTTPBadRequest
+from pyramid.httpexceptions import HTTPFound, HTTPBadRequest
 from sqlalchemy import create_engine
 from sqlalchemy.exc import ArgumentError
 from game_of_life import TIME_DELAY
@@ -284,6 +283,18 @@ class TestPatternInput(object):
         # Test input has been removed from session
         response = pattern_input_clearer_JSON(request)
         assert "pattern" not in response.keys()
+
+    def test_create_page_after_confirmation(self):
+        """
+        This method tests the ability of the create view to recognise once a user has completed the pattern creation
+        process. The expected result of this test is for the view to be recognise this state correctly.
+        """
+        # Set up a request to test the post-confirmation logic
+        request = DummyRequest(route='/create')
+        request.session["confirmed"] = True
+
+        # Assert that the 'user' has been rerouted to the beginning of the process
+        assert isinstance(create_view(request), HTTPFound)
 
 
 class TestScheduler(object):
