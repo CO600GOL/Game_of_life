@@ -3,6 +3,7 @@ import json
 import time
 import datetime
 import transaction
+from mock import MagicMock, call, patch
 from pyramid import testing
 from pyramid.testing import DummyRequest
 from pyramid.httpexceptions import HTTPFound, HTTPBadRequest
@@ -293,8 +294,12 @@ class TestPatternInput(object):
         request = DummyRequest(route='/create')
         request.session["confirmed"] = True
 
+        response = create_view(request)
+
         # Assert that the 'user' has been rerouted to the beginning of the process
-        assert isinstance(create_view(request), HTTPFound)
+        assert response["title"] == "Create Pattern"
+        assert response["page"] == "patternpage"
+        assert "pattern" not in response.keys()
 
 
 class TestScheduler(object):
