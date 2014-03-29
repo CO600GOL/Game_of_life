@@ -14,17 +14,20 @@
 <%block name="large_text">
     <div class="col-md-12">
         <div class="tutorial_box">
-            <h4 id="tutorial_title">Who was this John Conway Guy anyway?</h4>
+            <div class="row">
+                <div class="col-md-12 col-xs-12" id="tutorial_text">
+                    <h4 id="tutorial_title">Who was this John Conway Guy anyway?</h4>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-3 col-xs-3">
                     <img src="static/images/Conway.JPG" alt="John Conway" class="img-responsive" id="image_spacing" />
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8" id="tutorial-text">
                      <p>John Conway is a British mathematician from Liverpool. He is currently
                         a professor at Princeton University in America. As well as the
                         Game of Life, he is also known for the look-and-say sequence.
-                        The Game of Life has become the defining feature of the academic's career - recently
-                        he went as far as saying he hated it for overshadowing his other work.</p>
+                        The Game of Life has become the defining feature of the academic's career.</p>
                 </div>
             </div>
         </div>

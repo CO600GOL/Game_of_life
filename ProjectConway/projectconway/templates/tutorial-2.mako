@@ -13,7 +13,11 @@
 <%block name="large_text">
     <div class="col-md-12">
         <div class="tutorial_box">
-            <h4 id="tutorial_title">Rule 1</h4>
+            <div class="row">
+                <div class="col-md-12 col-xs-12" id="tutorial_text">
+                    <h4 id="tutorial_title">Rule 1</h4>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12" id="tutorial_text">
                      <p>Any living cell with fewer than two living neighbours will die due to under-population in the
@@ -22,6 +26,7 @@
             </div>
         </div>
     </div>
+
     <div class="col-md-12">
         <br/>
         <h4>Tip:</h4>

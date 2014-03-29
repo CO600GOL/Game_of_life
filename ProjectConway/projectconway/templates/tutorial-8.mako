@@ -1,4 +1,5 @@
 <%inherit file="template_pattern_creation.mako" />
+<%namespace name="rule_texts" file="rule_texts.mako" />
 
 <%block name="small_text">
     <div class="col-md-12 hidden-sm hidden-xs">

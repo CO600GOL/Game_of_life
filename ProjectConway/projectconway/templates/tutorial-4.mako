@@ -13,7 +13,11 @@
 <%block name="large_text">
     <div class="col-md-12">
         <div class="tutorial_box">
-            <h4 id="tutorial_title">Rule 3</h4>
+            <div class="row">
+                <div class="col-md-12 col-xs-12" id="tutorial_text">
+                    <h4 id="tutorial_title">Rule 3</h4>
+                </div>
+            </div>
                 <div class="row">
                     <div class="col-md-12" id="tutorial_text">
                          <p>Any living cell with two or three living neighbours will survive on into the next generation.</p>
