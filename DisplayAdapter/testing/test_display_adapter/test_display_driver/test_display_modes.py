@@ -131,11 +131,24 @@ class TestScreensaverMode(object):
 
     def test_init(self):
         """
-        Tests initialisation of the display's Run mode.
+        Tests initialisation of the display's Screensaver mode.
         """
         sm = ScreensaverMode("---\n---\n---", "---\n---\n---")
 
         assert sm
+        assert sm._previous_pattern == "---\n---\n---"
+
+    def test_init_from_startup(self):
+        """
+        This method tests the initialisation of the display's Screensaver mode when the device starts up for the first
+        time. This means that there won't be a previous pattern which which the mode can work.
+        """
+
+        sm = ScreensaverMode("---\n---\n---")
+
+        # Assert that the screensaver mode has been initialised.
+        assert sm
+        # Assert that the previous pattern has been correctly set to an empty grid.
         assert sm._previous_pattern == "---\n---\n---"
 
     def test_is_active(self):

@@ -3,10 +3,12 @@ import json
 import time
 import datetime
 import transaction
-import pyramid.httpexceptions as exceptions
+from mock import MagicMock, call, patch
 from pyramid import testing
 from pyramid.testing import DummyRequest
+from pyramid.httpexceptions import HTTPFound, HTTPBadRequest
 from sqlalchemy import create_engine
+from sqlalchemy.exc import ArgumentError
 from game_of_life import TIME_DELAY
 from projectconway import project_config
 from projectconway.views.create import create_view
@@ -57,6 +59,170 @@ class TestPatternInput(object):
         assert response["page"] == "patternpage"
         assert response["title"] == "Create Pattern"
         assert "pattern" not in response.keys()
+
+    def test_POST_page_data_for_pattern_input(self):
+        """
+        This method will test the ability of the create view to access the correct page data from the POST. The
+        expected result of this test is for the correct page data to be available for the 'pattern input' page.
+        """
+        # Set up the request for testing the 'create pattern' page on POST
+        post_request = DummyRequest(route='/create')
+        post_request.POST["create_page"] = "pattern_input"
+
+        post_response = create_view(post_request)
+
+        # Assert that the response contains the correct page data
+        assert post_response["title"] == "Create Pattern"
+        assert post_response["page"] == "patternpage"
+
+    def test_session_data_for_pattern_input(self):
+        """
+        This method will test the ability of the create view to access the correct page data from the session. The
+        expected result of this test is for the correct page data to be available for the 'pattern input' page.
+        """
+        # Set up the request for testing the 'create pattern' page on session
+        session_request = DummyRequest(route='/create')
+        session_request.session["create_page"] = "pattern_input"
+
+        session_response = create_view(session_request)
+
+        # Assert that the response contains the correct page data
+        assert session_response["title"] == "Create Pattern"
+        assert session_response["page"] == "patternpage"
+
+    def test_POST_page_data_for_scheduling(self):
+        """
+        This method will test the ability of the create view to access the correct page data from the POST. The
+        expected result of this test is for the correct page data to be available for the 'scheduling' page.
+        """
+        # Set up the request for testing the 'scheduling' page on POST
+        post_request = DummyRequest(route='/create')
+        post_request.POST["create_page"] = "scheduler"
+
+        post_response = create_view(post_request)
+
+        # Assert that the response contains the correct page data
+        assert post_response["title"] == "Scheduler"
+        assert post_response["page"] == "patternpage"
+        assert isinstance(post_response["viewing_date"], str)
+        assert isinstance(post_response["viewing_hour"], int)
+        assert isinstance(post_response["viewing_slot"], int)
+
+    def test_session_page_data_for_scheduling(self):
+        """
+        This method will test the ability of the create view to access the correct page data from the session. The
+        expected result of this test is for the correct page data to be available for the 'scheduling' page.
+        """
+        # Set up the request for testing the 'scheduling' page on session
+        session_request = DummyRequest(route='/create')
+        session_request.session["create_page"] = "scheduler"
+        session_request.session["viewing_date"] = datetime.datetime.today().strftime("%d/%m/%Y")
+        session_request.session["viewing_hour"] = datetime.datetime.now().hour
+        session_request.session["viewing_slot"] = 25 # hard-coded because it must be a multiple of 5
+
+        session_response = create_view(session_request)
+
+        # Assert that the response contains the correct page data
+        assert session_response["title"] == "Scheduler"
+        assert session_response["page"] == "patternpage"
+        assert isinstance(session_response["viewing_date"], str)
+        assert isinstance(session_response["viewing_hour"], int)
+        assert isinstance(session_response["viewing_slot"], int)
+
+    def test_POST_page_data_for_confirmation(self):
+        """
+        This method will test the ability of the create view to access the correct page data from POST. The
+        expected result of this test is for the correct page data to be available for the 'confirmation' page.
+        """
+        # Set up the request for testing the 'confirmation' page on POST
+        post_request = DummyRequest(route='/create')
+        post_request.POST["create_page"] = "confirmation"
+        post_request.POST["viewing_date"] = datetime.datetime.today().strftime("%d/%m/%Y")
+        post_request.POST["viewing_hour"] = datetime.datetime.now().hour
+        post_request.POST["viewing_slot"] = 25 # hard-coded because it must be a multiple of 5
+
+        post_response = create_view(post_request)
+
+        # Assert that the response contains the correct page data
+        assert post_response["title"] == "Confirmation"
+        assert post_response["page"] == "patternpage"
+        assert isinstance(post_response["viewing_date"], str)
+        assert isinstance(post_response["viewing_hour"], int)
+        assert isinstance(post_response["viewing_slot"], int)
+        assert isinstance(post_response["display_address"], str)
+
+    def test_session_page_data_for_confirmation(self):
+        """
+        This method will test the ability of the create view to access the correct page data from the session. The
+        expected result of this test is for the correct page data to be available for the 'confirmation' page.
+        """
+        # Set up the request for testing the 'confirmation' page on session
+        session_request = DummyRequest(route='/create')
+        session_request.session["create_page"] = "confirmation"
+        session_request.session["viewing_date"] = datetime.datetime.today().strftime("%d/%m/%Y")
+        session_request.session["viewing_hour"] = datetime.datetime.now().hour
+        session_request.session["viewing_slot"] = 25 # hard-coded because it must be a multiple of 5
+
+        session_response = create_view(session_request)
+
+        # Assert that the response contains the correct page data
+        assert session_response["title"] == "Confirmation"
+        assert session_response["page"] == "patternpage"
+        assert isinstance(session_response["viewing_date"], str)
+        assert isinstance(session_response["viewing_hour"], int)
+        assert isinstance(session_response["viewing_slot"], int)
+        assert isinstance(session_response["display_address"], str)
+
+    def test_confirmation_page_data_not_in_POST_or_session(self):
+        """
+        This method will test the ability of the create view to access the correct page data from the session and/or
+        POST. The expected result of this test is for the create view to raise an exception because the viewing
+        information has not been passed to the confirmation page.
+        """
+        # Set up the request for testing the 'confirmation' page without viewing date
+        request = DummyRequest(route='/create')
+        request.POST["create_page"] = "confirmation"
+
+        # Assert that an exception is thrown because a viewing date has not been stored in session or POST
+        try:
+            response = create_view(request)
+        except ArgumentError as e:
+            assert e.args[0] == "Viewing date was not submitted"
+
+        # Set up the request for testing the 'confirmation' page without viewing hour
+        request.POST["viewing_date"] = datetime.datetime(2014, 7, 21, 12, 30, 3).strftime("%d/%m/%Y")
+
+        # Assert that an exception is thrown because a viewing hour has not been stored in session or POST
+        try:
+            response = create_view(request)
+        except ArgumentError as e:
+            assert e.args[0] == "Viewing hour was not submitted"
+
+        # Set up the request for testing the 'confirmation' page without viewing slot
+        request.POST["viewing_hour"] = datetime.datetime.now().hour
+
+        # Assert that an exception is thrown because a viewing slot has not been stored in session or POST
+        try:
+            response = create_view(request)
+        except ArgumentError as e:
+            assert e.args[0] == "Viewing slot was not submitted"
+
+    def test_confirmation_viewing_date_formatting_failure(self):
+        """
+        This method will test the ability of the create view to access the correct page data fro the session or
+        POST. The expected result of this test is for the create view to raise an exception because the viewing date
+        is the wrong format.
+        """
+        # Set up the request for testing the 'confirmation' page with a wrongly formatted viewing date
+        request = DummyRequest(route='/create')
+        request.POST["create_page"] = "confirmation"
+        request.POST["viewing_date"] = datetime.datetime.today()
+
+        # Assert that an exception is thrown because the viewing date is of the wrong format
+        try:
+            response = create_view(request)
+        except ArgumentError as e:
+            assert e.args[0] == "Viewing date incorrectly formatted"
 
     def test_pattern_input_view_pattern(self):
         '''
@@ -119,6 +285,25 @@ class TestPatternInput(object):
         response = pattern_input_clearer_JSON(request)
         assert "pattern" not in response.keys()
 
+    def test_create_page_after_confirmation(self):
+        """
+        This method tests the ability of the create view to recognise once a user has completed the pattern creation
+        process. The expected result of this test is for the view to be recognise this state correctly.
+        """
+        # Set up a request to test the post-confirmation logic
+        class session_dict(dict):
+            def invalidate(self):
+                pass
+        request = MagicMock()
+        d = session_dict()
+        d["confirmed"] = "true"
+        request.session = d
+
+        response = create_view(request)
+
+        # Assert that the 'user' has been rerouted to the beginning of the process
+        assert isinstance(response, HTTPFound)
+
 
 class TestScheduler(object):
     """
@@ -134,27 +319,6 @@ class TestScheduler(object):
         engine = create_engine('sqlite:///testdb.sqlite')
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
-
-    # def test_time_slot_reciever_JSON_in_past(self):
-    #     """
-    #     This test will attempt to request minutes for a time slot
-    #     from the past, this should fail.
-    #     """
-    #     request = DummyRequest(route='/scheduler.json')
-    #
-    #     past = datetime.datetime.today() - datetime.timedelta(days=1)
-    #
-    #     user_input = int(time.mktime(past.timetuple()) * 1000)
-    #     request.content_type = "application/json"
-    #
-    #     request.POST["date"] = str(user_input)
-    #
-    #     try:
-    #         time_slot_reciever_JSON(request)
-    #     except exceptions.HTTPBadRequest:
-    #         pass
-    #     else:
-    #         raise Exception("View did not return a HTTPBadRequest due to request from the past")
 
     def test_time_slot_reciever_JSON(self):
         """
@@ -184,6 +348,22 @@ class TestScheduler(object):
         no_of_hours = math.ceil(((project_config["closing_time"].hour*60 + project_config["closing_time"].minute) -
                                 (project_config["starting_time"].hour*60 + project_config["starting_time"].minute)) / 60)
         assert len(response_dict["hours"]) == no_of_hours
+
+    def test_time_slot_receiver_JSON_timestring_failure(self):
+        """
+        This method will test the functionality of the time_slot_receiver_JSON view. The expected result of this test
+        is for the view to catch an error because the timestring for which the time_slot should be retrieved is in the
+        wrong format.
+        """
+        # Set up a dummy request for testing poor formatting of the timestring
+        request = DummyRequest(route='/sheduler.json')
+        request.POST["date"] = datetime.datetime.now()
+
+        # Assert that an exception is thrown due to the timestring not being formatted correctly
+        try:
+            response = time_slot_reciever_JSON(request)
+        except HTTPBadRequest as e:
+            assert e.args[0] == "Timestring was not formatted correctly!"
 
     def test_time_slot_receiver_JSON_runs(self):
         """
@@ -221,26 +401,6 @@ class TestScheduler(object):
         response_dict = eval(str(response))
         for min in range(0, 60, 10):
             assert min not in response_dict[input_date.hour]
-
-    # def test_time_slot_reciever_JSON_too_far(self):
-    #     """
-    #     This test will attempt to request minutes for a time slot
-    #     from too far in the future
-    #     """
-    #     request = DummyRequest(route='/scheduler.json')
-    #
-    #     future = datetime.datetime.today() + datetime.timedelta(weeks=100)
-    #     user_input = int(time.mktime(future.timetuple()) * 1000)
-    #     request.content_type = "application/json"
-    #
-    #     request.POST["date"] = str(user_input)
-    #
-    #     try:
-    #         time_slot_reciever_JSON(request)
-    #     except exceptions.HTTPBadRequest:
-    #         pass
-    #     else:
-    #         raise Exception("View did not return a HTTPBadRequest due to request from the future")
 
     def teardown_class(self):
         '''
@@ -333,6 +493,20 @@ class TestConfirmation(object):
         assert not "viewing_date" in request.session
         assert not "viewing_hour" in request.session
         assert not "viewing_slot" in request.session
+
+    def test_confirmation_receiver_HTTP_failure(self):
+        """
+        This method tests the functionality of the confirmation receiver view. The expected result of this test is for
+        the view to throw an exception because there has been a HTTP failure.
+        """
+        # Set up a request to test the HTTP failure logic
+        request = DummyRequest(route='/confirmation_receiver.json')
+
+        # Assert an exception has been raised because the session 'has timed out'
+        try:
+            response = confirmation_receiver_JSON(request)
+        except HTTPBadRequest as e:
+            assert e.args[0] == "Session Timeout"
 
     def teardown_class(self):
         '''

@@ -48,8 +48,8 @@ project_config = {
     # TODO: Add other configuration information
 
     # Display Information
-    "display_name": "Beany House of Art and Knowledge",
-    "display_address": """Beany House of Art and Knowledge,
+    "display_name": "Beaney House of Art and Knowledge",
+    "display_address": """Beaney House of Art and Knowledge,
 18 High Street,
 Canterbury,
 Kent,
