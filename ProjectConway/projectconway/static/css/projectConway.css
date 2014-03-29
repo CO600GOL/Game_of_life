@@ -88,13 +88,14 @@ body {
     background-color: #0E7805;
     color: #FFFFFF;
     text-align: justify;
+    padding: 2%;
 }
 #tutorial_title {
-    text-align: center;
     padding: 1%;
 }
 #image_spacing {
     margin-left: 10%;
+    padding-bottom: 10%;
 }
 #button_left {
     text-align: left;
@@ -102,7 +103,7 @@ body {
 #button_right {
     text-align: right;
 }
-#tutorial_text {
-    padding-right: 5%;
-    padding-left: 5%;
+
+#mobile_button{
+    text-align: center;
 }
