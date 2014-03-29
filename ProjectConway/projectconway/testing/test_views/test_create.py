@@ -291,15 +291,18 @@ class TestPatternInput(object):
         process. The expected result of this test is for the view to be recognise this state correctly.
         """
         # Set up a request to test the post-confirmation logic
-        request = DummyRequest(route='/create')
-        request.session["confirmed"] = True
+        class session_dict(dict):
+            def invalidate(self):
+                pass
+        request = MagicMock()
+        d = session_dict()
+        d["confirmed"] = "true"
+        request.session = d
 
         response = create_view(request)
 
         # Assert that the 'user' has been rerouted to the beginning of the process
-        assert response["title"] == "Create Pattern"
-        assert response["page"] == "patternpage"
-        assert "pattern" not in response.keys()
+        assert isinstance(response, HTTPFound)
 
 
 class TestScheduler(object):
