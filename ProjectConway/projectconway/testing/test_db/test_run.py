@@ -10,8 +10,9 @@ import transaction
 from sqlalchemy  import create_engine
 from pyramid import testing
 from projectconway import project_config
+from projectconway.lib.exceptions import RunSlotInvalidError
 from projectconway.models import Base, DBSession
-from projectconway.models.run import Run
+from projectconway.models.run import Run, hourify
 
 
 def create_input_pattern():
@@ -50,6 +51,19 @@ class TestRun():
         Base.metadata.bind = engine
         Base.metadata.create_all(engine)
 
+    def test__repr__(self):
+        """
+        This method tests the string representation of a Run row from the runs table. The expected result of this
+        test is for the representation of the runs table to be returned correctly.
+        """
+        run = Run(create_input_pattern(), datetime.datetime.now(), self._insert_name)
+        run_repr = run.__repr__()
+
+        # Assert that the run's representation has been returned
+        assert run_repr
+        # Assert that the representation is a string object
+        assert isinstance(run_repr, str)
+
     def test_insert(self):
         """
         This method tests the ability of the runs table to insert a new row. The expected result of this test is for
@@ -79,8 +93,12 @@ class TestRun():
                         # Assert that the retrieved pattern and the test pattern match at these 'coordinates'.
                         assert returned_pattern[x][y] == '*'
                     else:
+<<<<<<< HEAD
                         # Assert that the retrieved pattern and the test pattern match at these 'coordinates'.
                         assert returned_pattern[x][y] == '-'           
+=======
+                        assert returned_pattern[x][y] == '-'
+>>>>>>> 1d5db25e9f79e1673e0e1503cfe0183f5ab5553a
          
     def test_delete(self):
         """
@@ -146,9 +164,33 @@ class TestRun():
         no_mins = (max_time.hour*60 + max_time.minute) - (min_time.hour*60 + min_time.minute)
         no_time_slots = math.ceil(no_mins / 5)
 
-        time_slots = Run.get_time_slots_for_day(date, datetime.datetime.now())
+        time_slots = Run.get_time_slots_for_day(date, datetime.datetime.now(), min_time, max_time)
 
+        assert no_time_slots == len(time_slots)
+
+    def test_run_get_time_slots_for_day_non_hour(self):
+        """
+        This method tests the ability of the runs table to retrieve the number of available of time slots in a day. The
+        expected result of this this test is that the correct number of available time slots for an hour is retrieved
+        when there are no runs to be played in the given hour and the day does not end 'on the hour'.
+        """
+        # Give the method a future date
+        date = datetime.date.today() + datetime.timedelta(days=11)
+
+        min_time = datetime.time(hour=9, minute=0)
+        max_time = datetime.time(hour=17, minute=0)
+
+        # Calculate the no. of time slots in a given day
+        no_mins = (max_time.hour*60 + max_time.minute) - (min_time.hour*60 + min_time.minute)
+        no_time_slots = math.ceil(no_mins / 5)
+
+<<<<<<< HEAD
         # Assert that the correct number of available time slots have been retrieved.
+=======
+        time_slots = Run.get_time_slots_for_day(date, datetime.datetime.now(), min_time, max_time)
+
+        # Assert that the correct number of time slots has been retrieved
+>>>>>>> 1d5db25e9f79e1673e0e1503cfe0183f5ab5553a
         assert no_time_slots == len(time_slots)
 
     def test_run_get_time_slots_for_day_with_runs(self):
@@ -179,6 +221,170 @@ class TestRun():
 
         # Assert that the correct number of available time slots have been retrieved.
         assert no_time_slots - len(runs) == len(time_slots)
+
+    def test_run_get_unsent_runs(self):
+        """
+        This method tests the ability of the runs table to retrieve the runs than have not yet been sent to the
+        raspberry pi. The expected result of this test is that the unsent runs can be correctly retrieved.
+        """
+
+        time_slot = datetime.datetime.now() + datetime.timedelta(days=35)
+
+        # Create some runs to go into the table
+        runs = [
+            Run(create_input_pattern(), time_slot, self._insert_name),
+            Run(create_input_pattern(), time_slot + datetime.timedelta(minutes=5), self._insert_name),
+            Run(create_input_pattern(), time_slot + datetime.timedelta(minutes=10), self._insert_name)
+        ]
+
+        # Add runs to table
+        with transaction.manager:
+            DBSession.add_all(runs)
+            DBSession.commit()
+
+        new_sent_runs = Run.get_unsent_runs(time_slot - datetime.timedelta(minutes=5))
+
+        # Assert that the collected runs have been retrieved
+        assert new_sent_runs
+        # Assert that the list of sent runs contains the correct number of runs
+        assert len(new_sent_runs) == 3
+
+        # Create some more runs to go into the table
+        new_runs = [
+            Run(create_input_pattern(), time_slot + datetime.timedelta(minutes=15), self._insert_name),
+            Run(create_input_pattern(), time_slot + datetime.timedelta(minutes=20), self._insert_name),
+            Run(create_input_pattern(), time_slot + datetime.timedelta(minutes=25), self._insert_name)
+        ]
+
+        # Add these runs to the table
+        with transaction.manager:
+            DBSession.add_all(new_runs)
+            DBSession.commit()
+
+        new_sent_runs = Run.get_unsent_runs(time_slot - datetime.timedelta(minutes=5))
+
+        # Assert that the collected runs have been retrieved
+        assert new_sent_runs
+        # Assert that the list of sent runs still contains the correct number of runs
+        assert len(new_sent_runs) == 3
+
+    def test_run__validate_time_slot(self):
+        """
+        This method tests the ability of the runs table to validate a time slot, making sure it is viable for using
+        on the table and throwing the appropriate exception if not. The expected result of this test is for the
+        given time slot to be validated as correct.
+        """
+        # Set a time slot to be tested
+        time_slot = datetime.datetime.now().replace(minute=5) + datetime.timedelta(hours=1)
+
+        # Assert that the validation does not call an exception, and so the time slot is correct
+        try:
+            Run._validate_time_slot(datetime.datetime.now(), time_slot)
+        except RunSlotInvalidError:
+            raise Exception("test_run__validate_time_slot has failed")
+
+    def test_run__validate_time_slot_past(self):
+        """
+        This method tests the ability of the runs table to validate a time slot, making sure it is viable for using
+        on the table and throwing the appropriate exception if not. The expected result of this test is for the
+        given time slot to be validated as too far in the past.
+        """
+        # Set a time slot to be tested
+        time_slot = datetime.datetime.now().replace(minute=5) - datetime.timedelta(days=1)
+
+        # Assert that the validation calls an exception because the time slot is in the past
+        try:
+            Run._validate_time_slot(datetime.datetime.now(), time_slot)
+        except RunSlotInvalidError as e:
+            # Assert that the correct error has been thrown
+            assert e
+            # Assert that it has been thrown for the right reason
+            assert e.args[0] == "Time passed in is in the past"
+
+    def test_run__validate_time_slot_future(self):
+        """
+        This method tests the ability of the runs table to validate a time slot, making sure it is viable for using
+        on the table and throwing the appropriate exception if not. The expected result of this test is for the
+        given time slot to be validated as too far in the future.
+        """
+        # Set a time slot to be tested
+        time_slot = datetime.datetime.now().replace(minute=5) + datetime.timedelta(weeks=4)
+
+        # Assert that the validation calls an exception because the time slot is in the future
+        try:
+            Run._validate_time_slot(datetime.datetime.now(), time_slot)
+        except RunSlotInvalidError as e:
+            # Assert that the correct error has been thrown
+            assert e
+            # Assert that it has been thrown for the right reason
+            assert e.args[0] == "Time is above the maximum"
+
+    def test_run__validate_time_slot_not_five(self):
+        """
+        This method tests the ability of the runs table to validate a time slot, making sure it is viable for using
+        on the table and throwing the appropriate exception if not. The expected result of this test is for the
+        given time slot to be validated as not a multiple of five.
+        """
+        # Set a time slot to be tested
+        time_slot = datetime.datetime.now().replace(minute=6) + datetime.timedelta(days=1)
+
+        # Assert that the validation calls an exception because the time slot is not a multiple of five
+        try:
+            Run._validate_time_slot(datetime.datetime.now(), time_slot)
+        except RunSlotInvalidError as e:
+            # Assert that the correct error has been thrown
+            assert e
+            # Assert that it has been thrown for the right reason
+            assert e.args[0] == "Minute value is not a multiple of 5"
+
+    def test_run__validate_time_slot_with_start(self):
+        """
+        This method tests the ability of the runs table to validate a time slot, making sure it is viable for using
+        on the table and throwing the appropriate exception if not. The expected result of this test is for the
+        given time slot to be validated as correct.
+        """
+        project_config["start_date"] = datetime.date(year=2014, month=7, day=7)
+
+        # Set a time slot to be tested
+        time_slot = datetime.datetime.now().replace(year=2014, month=7, day=14, minute=5)
+
+        # Assert that the validation does not call an exception, and so the time slot is correct
+        try:
+            Run._validate_time_slot(datetime.datetime.now(), time_slot)
+        except RunSlotInvalidError:
+            raise Exception("test_run__validate_time_slot_with_start has failed")
+
+        project_config["start_date"] = None
+
+    def test_json(self):
+        """
+        This method tests the JSON representation method of the run class. The expected result of this method is that
+        a json dictionary of the run object in question is retrieved.
+        """
+        run = Run(create_input_pattern(), datetime.datetime.now(), self._insert_name)
+
+        run_json = run.json()
+        # Assert that a representation has been retrieved.
+        assert run_json
+        # Assert that the representation is a json dictionary with the correct information within.
+        assert run_json.__contains__("id")
+        assert run_json.__contains__("input_pattern")
+        assert run_json.__contains__("time_slot")
+        assert run_json.__contains__("sent")
+
+    def test_hourify(self):
+        """
+        This method tests the hourify function that the Run class uses to make a time slot accurate to the hour. The
+        expected result of this test is that a given time slot is correctly made accurate to an hour.
+        """
+        # Set a time slot to test
+        time_slot = datetime.datetime.now()
+
+        hourified_time_slot = hourify(time_slot)
+        # Assert the time slot has been correctly hourified
+        assert hourified_time_slot.minute == 0
+        assert hourified_time_slot.second == 0
+        assert hourified_time_slot.microsecond == 0
 
     def teardown_class(self):
         """

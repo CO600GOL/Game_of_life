@@ -18,6 +18,7 @@ requires = [
     'transaction',
     'zope.sqlalchemy',
     'waitress',
+    'mock',
     'pytest',
     'pytest-cov',
     'pexpect'

@@ -53,6 +53,7 @@ class Run(Base):
                                                                           self.user_name, self.sent))
 
     @classmethod
+<<<<<<< HEAD
     def get_time_slots_for_hour(cls, time_slot):
         """
         This method retrieves the available time slots for the specified hour.
@@ -84,6 +85,8 @@ class Run(Base):
         return slots
 
     @classmethod
+=======
+>>>>>>> 1d5db25e9f79e1673e0e1503cfe0183f5ab5553a
     def get_runs_for_day(cls, date):
         """
         This method retrieves every run set to take place on the given data.
@@ -106,7 +109,8 @@ class Run(Base):
         return run_times
 
     @classmethod
-    def get_time_slots_for_day(cls, date, now):
+    def get_time_slots_for_day(cls, date, now,
+                               min_time=project_config["starting_time"], max_time=project_config["closing_time"]):
         """
         Returns all available time slots for the specified date as a
         Date object.
@@ -121,8 +125,6 @@ class Run(Base):
         run_times_for_date = Run.get_runs_for_day(date)
         run_times_for_date = [run.time_slot for run in run_times_for_date]
         slots = []
-        min_time = project_config["starting_time"]
-        max_time = project_config["closing_time"]
 
         for h in range(min_time.hour, max_time.hour + 1):
             if h == max_time.hour and max_time.minute == 0:
@@ -145,11 +147,16 @@ class Run(Base):
     @classmethod
     def get_run_for_time_slot(cls, time_slot):
         """
+<<<<<<< HEAD
         This method retrieves a run for the given time slot.
 
         @param time_slot The time slot the database should query for a run.
 
         @return The run that occupies the specified time slot if one exists, otherwise None.
+=======
+        Returns a run if it exists for the given time slot otherwise
+        return None
+>>>>>>> 1d5db25e9f79e1673e0e1503cfe0183f5ab5553a
         """
         return DBSession.query(Run).filter(Run.time_slot == time_slot).all()
 
