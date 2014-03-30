@@ -16,7 +16,7 @@ from pyramid.testing import DummyRequest
 from pyramid.httpexceptions import HTTPFound, HTTPBadRequest
 from sqlalchemy import create_engine
 from sqlalchemy.exc import ArgumentError
-from game_of_life import TIME_DELAY
+from game_of_life import SLEEP_TIME
 from projectconway import project_config
 from projectconway.views.create import create_view
 from projectconway.views.create import pattern_input_receiver_JSON
@@ -276,7 +276,7 @@ class TestPatternInput(object):
         assert responseDict["turns"] == 53
 
         # Assert that the correct run time has been calculated and stored.
-        assert responseDict["runtime"] == TIME_DELAY * 53
+        assert responseDict["runtime"] == SLEEP_TIME * 53
     
     def test_pattern_clearer_JSON(self):
         """
@@ -329,11 +329,6 @@ class TestScheduler(object):
         engine = create_engine('sqlite:///testdb.sqlite')
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 1d5db25e9f79e1673e0e1503cfe0183f5ab5553a
     def test_time_slot_reciever_JSON(self):
         """
         This method will test the time slot receiver JSON view of the scheduling page. The expected result of this test

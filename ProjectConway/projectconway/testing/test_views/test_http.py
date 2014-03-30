@@ -143,21 +143,3 @@ class TestCreatePage(object):
 
         # Assert that a response has been received.
         assert content
-
-class TestRulesPage(object):
-    """
-    This class tests the functionality of the rules page of our web application.
-    """
-    
-    def test_rules_page(self):
-        """
-        This method tests the HTTP functionality of the rules page view. The epxected result of this test is for the HTTP
-        response to be successfully retrieved.
-        """
-        url = "%srules" % URL
-        request = urllib.Request(url)
-        response = urllib.urlopen(request)
-        content = response.read().decode("utf-8")
-        
-        # Assert that a response has been retrieved.
-        assert content
