@@ -3,13 +3,14 @@ from setuptools import setup, find_packages
 # The requires for the DisplayAdapter setup
 requires = [
     "pytest",
-    "pySerial",
+    "pytest-cov",
     "mock"
 ]
 
 # The packages required for the DisplayAdapter setup
 packages = [
-    "display_adapter"
+    "display_adapter",
+    "serial"
 ]
 
 # The information to add on setup of the application

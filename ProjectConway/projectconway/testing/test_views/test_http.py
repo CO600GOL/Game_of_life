@@ -3,6 +3,7 @@ This module contains logic that tests the HTTP connection of all of the python t
 application.
 """
 
+import os
 import json
 import urllib.request as urllib
 import pexpect
@@ -28,6 +29,11 @@ def teardown_module(module):
     # Using SIGTERM instead of kill(), as kill() does not close all pyramid threads
     module.p.wait()
 
+    '''
+    Sets up everything required to shut down each class after testing has been
+    completed.
+    '''
+    os.system("killall pserve")
 
 class TestHomePage(object):
     """
@@ -127,7 +133,6 @@ class TestCreatePage(object):
         headers = {"Content-Type": "application/json"}
 
         request = urllib.Request(url, headers=headers)
-        # TODO: Make this test support cookies so that the try/catch can be removed
         try:
             response = urllib.urlopen(request)
         except:
@@ -138,7 +143,6 @@ class TestCreatePage(object):
 
         # Assert that a response has been received.
         assert content
-
 
 class TestRulesPage(object):
     """

@@ -1,0 +1,4 @@
+[run]
+omit =
+    *scripts*
+    *__init__.py

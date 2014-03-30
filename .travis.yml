@@ -4,19 +4,14 @@ python:
 
 before_install:
    #found this in https://github.com/keflavich/despotic/blob/master/.travis.yml
-   - "export DISPLAY=:99.0"
-   - "sh -e /etc/init.d/xvfb start"
-   - sudo apt-get update -qq
-   - sudo apt-get install -qq tk8.5
-   - sudo apt-get install -qq python3-tk
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - "sudo apt-get update -qq"
+  - "sudo apt-get install -qq tk8.5"
+  - "sudo apt-get install -qq python3-tk"
 
 install:
-  - "cd ProjectConway"
-  - "make setup"
-  - "cd ../DisplayAdapter"
-  - "make setup"
+  - "./.travis_scripts/install.sh"
 
 script:
-  - "make test"
-  - "cd ../ProjectConway"
-  - "make test"
+  - "./.travis_scripts/test.sh"
