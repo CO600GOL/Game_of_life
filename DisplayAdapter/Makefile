@@ -1,5 +1,8 @@
-# Makefile for the DisplayAdapter application, ie the programs that run on the pi for ProjectConway
+# This is the Makefile for the DisplayAdapter application - the programs that run on ProjectConway's Raspberry Pi.
+# It is responsible for all setup, running and testing of the application, so that it should never be done from the
+# command line.
 
+# Some of the centralised information for the makefile.
 env_name = display_env
 env = . $(env_name)/bin/activate
 screensavers_file = screensavers.txt
@@ -11,9 +14,10 @@ help:
 	# Commands:
 	#     setup                  -- Creates a virtual environment in which the software is ran from
 	#     test                   -- Runs the automated tests in DisplayAdapter
+	#     test_coverage			 -- Create html document for test coverage report, folder name: htmlcov
 	#     create_db              -- Creates and initialises the internal database
 	#     update_screensavers    -- Search screensavers file and update the database
-	#     run		     -- Runs the display adapter
+	#     run		     		 -- Runs the display adapter
 	#     clean                  -- Delete persistant storage
 
 setup: env
@@ -39,6 +43,9 @@ env:
 
 test:
 	$(env); py.test -v testing
+
+test_coverage:
+	$(env); py.test --cov-config .coveragerc --cov display_adapter testing --cov-report html
 
 create_db:
 	$(env); python $(script_local)/init_db.py $(db_name)

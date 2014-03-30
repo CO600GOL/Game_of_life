@@ -16,14 +16,14 @@
     </div>
 
     <div class="col-md-12">
-        <label class="control-label">Date of Viewing</label>
+        <label class="control-label">Viewing Date</label>
     </div>
 
     <div class="col-md-12">
         <form method="post">
             <div class="input-group date" id="datepicker" data-date="${viewing_date}" data-date-format="dd/mm/yyyy">
-              <input class="form-control" type="text" readonly="" value="${viewing_date}" name="viewing_date">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              <input class="form-control" id="datepicker_form" type="text" readonly="" name="viewing_date">
+              <span class="input-group-addon" id="datepicker_pic"><i class="glyphicon glyphicon-calendar"></i></span>
             </div>
     </div>
 
@@ -32,31 +32,25 @@
         <p>Now choose a time on that date to go and watch the display!</p>
     </div>
 
-    <div class="col-md-2">
-        <label class="control-label" for="viewing_hour">Viewing Hour</label>
+    <div class="col-xs-2 col-md-2">
+        <label class="control-label" for="viewing_hour">Viewing Time</label>
     </div>
 
 
-    <div class="col-md-3">
-          <select class="form-control" name="viewing_hour" id="viewing_hour">
-              <%
-              import datetime
-              current_hour = datetime.datetime.now().hour
-              %>
-              % for i in range(current_hour, 24):
-                  <option value="${str(i)}" ${"selected" if (i == viewing_hour) else ""}>${format(i, "02d")}</option>
-              % endfor
+    <div class="col-xs-4 col-md-3">
+          <select class="form-control" name="viewing_hour" id="viewing_hour" disabled>
           </select>
     </div>
 
-    <div class="col-md-2 col-md-offset-1">
-        <label class="control-label" for="viewing_slot">Viewing Slot</label>
+    <div class="col-xs-1 col-md-1" id="time_sep">
+        <label class="control-label" for="viewing_slot">:</label>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-xs-4 col-md-3">
         <select class="form-control" name="viewing_slot" id="viewing_slot" disabled>
         </select>
     </div>
+
 </%block>
 
 <%block name="extras">
@@ -78,22 +72,37 @@
                 import datetime
                 today = datetime.datetime.today()
                 enddate = today + datetime.timedelta(weeks=12)
+
+                from projectconway import project_config
+
+                if project_config["start_date"]:
+                    start_date = project_config["start_date"]
+                else:
+                    start_date = datetime.date.today()
+
+                if project_config["date_range"]:
+                    end_date = start_date + project_config["date_range"]
+                else:
+                    end_date = None
             %>
 
             // Set up some options for the datepicker including setting a start and end date and
             // automatically closing the calender when a date is picked.
-            $("#datepicker").datepicker({
+            var d = $("#datepicker").datepicker({
                 "autoclose": true,
                 "format": "dd/mm/yyyy",
-                "startDate": "${today.strftime("%d/%m/%Y")}",
-                "endDate": "${enddate.strftime("%d/%m/%Y")}"
+                "startDate": "${start_date.strftime("%d/%m/%Y")}",
+                ${'"endDate": "%s"' % end_date.strftime("%d/%m/%Y") if end_date else '' | n}
             });
+            $("#datepicker_form").val("${start_date.strftime("%d/%m/%Y")}");
+            $("#datepicker").datepicker("setDate",  "${start_date.strftime("%d/%m/%Y")}")
 
             // Set up event handling for the datepicker
             var s = new Scheduler();
-            s.populateMinuteSlot();
+            //s.populateMinuteSlot();
             $("#datepicker").datepicker().on("changeDate", s.datepickerEventHandler);
             $("#viewing_hour").change(s.hourSelectEventHandler);
+            s.init($("#datepicker").datepicker("getDate"));
 
             // Lock the grid so that it cannot be edited
             g.lockGrid();

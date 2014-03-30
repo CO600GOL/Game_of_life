@@ -1,20 +1,6 @@
 """
-The module encapsulates "screen modes".
-We invisidge there being two modes, screensaver mode and run mode.
-Screensaver mode:
-    - This mode takes a pattern that is to be "wiped away" and the screen saver pattern
-    - The screen will then "wipe"
-        - A line of lights will come down over the "wiped away" pattern
-        - When the screen is filled, the new screen saver pattern will start
-    - Creates a GameOfLife object with the screensaver pattern
-    - The class then return the next generation of this pattern when asked
-Run mode:
-    - The pattern to be "displayed" is passed to the object
-    - The class will then alternate between displaying a "full" screen and the pattern for
-        - TODO: finalise the pattern in which they alternate
-        - This is in order to seperate this "run" from other "runs"
-    - Creates a GameOfLife object with this pattern
-    - Then returns the next generation of this pattern when asked
+This module contains the logic for the display modes, controlling how the display driver handles the data being given
+to it. Currently there are two modes, screensaver and run mode.
 """
 
 from display_adapter import screensaver_config, runmode_config
@@ -23,26 +9,35 @@ from game.game_controllers.game_controllers import GameOfLifeController
 
 class DisplayMode(object):
     """
-    This class represents a back-bone for all display modes, serving as a place for shared functionality.
+    This interface class contains the shared functionality of all display modes, giving each inheriting class a
+    backbone.
     """
     _game_engine = GameOfLifeController()
 
     def __init__(self, pattern):
         """
-        Ctor - initialises the Mode with the correct information. Main function
-        is to set up the game engine used for the pattern.
+        Ctor - initialises the Mode with the correct information. Main function is to set up the game engine used for
+        the pattern.
+
+        @param pattern The next pattern to be shown on the display.
         """
+        # Start up the game engine to calculate the next generation of the pattern.
         DisplayMode._game_engine.set_up_game(pattern)
 
     def is_active(self):
         """
-        This method returns whether or not it has any more patterns to pass back to the display driver.
+        This method calculates whether or not it has any more patterns to pass back to the display driver.
+
+        @return True if there is still a pattern to be shown, otherwise False.
         """
+        # There are still patterns to be printed if any of the cells on the grid are seen as 'alive'.
         return not DisplayMode._game_engine.get_game().is_game_forsaken()
 
     def get_display_pattern(self):
         """
         This pattern returns the next pattern from the game engine as a string.
+
+        @return The next generation to be shown on the display.
         """
         temp = DisplayMode._game_engine.get_current_generation(output=True)
         DisplayMode._game_engine.play_next_turn()
@@ -51,24 +46,34 @@ class DisplayMode(object):
 
 class RunMode(DisplayMode):
     """
-    This class represents the mode in which the display runs when it is showing a user's input pattern.
+    This class represents the mode in which the display runs when it is showing a user's input pattern. This mode is
+    shown to the user by presenting the pattern, followed by every light being flashed. This is done three times
+    before the pattern is run with the game engine.
     """
 
     def __init__(self, pattern):
         """
         Ctor - initialises the Run mode with the correct information. Main function is
         to set up the game engine used for the specified pattern.
+
+        @param pattern The pattern to be run through the game engine.
         """
         DisplayMode.__init__(self, pattern)
         self._pattern = pattern
 
+        # Set up the number of times the display will switch between the user's pattern and the full light display.
         self._iterations = runmode_config["iterations"]
+        # Set up the number of frames for which the full light display will be shown on display.
         self._full_frames = runmode_config["full_frames"]
+        # Set up the number of frames for which the user's pattern will be shown on the display.
         self._pattern_frames = runmode_config["pattern_frames"]
 
     def is_active(self):
         """
-        This method returns whether or not it has any more patterns to pass back to the display driver.
+        This method calculates whether or not it has any more patterns to pass back to the display driver.
+
+        @return True if there are still iterations to be played on the 'start up' or if there are generations from
+                the user's pattern to be played, otherwise false.
         """
         if self._iterations > 0:
             return True
@@ -77,13 +82,16 @@ class RunMode(DisplayMode):
 
     def get_display_pattern(self):
         """
-        This method returns the next pattern to be displayed as a string. Usually this will be the next pattern
+        This method calculates the next pattern to be displayed as a string. Usually this will be the next pattern
         from the game engine, but if on start up, it will enter a 'presentation state' to let the user know that
         their pattern is being run.
+
+        @return The next pattern to be shown on the display.
         """
         if self._iterations > 0:
             if self._full_frames > 0:
                 self._full_frames -= 1
+                # In the presentation state, set all the cells to alive on every second configuration
                 return self._pattern.replace("-", "*")
 
             elif self._pattern_frames > 0:
@@ -94,23 +102,31 @@ class RunMode(DisplayMode):
                     self._full_frames = runmode_config["full_frames"]
                     self._pattern_frames = runmode_config["pattern_frames"]
 
+                # Return the next pattern in presentation mode
                 return self._pattern
         else:
+            # If presentation mode has finished, show the next generation
             return DisplayMode.get_display_pattern(self)
 
 
 class ScreensaverMode(DisplayMode):
     """
-    This class represents the mode in which the display runs when it is not showing a user's input pattern.
+    This class represents the mode in which the display runs when it is showing a screensaver pattern. This mode is
+    shown to the user by all the lights turning on, row by row, and clearing away what was on the display before
+    hand.
     """
 
     def __init__(self, pattern, previous_frame=None):
         """
         Ctor - initialises the Screensaver mode with the correct information. Main function is
         to set up the game engine used for the specified pattern.
+
+        @param pattern The pattern with which to start the screensaver mode
+        @param previous_frame The pattern that was on screen before screensaver mode began.
         """
         DisplayMode.__init__(self, pattern)
         if not previous_frame:
+            # If there was no 'previous' pattern, just use an empty frame (all cells dead)
             previous_frame = pattern.replace("*", "-")
         self._previous_pattern = previous_frame
 
@@ -119,7 +135,10 @@ class ScreensaverMode(DisplayMode):
 
     def is_active(self):
         """
-        This method returns whether or not the mode has any more patterns to pass back to the display driver.
+        This method calculates whether or not the mode has any more patterns to pass back to the display driver.
+
+        @return True if there are frames in the startup 'clear' state remaining, or if there are generations in the
+                user's pattern to be played, otherwise false.
         """
         if self._pause_frames > 0 or self._clear_frames > 0:
             return True
@@ -128,7 +147,7 @@ class ScreensaverMode(DisplayMode):
 
     def get_display_pattern(self):
         """
-        This method returns the next pattern to be displayed as a string. Usually this will be the next pattern from
+        This method calculates the next pattern to be displayed as a string. Usually this will be the next pattern from
         the game engine, but if on start up, it will enter a 'clear state' where it wipes whatever was on the display
         away to let the users know it is entering screensaver mode.
         """
@@ -149,4 +168,6 @@ class ScreensaverMode(DisplayMode):
             self._clear_frames -= 1
             return pattern
         else:
+            # Once the mode has left the 'clearing' state, start calculating the next actual generation to be shown
+            # on the display
             return DisplayMode.get_display_pattern(self)

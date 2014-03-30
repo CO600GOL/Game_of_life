@@ -1,60 +1,56 @@
-'''
-Created on 23 Oct 2013
-
-@author: Richard and Michael
-
-The module containing the Grid class and any derivatives of it
-'''
+"""
+This class contains the logic for the Game of Life grid, the board on which the Game of Life is played. A GoL grid is
+simply a collection of GoL cells.
+"""
 from game.data_structures.grid import Grid
 from game_of_life.data_structures.cell import GolCell
 
 
 def create_empty_grid():
-    '''
-    Creates an empty ten-by-ten grid of cells for use in the initialisation
-    of a grid object.
+    """
+    This function creates an empty 10x10 grid of 'dead' cells for use in initialisation of a Grid object.
 
-    Returns the cell collection
-    '''
+    @returns The collection of cells to be given to the Grid object.
+    """
     cells = []
     for x in range(0, 10):
         cells.append([])
         for _y in range(0, 10):
             cells[x].append(GolCell())
 
+    # cells is a two-dimensional array of GoLCells.
     return cells
 
 
 class GolGrid(object):
-    '''
-    This class represents the board on which the Game of Life will be played.
-    The grid contains a number of "square" cells that have one state at any
-    possible point.
-    '''
+    """
+    This class represents the board on which the Game of Life will be played. The grid contains a number of "square"
+    cells that have one state at any possible point.
+    """
 
     def __init__(self, cell_pattern=create_empty_grid()):
-        '''
-        Ctor
+        """
+        Ctor - initialises the grid as a two-dimensional array of GoLCells.
 
-        Initialises the grid as a two-dimensional array of cells. If the user
-        inputs a cell pattern, it is that cell pattern that is set. If not,
-        all the cells are set to dead.
-        '''
+        @param cell_pattern If the cell pattern is given to this method as a parameter, it is used as the initial
+                            cell configuration for the grid, otherwise, all the cells in the grid are set to dead.
+        """
         Grid.__init__(self, cell_pattern)
 
     def get_cells(self):
-        '''
-        Return the cells within the grid
-        '''
+        """
+        This method retrieves the cells that make up this grid.
+
+        @return The cell collection for the grid.
+        """
         return self._cells
 
     def set_cells(self, cells):
-        '''
-        Gives the grid a collection of cells.
+        """
+        This method sets the grid to have the specified cell collection.
 
-        Arguments:
-        cells - a collection of cell objects
-        '''
+        @param cells The new collection of cells to be set to the grid.
+        """
         Grid.set_cells(self, cells)
 
         self._no_alive_cells = 0
@@ -64,7 +60,9 @@ class GolGrid(object):
                     self._no_alive_cells += 1
 
     def get_no_alive_cells(self):
-        '''
-        Returns the number of alive cells.
-        '''
+        """"
+        This method retrieves the number of cells that currently hold the 'alive' state.
+
+        @return The number of living cells.
+        """
         return self._no_alive_cells
