@@ -53,40 +53,6 @@ class Run(Base):
                                                                           self.user_name, self.sent))
 
     @classmethod
-<<<<<<< HEAD
-    def get_time_slots_for_hour(cls, time_slot):
-        """
-        This method retrieves the available time slots for the specified hour.
-
-        @param time_slot The hour for which the available time slots should be retrieved.
-
-        @return The available time slots for the hour.
-        """
-        min_hour = hourify(time_slot)
-        max_hour = hourify(time_slot) + datetime.timedelta(hours=1)
-        now = datetime.datetime.now()
-
-        cls._validate_time_slot(now, time_slot)
-
-        # Query the runs that are happening at this hour
-        run_times = DBSession.query(Run.time_slot).filter(and_(
-            Run.time_slot < max_hour,
-            Run.time_slot >= min_hour,
-        )).all()
-        # Sqlalchemy returns a weird list of tuples
-        run_times = [time[0] for time in run_times]
-
-        slots = []
-        for slot in range(0, 60, 5):
-            t_slot = time_slot.replace(minute=slot, second=0, microsecond=0)
-            if now < t_slot and (t_slot not in run_times):
-                slots.append(format(slot, "02d"))
-
-        return slots
-
-    @classmethod
-=======
->>>>>>> 1d5db25e9f79e1673e0e1503cfe0183f5ab5553a
     def get_runs_for_day(cls, date):
         """
         This method retrieves every run set to take place on the given data.
@@ -147,16 +113,12 @@ class Run(Base):
     @classmethod
     def get_run_for_time_slot(cls, time_slot):
         """
-<<<<<<< HEAD
-        This method retrieves a run for the given time slot.
-
         @param time_slot The time slot the database should query for a run.
 
         @return The run that occupies the specified time slot if one exists, otherwise None.
-=======
+
         Returns a run if it exists for the given time slot otherwise
         return None
->>>>>>> 1d5db25e9f79e1673e0e1503cfe0183f5ab5553a
         """
         return DBSession.query(Run).filter(Run.time_slot == time_slot).all()
 

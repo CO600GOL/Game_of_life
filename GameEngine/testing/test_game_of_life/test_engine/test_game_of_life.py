@@ -8,7 +8,7 @@ from game_of_life.data_structures.cell import GolCell
 from game_of_life.data_structures.states import Alive
 from game_of_life.engine import game_of_life, rule_sets
 
-def set_current_generation(self):
+def set_current_generation():
     """
     This function creates a pattern of cells to use as the game engine's 'current generation'.
 
@@ -34,7 +34,7 @@ def set_current_generation(self):
     return cells
 
 
-def set_next_generation(self):
+def set_next_generation():
     """
     This method creates a pattern of cells to use as the game engine's 'next generation'.
 
@@ -95,14 +95,14 @@ class TestGameOfLife(object):
         # aaad
         # dddd
         # adad
-        gr = GolGrid(self.set_current_generation())
+        gr = GolGrid(set_current_generation())
 
         gol._set_current_generation(gr)
 
         # Assert the Game of Life's current generation has been set.
         assert gol._current_generation
 
-        test_pattern = self.set_current_generation()
+        test_pattern = set_current_generation()
         for x, row in enumerate(gol._current_generation.get_cells()):
             # For each row of cells.
             for y, c in enumerate(row):
@@ -121,7 +121,7 @@ class TestGameOfLife(object):
         # aaad
         # dddd
         # adad
-        gr = GolGrid(self.set_current_generation())
+        gr = GolGrid(set_current_generation())
 
         gol._set_current_generation(gr)
 
@@ -129,7 +129,7 @@ class TestGameOfLife(object):
         # Assert the current generation has been correctly retrieved.
         assert retrieved_pattern
 
-        test_pattern = self.set_current_generation()
+        test_pattern = set_current_generation()
         for x, row in enumerate(retrieved_pattern.get_cells()):
             # For each row of cells.
             for y, c in enumerate(row):
@@ -148,14 +148,14 @@ class TestGameOfLife(object):
         # daaa
         # adad
         # dada
-        gr = GolGrid(self.set_next_generation())
+        gr = GolGrid(set_next_generation())
 
         gol._set_next_generation(gr)
 
         # Assert the that the Game of Life's next generation has been correctly set.
         assert gol._next_generation
 
-        test_pattern = self.set_next_generation()
+        test_pattern = set_next_generation()
         for x, row in enumerate(gol._next_generation.get_cells()):
             # For each row of cells.
             for y, c in enumerate(row):
@@ -174,7 +174,7 @@ class TestGameOfLife(object):
         # daaa
         # adad
         # dada
-        gr = GolGrid(self.set_next_generation())
+        gr = GolGrid(set_next_generation())
 
         gol._set_next_generation(gr)
 
@@ -182,7 +182,7 @@ class TestGameOfLife(object):
         # Assert that the Game of Life's next generation has been correctly retrieved.
         assert retrieved_pattern
 
-        test_pattern = self.set_next_generation()
+        test_pattern = set_next_generation()
         for x, row in enumerate(retrieved_pattern.get_cells()):
             # For each row of cells.
             for y, c in enumerate(row):
@@ -200,7 +200,7 @@ class TestGameOfLife(object):
         # dddd
         # adad
         # Represents the 'current generation'
-        cur_gen = GolGrid(self.set_current_generation())
+        cur_gen = GolGrid(set_current_generation())
 
         # Create a grid and give it a pattern of cells:
         # adad
@@ -208,7 +208,7 @@ class TestGameOfLife(object):
         # adad
         # dada
         # Represents the correct 'next generation'
-        nex_gen = GolGrid(self.set_next_generation())
+        nex_gen = GolGrid(set_next_generation())
 
         # Give the Game of Life the first grid as the current generation
         gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), cur_gen)
@@ -235,7 +235,7 @@ class TestGameOfLife(object):
         # dddd
         # adad
         # Represents the 'current generation'
-        cur_gen = GolGrid(self.set_current_generation())
+        cur_gen = GolGrid(set_current_generation())
 
         # Create a grid and give it a pattern of cells:
         # adad
@@ -243,7 +243,7 @@ class TestGameOfLife(object):
         # adad
         # dada
         # Represents the correct 'next' generation
-        nex_gen = GolGrid(self.set_next_generation())
+        nex_gen = GolGrid(set_next_generation())
 
         # Give the Game of life the first table as the current generation
         gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), cur_gen)
@@ -263,7 +263,7 @@ class TestGameOfLife(object):
         This method tests the ability of the game engine to retrieve the number of turns that have been played. The
         expeted result of this test is for the correct number of turns to be retrieved.
         """
-        cur_gen = GolGrid(self.set_current_generation())
+        cur_gen = GolGrid(set_current_generation())
         gol = game_of_life.GameOfLife(rule_sets.RuleSetStandard(), cur_gen)
 
         for _x in range(0, 3):

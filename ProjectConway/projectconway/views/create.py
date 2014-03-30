@@ -11,7 +11,7 @@ from sqlalchemy.exc import ArgumentError
 from projectconway import project_config
 from projectconway.lib.exceptions import RunSlotTakenError, RunSlotInvalidError
 from projectconway.models.run import Run
-from game_of_life import TIME_LIMIT, TIME_DELAY
+from game_of_life import TIME_LIMIT, SLEEP_TIME
 from game.game_controllers.game_controllers import GameOfLifeController
 
 
@@ -154,13 +154,13 @@ def pattern_input_receiver_JSON(request):
     golcontroller = GameOfLifeController()
     golcontroller.set_up_game(pattern)
 
-    while(golcontroller.get_turn_count() < (TIME_LIMIT / TIME_DELAY) and not
+    while(golcontroller.get_turn_count() < (TIME_LIMIT / SLEEP_TIME) and not
           golcontroller.get_game().is_game_forsaken()):
         golcontroller.play_next_turn()
 
 
     return {"turns": golcontroller.get_turn_count(),
-            "runtime": golcontroller.get_turn_count() * TIME_DELAY}
+            "runtime": golcontroller.get_turn_count() * SLEEP_TIME}
 
 
 @view_config(route_name="pattern_input_clearer", renderer='json')

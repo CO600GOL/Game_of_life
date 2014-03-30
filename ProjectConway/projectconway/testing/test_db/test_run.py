@@ -93,12 +93,9 @@ class TestRun():
                         # Assert that the retrieved pattern and the test pattern match at these 'coordinates'.
                         assert returned_pattern[x][y] == '*'
                     else:
-<<<<<<< HEAD
                         # Assert that the retrieved pattern and the test pattern match at these 'coordinates'.
                         assert returned_pattern[x][y] == '-'           
-=======
-                        assert returned_pattern[x][y] == '-'
->>>>>>> 1d5db25e9f79e1673e0e1503cfe0183f5ab5553a
+
          
     def test_delete(self):
         """
@@ -184,13 +181,10 @@ class TestRun():
         no_mins = (max_time.hour*60 + max_time.minute) - (min_time.hour*60 + min_time.minute)
         no_time_slots = math.ceil(no_mins / 5)
 
-<<<<<<< HEAD
         # Assert that the correct number of available time slots have been retrieved.
-=======
         time_slots = Run.get_time_slots_for_day(date, datetime.datetime.now(), min_time, max_time)
 
         # Assert that the correct number of time slots has been retrieved
->>>>>>> 1d5db25e9f79e1673e0e1503cfe0183f5ab5553a
         assert no_time_slots == len(time_slots)
 
     def test_run_get_time_slots_for_day_with_runs(self):
