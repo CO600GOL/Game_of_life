@@ -25,7 +25,7 @@ requires = [
     ]
 
 setup(name='ProjectConway',
-      version='1.0',
+      version='1.2',
       description='ProjectConway',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
