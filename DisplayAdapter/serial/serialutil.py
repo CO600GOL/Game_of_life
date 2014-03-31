@@ -73,6 +73,7 @@ def to_bytes(seq):
     else:
         b = bytearray()
         for item in seq:
+            # This if statement is what we added to fix the bug occuring on download.
             if isinstance(item, str):
                 item = ord(item)
             b.append(item)  # this one handles int and str for our emulation and ints for Python 3.x
