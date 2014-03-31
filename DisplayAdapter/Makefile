@@ -1,6 +1,10 @@
-# This is the Makefile for the DisplayAdapter application - the programs that run on ProjectConway's Raspberry Pi.
-# It is responsible for all setup, running and testing of the application, so that it should never be done from the
-# command line.
+# The originial code in this Makefile was used in this project under a CC-SA 3.0 License.
+# Author:
+#   Name: Allan Callaghan
+#   Contact Details: calaldees@gmail.com
+#
+# However, most of the code was changed as we developed the product further. The code that still remains written by this
+# author, under the same licence, is the env command.
 
 # Some of the centralised information for the makefile.
 env_name = display_env

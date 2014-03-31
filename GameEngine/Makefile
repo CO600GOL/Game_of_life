@@ -1,5 +1,13 @@
-# Makefile for the GameEngine package, this is not intended to be run seperately.
-# It is intended to be imported and used in other projects.
+# The originial code in this Makefile was used in this project under a CC-SA 3.0 License.
+# Author:
+#   Name: Allan Callaghan
+#   Contact Details: calaldees@gmail.com
+#
+# However, most of the code was changed as we developed the product further. The code that still remains written by this
+# author, under the same licence, is the env command.
+
+# This makefile is used for setup of the GameEngine library, which is not intended to be run separately. It is intended
+# that this makefile is imported and used by other applications.
 
 env_name = game_env
 env = . $(env_name)/bin/activate

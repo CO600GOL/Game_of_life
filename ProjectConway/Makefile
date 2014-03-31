@@ -1,8 +1,10 @@
-# The following code is used in this project with permission from Allan Callaghan, under a CC-SA 3.0 license.
-# calaldees@gmail.com
+# The originial code in this Makefile was used in this project under a CC-SA 3.0 License.
+# Author:
+#   Name: Allan Callaghan
+#   Contact Details: calaldees@gmail.com
 #
-# This code has been reconfigured for use in this project. These configurations will be made clear
-# by inline comments.
+# However, most of the code was changed as we developed the product further. The code that still remains written by this
+# author, under the same licence, is the env command.
 
 env = . env/bin/activate
 deamon_name = projectconway
