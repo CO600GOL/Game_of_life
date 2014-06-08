@@ -1,0 +1,20 @@
+Python 2.7 comes with MacOSX.
+Project conway needs 3.x branch of python.
+The virtualenv python extension allows different python to be used just for one project.
+
+Install python dependencies manually ...
+
+sudo easy_install virtualenv
+sudo easy_install pytest
+
+Checkout and setup the project
+
+git clone https://github.com/CO600GOL/Game_of_life.git
+cd Game_of_life/ProjectConway
+mv Makefile Makefile.debian
+mv Makefile.osx Makefile
+make setup
+make run
+
+Then, in a browser, goto:
+http://localhost:6543
